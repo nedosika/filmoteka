@@ -1,4 +1,4 @@
-import {VALIDATORS} from "./index";
+import {VALIDATORS} from "../index";
 
 const maxLength = (maxLength, message = 'Too long') => (value) =>
     value.length > maxLength && message

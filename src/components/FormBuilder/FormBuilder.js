@@ -3,7 +3,7 @@ import {isEmpty, omit} from "lodash";
 
 import Field from "./components/Field";
 import validate from "./lib/validate";
-import {VALIDATION_TYPES} from "./components/Validator";
+import {VALIDATION_TYPES} from "./index";
 
 const FormBuilder = (props) => {
     const {config: {fields}, onSubmit} = props;

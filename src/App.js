@@ -1,6 +1,5 @@
 import React from "react";
-import FormBuilder, {FIELDS} from "./components/FormBuilder";
-import {VALIDATION_TYPES} from "./components/FormBuilder/components/Validator";
+import FormBuilder, {FIELDS, VALIDATION_TYPES} from "./components/FormBuilder";
 
 function App() {
     const handleSubmit = (data) => {
@@ -23,7 +22,7 @@ function App() {
                             }
                         },
                         {
-                            [FIELDS.text.props.type]: FIELDS.text.type,
+                            [FIELDS.object.props.type]: FIELDS.object.type,
                             [FIELDS.object.props.name]: 'ipAddresses',
                             [FIELDS.object.props.title]: 'IP Addresses: '
                         }

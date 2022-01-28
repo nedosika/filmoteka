@@ -1,6 +1,21 @@
-import {VALIDATORS} from "./components/Validator";
-
 export {default} from "./FormBuilder";
+
+export const VALIDATORS = {
+    max: "max",
+    min: "min",
+    email: "email",
+    number: "number",
+    pattern: "pattern",
+    required: "required",
+    alphabet: "alphabet",
+    minLength: "minLength",
+    maxLength: "maxLength",
+};
+
+export const VALIDATION_TYPES = {
+    validation: 'validation',
+    restriction: 'restriction'
+}
 
 export const PROPS = {
     name: 'name',
