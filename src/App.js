@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import FormBuilder, {FIELDS} from "./components/FormBuilder";
+import {VALIDATION_TYPES} from "./components/FormBuilder/components/Validator";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const handleSubmit = (data) => {
+        console.log(data)
+    }
+
+    return (
+        <div>
+            <FormBuilder
+                onSubmit={handleSubmit}
+                config={{
+                    fields: [
+                        {
+                            [FIELDS.text.props.type]: FIELDS.text.type,
+                            [FIELDS.text.props.name]: 'title',
+                            [FIELDS.text.props.label]: 'Title:',
+                            [VALIDATION_TYPES.validation]: {
+                                [FIELDS.text.validators.minLength]: 2,
+                                [FIELDS.text.validators.maxLength]: 10
+                            }
+                        },
+                        {
+                            [FIELDS.text.props.type]: FIELDS.text.type,
+                            [FIELDS.object.props.name]: 'ipAddresses',
+                            [FIELDS.object.props.title]: 'IP Addresses: '
+                        }
+                    ]
+                }}/>
+        </div>
+    );
 }
 
 export default App;
