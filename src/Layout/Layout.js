@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {useLocation, useNavigate} from "react-router-dom";
+
+import {useRouter} from "../hooks/useRouter";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
-
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Layout = ({title, children}) => {
     const navigate = useNavigate();
