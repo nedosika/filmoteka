@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import {
     useParams,
     useLocation,
-    useNavigate,
+    useNavigate
 } from "react-router-dom";
 
 export function useRouter() {
@@ -17,5 +17,5 @@ export function useRouter() {
             location,
             navigate,
         };
-    }, [params, location]);
+    }, [params, location, navigate]);
 }

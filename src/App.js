@@ -1,9 +1,12 @@
 import React from "react";
 import Router from "./router";
+import {ProvideAuth} from "./hooks/useAuth";
 
 function App() {
     return (
-        <Router/>
+        <ProvideAuth>
+            <Router/>
+        </ProvideAuth>
     );
 }
 

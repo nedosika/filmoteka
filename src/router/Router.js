@@ -1,27 +1,26 @@
-import React from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import React, {Suspense} from 'react';
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
-import Home from "../pages/Home";
-import SignIn from "../pages/SignIn";
-import SignUp from "../pages/SignUp/SignUp";
+import Loader from "../components/Loader";
+import {useAuth} from "../hooks/useAuth";
+
+const Home = React.lazy(() => import("../pages/Home"));
+const SignIn = React.lazy(() => import("../pages/SignIn"));
+const SignUp = React.lazy(() => import("../pages/SignUp"));
 
 const Router = () => {
+    const {isAuth} = useAuth();
+
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home/>}>
-                {/*<Route path="words" element={<Words/>}>*/}
-                {/*    <Route path="add" element={<AddWordDialog/>}/>*/}
-                {/*</Route>*/}
-                {/*<Route path="games/:id" element={<Games/>}>*/}
-                {/*    <Route path="add" element={<AddWordsDialog/>}/>*/}
-                {/*</Route>*/}
-                {/*<Route path="boards/:id" element={<Boards/>}>*/}
-                </Route>
-                <Route path="/signIn" element={<SignIn/>}/>
-                <Route path="/signUp" element={<SignUp/>}/>
-            </Routes>
-        </BrowserRouter>
+        <Suspense fallback={<Loader/>}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/signin" element={isAuth ? <Navigate to='/'/> : <SignIn/>}/>
+                    <Route path="/signup" element={isAuth ? <Navigate to='/'/> : <SignUp/>}/>
+                </Routes>
+            </BrowserRouter>
+        </Suspense>
     );
 };
 

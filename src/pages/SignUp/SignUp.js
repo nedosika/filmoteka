@@ -1,17 +1,21 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useAuth} from "../../hooks/useAuth";
+import {useState} from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 function Copyright(props) {
     return (
@@ -29,14 +33,31 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUpPage() {
+    const {signUp} = useAuth();
+    const [state, setState] = useState({
+        error: null,
+        loading: false
+    });
+    const {error, loading} = state;
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        setState({
+            error: null,
+            loading: true
+        })
+
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        signUp(data.get('email'), data.get('password')).catch((error) => {
+            console.log(error.message)
+            setState({
+                error: error.message,
+                loading: false
+            })
+        })
+
     };
 
     return (
@@ -108,14 +129,18 @@ export default function SignUpPage() {
                                 />
                             </Grid>
                         </Grid>
-                        <Button
+                        {
+                            error && <div style={{color: 'red'}}>{error}</div>
+                        }
+                        <LoadingButton
+                            loading={loading}
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{mt: 3, mb: 2}}
                         >
-                            Sign Up
-                        </Button>
+                            SignUp
+                        </LoadingButton>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/signin" variant="body2">

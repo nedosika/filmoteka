@@ -3,14 +3,14 @@ import {useEffect} from "react";
 import {useAuth} from "./useAuth";
 import {useRouter} from "./useRouter";
 
-export function useRequireAuth(redirectUrl = "/signup") {
+export function useRequireAuth(redirectUrl = "/signin") {
     const auth = useAuth();
-    const router = useRouter();
+    const {navigate} = useRouter();
 
     useEffect(() => {
-        if (auth.user === false) {
-            router.push(redirectUrl);
+        if (!auth.isAuth) {
+            navigate(redirectUrl);
         }
-    }, [auth, router]);
+    }, [auth, navigate]);
     return auth;
 }

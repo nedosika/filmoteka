@@ -17,11 +17,13 @@ import Typography from "@mui/material/Typography";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useRequireAuth} from "../hooks/useRequireAuth";
+import {useAuth} from "../hooks/useAuth";
 
 const Layout = ({title, children}) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+    const {signOut} = useAuth();
+    const {navigate, location} = useRouter();
+
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
 
     return (
@@ -74,32 +76,32 @@ const Layout = ({title, children}) => {
                         <ListItem
                             button
                             selected={location.pathname.split('/')[1] === 'words'}
-                            onClick={() => navigate('/words')}
+                            onClick={() => navigate('/films')}
                         >
                             <ListItemIcon>
                                 <Assignment/>
                             </ListItemIcon>
-                            <ListItemText primary='Words'/>
+                            <ListItemText primary='Films'/>
                         </ListItem>
                         <ListItem
                             button
                             selected={location.pathname.split('/')[1] === 'boards'}
-                            onClick={() => navigate('/boards/7W4gccMNsgyktqRi2gVv')}
+                            onClick={() => navigate('/fav')}
                         >
                             <ListItemIcon>
                                 <Assignment/>
                             </ListItemIcon>
-                            <ListItemText primary='Boards'/>
+                            <ListItemText primary='Favorites'/>
                         </ListItem>
+                        <Divider/>
                         <ListItem
                             button
-                            selected={location.pathname.split('/')[1] === 'games'}
-                            onClick={() => navigate('/games/7W4gccMNsgyktqRi2gVv')}
+                            onClick={signOut}
                         >
                             <ListItemIcon>
                                 <Assignment/>
                             </ListItemIcon>
-                            <ListItemText primary='Codenames'/>
+                            <ListItemText primary='Logout'/>
                         </ListItem>
                     </List>
                 </Box>

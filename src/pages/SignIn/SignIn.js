@@ -12,7 +12,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+
+import {useAuth} from "../../hooks/useAuth";
 
 function Copyright(props) {
     return (
@@ -30,19 +32,36 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-    const [isSignInging, setIsSignInging] = useState(false);
-    const [err, setErr] = useState(undefined);
+    const {signIn} = useAuth();
+    const [state, setState] = useState({
+        error: null,
+        loading: false
+    });
+    const {error, loading} = state;
 
-    const handleSubmit = (event) => {
-        setIsSignInging(true);
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        setTimeout(() => setIsSignInging(false), 1000)
+
+        setState({
+            error: null,
+            loading: true
+        })
+
+        const data = new FormData(event.currentTarget);
+
+        signIn(data.get('email'), data.get('password')).catch((error) => {
+            console.log(error.message)
+            setState({
+                error: error.message,
+                loading: false
+            })
+        })
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -51,13 +70,13 @@ export default function SignIn() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
@@ -77,18 +96,18 @@ export default function SignIn() {
                             id="password"
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
                         {
-                            err && <div>{err}</div>
+                            error && <div style={{color: 'red'}}>{error}</div>
                         }
                         <LoadingButton
-                            loading={isSignInging}
+                            loading={loading}
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}>
+                            sx={{mt: 3, mb: 2}}>
                             Login
                         </LoadingButton>
                         <Grid container>
@@ -105,7 +124,7 @@ export default function SignIn() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Copyright sx={{mt: 8, mb: 4}}/>
             </Container>
         </ThemeProvider>
     );
