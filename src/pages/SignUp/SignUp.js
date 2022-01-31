@@ -1,21 +1,20 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import LoadingButton from "@mui/lab/LoadingButton";
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import {useAuth} from "../../hooks/useAuth";
-import {useState} from "react";
-import LoadingButton from "@mui/lab/LoadingButton";
 
 function Copyright(props) {
     return (
