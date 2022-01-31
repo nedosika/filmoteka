@@ -49,10 +49,6 @@ const FormBuilder = (props) => {
         if (isEmpty(errors)) {
             onSubmit(state);
         } else {
-
-
-
-
             setState((prevState) => ({
                 ...prevState,
                 errors,
