@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -14,7 +14,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 
-import {useAuth} from "../../hooks/useAuth";
+import {useSelector} from "react-redux";
+import useActions from "../../hooks/useActions";
 
 function Copyright(props) {
     return (
@@ -32,30 +33,15 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-    const {signIn} = useAuth();
-    const [state, setState] = useState({
-        error: null,
-        loading: false
-    });
-    const {error, loading} = state;
+    const {signingIn, error, isAuth} = useSelector((state) => state.auth);
+    const {signIn} = useActions();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        setState({
-            error: null,
-            loading: true
-        })
-
         const data = new FormData(event.currentTarget);
 
-        signIn(data.get('email'), data.get('password')).catch((error) => {
-            console.log(error.message)
-            setState({
-                error: error.message,
-                loading: false
-            })
-        })
+        signIn(data.get('email'), data.get('password')));
     };
 
     return (
@@ -103,7 +89,7 @@ export default function SignIn() {
                             error && <div style={{color: 'red'}}>{error}</div>
                         }
                         <LoadingButton
-                            loading={loading}
+                            loading={signingIn}
                             type="submit"
                             fullWidth
                             variant="contained"

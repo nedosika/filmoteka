@@ -1,12 +1,14 @@
 import React from "react";
+import {Provider} from "react-redux";
+
+import store from "./store";
 import Router from "./router";
-import {ProvideAuth} from "./hooks/useAuth";
 
 function App() {
     return (
-        <ProvideAuth>
+        <Provider store={store}>
             <Router/>
-        </ProvideAuth>
+        </Provider>
     );
 }
 

@@ -17,11 +17,10 @@ import Typography from "@mui/material/Typography";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
-import {useRequireAuth} from "../hooks/useRequireAuth";
-import {useAuth} from "../hooks/useAuth";
+
+import {useSelector} from "react-redux";
 
 const Layout = ({title, children}) => {
-    const {signOut} = useAuth();
     const {navigate, location} = useRouter();
 
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
@@ -96,7 +95,7 @@ const Layout = ({title, children}) => {
                         <Divider/>
                         <ListItem
                             button
-                            onClick={signOut}
+                            onClick={}
                         >
                             <ListItemIcon>
                                 <Assignment/>

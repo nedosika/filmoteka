@@ -34,12 +34,14 @@ function useProvideAuth() {
                 setUser(data.data);
             }
             if (response.status === 400) {
-                throw new Error('Authentication error');
+                const data = await response.json();
+                throw new Error(data.message);
             }
         } catch (error) {
             throw new Error(error.message);
         }
     };
+
     const signUp = async (email, password) => {
         try {
             const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signup', {
