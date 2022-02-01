@@ -1,36 +1,33 @@
-import {ACTIONS} from "../actions";
+import {ACTION_TYPES} from "../actions";
 
-const {token} = localStorage.getItem('auth');
+const auth = JSON.parse(localStorage.getItem('auth'));
 
-const initialState = token
-    ? {isAuth: true, token}
-    : {isAuth: false}
+const initialState = auth?.token
+    ? {isAuth: true, isSigning: false, token: auth.token}
+    : {isAuth: false, isSigning: false}
 
-const authReducer = (state= initialState, action) => {
-    switch (action.type){
-        case ACTIONS.AUTH_REQUEST:
+const authReducer = (state = initialState, {type, payload}) => {
+    switch (type) {
+        case ACTION_TYPES.Auth.AUTH_REQUEST:
             return {
-                ...state,
-                signingIn: true,
+                isSigning: true,
                 isAuth: false,
             }
-        case ACTIONS.AUTH_SUCCESS:
+        case ACTION_TYPES.Auth.AUTH_SUCCESS:
             return {
-                ...state,
-                signingIn: false,
+                token: payload,
+                isSigning: false,
                 isAuth: true,
             }
-        case ACTIONS.AUTH_FAILURE:
+        case ACTION_TYPES.Auth.AUTH_FAILURE:
             return {
-                ...state,
-                signingIn: false,
-                error: action.payload,
+                error: payload,
+                isSigning: false,
                 isAuth: false
             }
-        case ACTIONS.SIGNOUT:
+        case ACTION_TYPES.Auth.SIGNOUT:
             return {
-                ...state,
-                signingIn: false,
+                isSigning: false,
                 isAuth: false
             }
         default:

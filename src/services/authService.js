@@ -7,13 +7,12 @@ const signIn = async (email, password) => {
             },
             body: JSON.stringify({email, password})
         })
+
         if (response.status === 200) {
             const data = await response.json();
-
-            localStorage.setItem('auth', JSON.stringify(data.data));
-
             return {...data}
         }
+
         if (response.status === 400) {
             const data = await response.json();
             throw new Error(data.message);
@@ -34,7 +33,7 @@ const signUp = async (email, password) => {
         })
         if (response.status === 201) {
             const data = await response.json();
-            localStorage.setItem('auth', JSON.stringify({token: data.data.token}));
+            return {...data}
         }
         if (response.status === 409) {
             const data = await response.json();
@@ -49,12 +48,7 @@ const signUp = async (email, password) => {
     }
 }
 
-const signOut = () => {
-    localStorage.removeItem('auth');
-}
-
 export const authService = {
     signIn,
-    signOut,
     signUp
 }

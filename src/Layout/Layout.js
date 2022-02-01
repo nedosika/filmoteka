@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-
-import {useRouter} from "../hooks/useRouter";
+import {useSelector} from "react-redux";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -18,12 +17,21 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 
-import {useSelector} from "react-redux";
+import {useRouter} from "../hooks/useRouter";
+import useActions from "../hooks/useActions";
 
 const Layout = ({title, children}) => {
+    const {isAuth} = useSelector(state => state.auth);
+    const {signOut} = useActions();
     const {navigate, location} = useRouter();
 
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
+
+    const handleSignOut = () => {
+        signOut();
+        setIsOpenMenuBar(false);
+    }
+
 
     return (
         <div>
@@ -93,15 +101,30 @@ const Layout = ({title, children}) => {
                             <ListItemText primary='Favorites'/>
                         </ListItem>
                         <Divider/>
-                        <ListItem
-                            button
-                            onClick={}
-                        >
-                            <ListItemIcon>
-                                <Assignment/>
-                            </ListItemIcon>
-                            <ListItemText primary='Logout'/>
-                        </ListItem>
+                        {isAuth
+                            ? (
+                                <ListItem
+                                    button
+                                    onClick={handleSignOut}
+                                >
+                                    <ListItemIcon>
+                                        <Assignment/>
+                                    </ListItemIcon>
+                                    <ListItemText primary='Logout'/>
+                                </ListItem>
+                            )
+                            : (
+                                <ListItem
+                                    button
+                                    onClick={() => navigate("/signin")}
+                                >
+                                    <ListItemIcon>
+                                        <Assignment/>
+                                    </ListItemIcon>
+                                    <ListItemText primary='Login'/>
+                                </ListItem>
+                            )
+                        }
                     </List>
                 </Box>
             </Drawer>

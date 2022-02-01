@@ -1,11 +1,10 @@
 import {useEffect} from "react";
-
-import {useAuth} from "./useAuth";
-import {useRouter} from "./useRouter";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 export function useRequireAuth(redirectUrl = "/signin") {
-    const auth = useAuth();
-    const {navigate} = useRouter();
+    const auth = useSelector(state => state.auth);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!auth.isAuth) {

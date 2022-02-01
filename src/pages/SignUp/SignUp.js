@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useSelector} from "react-redux";
+import {Navigate, NavLink} from "react-router-dom";
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -14,7 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import {useAuth} from "../../hooks/useAuth";
+import useActions from "../../hooks/useActions";
 
 function Copyright(props) {
     return (
@@ -32,31 +34,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUpPage() {
-    const {signUp} = useAuth();
-    const [state, setState] = useState({
-        error: null,
-        loading: false
-    });
-    const {error, loading} = state;
+    const {signUp} = useActions();
+    const {isSigning, isAuth, error} = useSelector((state) => state.auth);
+
+    if(isAuth)
+        return <Navigate to="/"/>
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        setState({
-            error: null,
-            loading: true
-        })
-
         const data = new FormData(event.currentTarget);
 
-        signUp(data.get('email'), data.get('password')).catch((error) => {
-            console.log(error.message)
-            setState({
-                error: error.message,
-                loading: false
-            })
-        })
-
+        signUp(data.get('email'), data.get('password'));
     };
 
     return (
@@ -132,7 +120,7 @@ export default function SignUpPage() {
                             error && <div style={{color: 'red'}}>{error}</div>
                         }
                         <LoadingButton
-                            loading={loading}
+                            loading={isSigning}
                             type="submit"
                             fullWidth
                             variant="contained"
@@ -142,9 +130,9 @@ export default function SignUpPage() {
                         </LoadingButton>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/signin" variant="body2">
+                                <NavLink to="/signin" variant="body2">
                                     Already have an account? Sign in
-                                </Link>
+                                </NavLink>
                             </Grid>
                         </Grid>
                     </Box>

@@ -7,15 +7,6 @@ import {useSelector} from "react-redux";
 
 
 const Home = () => {
-    const auth = useSelector((state) => {
-        return state.auth
-    })
-
-
-    if (!auth) {
-        return <Loader/>;
-    }
-
     return (
         <Layout title={`Home`}>
             Home

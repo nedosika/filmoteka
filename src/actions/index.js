@@ -1,7 +1,16 @@
-import AuthActionCreator from "./AuthActions";
+import authActionCreator from "./authActions";
 
-const ActionsCreator = {
-    ...AuthActionCreator
+export const ACTION_TYPES = {
+    Auth: {
+        AUTH_REQUEST: 'AUTH_REQUEST',
+        AUTH_SUCCESS: 'AUTH_SUCCESS',
+        AUTH_FAILURE: 'AUTH_FAILURE',
+        SIGNOUT: 'SIGNOUT'
+    }
+};
+
+const ActionCreators = {
+    ...authActionCreator
 }
 
-export default ActionsCreator;
+export default ActionCreators;
