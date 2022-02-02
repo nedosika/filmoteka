@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 
-import Dialog from "../Dialog";
+import Dialog from "../../components/Dialog";
 
 const AddFilmDialog = () => {
     const navigate = useNavigate();

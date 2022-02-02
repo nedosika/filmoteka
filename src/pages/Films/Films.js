@@ -1,15 +1,15 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Outlet} from 'react-router-dom';
+import {Outlet} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
+import Film from "./Film";
 import Layout from "../../Layout";
+import AddFilmButton from "./AddFilmButton";
 import Loader from "../../components/Loader";
-import Film from "../../components/Film/Film";
 import useActions from "../../hooks/useActions";
-import AddFilmButton from "../../components/AddFilmButton";
 import FilmActionCreator from "../../actions/filmsActions";
 
 const Films = () => {

@@ -3,7 +3,8 @@ import {useSelector} from "react-redux";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Loader from "../components/Loader";
-import AddFilmDialog from "../components/AddFilmDialog";
+import DeleteDialog from "../pages/Films/DeleteDialog";
+import AddFilmDialog from "../pages/Films/AddFilmDialog";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const Films = React.lazy(() => import("../pages/Films"));
@@ -22,6 +23,7 @@ const Router = () => {
                             <Route path="/" element={<Home/>}/>
                             <Route path="films" element={<Films/>}>
                                 <Route path="add" element={<AddFilmDialog/>}/>
+                                <Route path="remove" element={<DeleteDialog/>}/>
                             </Route>
                             <Route path="*" element={<Navigate to="/"/>}/>
                         </Routes>
