@@ -15,7 +15,7 @@ export const ACTION_TYPES = {
     }
 };
 
-const ActionCreators = {
+export const ActionCreators = {
     ...authActionCreator,
     ...filmsActionCreator
 }

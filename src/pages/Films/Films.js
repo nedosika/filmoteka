@@ -7,6 +7,7 @@ import Loader from "../../components/Loader";
 import Film from "../../components/Film/Film";
 import AddCard from "../../components/AddCard";
 import useActions from "../../hooks/useActions";
+import FilmActionCreator from "../../actions/filmsActions"
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -14,7 +15,7 @@ import Grid from "@mui/material/Grid";
 const Films = () => {
     const {films, isLoading, error} = useSelector(SELECTORS.films);
     const {isAuth} = useSelector(SELECTORS.auth);
-    const {getFilms} = useActions();
+    const {getFilms} = useActions(FilmActionCreator);
 
     React.useEffect(() => {
         getFilms();

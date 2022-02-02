@@ -1,20 +1,21 @@
 import * as React from 'react';
+import {useSelector} from "react-redux";
 
 import Card from '@mui/material/Card';
+import Rating from "@mui/material/Rating";
 import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
-import {CardActionArea, CardActions} from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Rating from "@mui/material/Rating";
+import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import {useSelector} from "react-redux";
+
 import {SELECTORS} from "../../reducers";
 
 export default function Film({film}) {
     const {isAuth} = useSelector(SELECTORS.auth);
+
     return (
         <Card>
             <CardActionArea>
