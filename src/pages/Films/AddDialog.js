@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 
 import Dialog from "../../components/Dialog";
 
-const AddFilmDialog = () => {
+const AddDialog = () => {
     const navigate = useNavigate();
 
     const handleClose = () => {
@@ -35,4 +35,4 @@ const AddFilmDialog = () => {
     );
 };
 
-export default AddFilmDialog;
+export default AddDialog;

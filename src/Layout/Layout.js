@@ -50,13 +50,17 @@ const Layout = ({title, children}) => {
                             {title}
                         </Typography>
                         <Box sx={{display: {xs: 'flex', md: 'flex'}}}>
-                            <IconButton
-                                size="large"
-                                edge="end"
-                                color="inherit"
-                            >
-                                <AccountCircle/>
-                            </IconButton>
+                            {
+                                isAuth && (
+                                    <IconButton
+                                        size="large"
+                                        edge="end"
+                                        color="inherit"
+                                    >
+                                        <AccountCircle/>
+                                    </IconButton>
+                                )
+                            }
                         </Box>
                     </Toolbar>
                 </AppBar>

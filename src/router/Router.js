@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Loader from "../components/Loader";
 import DeleteDialog from "../pages/Films/DeleteDialog";
-import AddFilmDialog from "../pages/Films/AddFilmDialog";
+import AddDialog from "../pages/Films/AddDialog";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const Films = React.lazy(() => import("../pages/Films"));
@@ -22,7 +22,7 @@ const Router = () => {
                         ? <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="films" element={<Films/>}>
-                                <Route path="add" element={<AddFilmDialog/>}/>
+                                <Route path="add" element={<AddDialog/>}/>
                                 <Route path="remove" element={<DeleteDialog/>}/>
                             </Route>
                             <Route path="*" element={<Navigate to="/"/>}/>

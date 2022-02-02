@@ -9,13 +9,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 
 export default ({
-    children,
-    title,
-    description,
-    onSubmit,
-    onClose,
-    open
-}) =>
+                    children,
+                    title,
+                    description,
+                    onSubmit,
+                    onClose,
+                    open
+                }) =>
     <Dialog
         component="form"
         onSubmit={onSubmit}
@@ -30,13 +30,7 @@ export default ({
             {children}
         </DialogContent>
         <DialogActions>
-            <Button onClick={onClose}>Отмена</Button>
-            <LoadingButton
-                loading={false}
-                variant="outlined"
-                type="submit"
-            >
-                Подтвердить
-            </LoadingButton>
+            <Button variant="outlined" onClick={onClose}>Cancel</Button>
+            <Button variant="outlined" type="submit">Approve</Button>
         </DialogActions>
     </Dialog>

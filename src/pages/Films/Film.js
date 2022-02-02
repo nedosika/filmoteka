@@ -12,7 +12,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-
 export default function Film({film}) {
     const navigate = useNavigate();
     const {isAuth} = useSelector(({auth}) => auth);
