@@ -14,8 +14,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-
 
 import useActions from "../../hooks/useActions";
 
@@ -32,13 +30,11 @@ function Copyright(props) {
     );
 }
 
-const theme = createTheme();
-
 export default function SignIn() {
     const {signIn} = useActions();
     const {isSigning, isAuth, error} = useSelector((state) => state.auth);
 
-    if(isAuth)
+    if (isAuth)
         return <Navigate to="/"/>
 
     const handleSubmit = async (event) => {
@@ -50,73 +46,71 @@ export default function SignIn() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline/>
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                        <LockOutlinedIcon/>
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="email"
-                            name="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
-                            label="Remember me"
-                        />
-                        {
-                            error && <div style={{color: 'red'}}>{error}</div>
-                        }
-                        <LoadingButton
-                            loading={isSigning}
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{mt: 3, mb: 2}}>
-                            Login
-                        </LoadingButton>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <NavLink to="/signup" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </NavLink>
-                            </Grid>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline/>
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                    <LockOutlinedIcon/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="email"
+                        name="email"
+                        autoFocus
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                    />
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary"/>}
+                        label="Remember me"
+                    />
+                    {
+                        error && <div style={{color: 'red'}}>{error}</div>
+                    }
+                    <LoadingButton
+                        loading={isSigning}
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}>
+                        Login
+                    </LoadingButton>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                                Forgot password?
+                            </Link>
                         </Grid>
-                    </Box>
+                        <Grid item>
+                            <NavLink to="/signup" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </NavLink>
+                        </Grid>
+                    </Grid>
                 </Box>
-                <Copyright sx={{mt: 8, mb: 4}}/>
-            </Container>
-        </ThemeProvider>
+            </Box>
+            <Copyright sx={{mt: 8, mb: 4}}/>
+        </Container>
     );
 }
