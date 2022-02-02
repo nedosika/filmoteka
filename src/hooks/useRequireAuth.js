@@ -2,14 +2,15 @@ import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-export function useRequireAuth(redirectUrl = "/signin") {
-    const auth = useSelector(state => state.auth);
+export default function useRequireAuth(redirectUrl = "/signin") {
+    const mapState = (state) => state.auth.isAuth;
+    const isAuth = useSelector(mapState);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth.isAuth) {
+        if (!isAuth) {
             navigate(redirectUrl);
         }
-    }, [auth, navigate]);
-    return auth;
+    }, [isAuth, navigate]);
+    return isAuth;
 }

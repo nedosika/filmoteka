@@ -19,10 +19,9 @@ import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 
 import {useRouter} from "../hooks/useRouter";
 import useActions from "../hooks/useActions";
-import {SELECTORS} from "../reducers";
 
 const Layout = ({title, children}) => {
-    const {isAuth} = useSelector(SELECTORS.auth);
+    const isAuth = useSelector((state) => state.auth.isAuth);
     const {signOut} = useActions();
     const {navigate, location} = useRouter();
 

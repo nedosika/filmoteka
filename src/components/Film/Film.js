@@ -11,10 +11,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-import {SELECTORS} from "../../reducers";
-
 export default function Film({film}) {
-    const {isAuth} = useSelector(SELECTORS.auth);
+    const {isAuth} = useSelector(({auth}) => auth);
 
     return (
         <Card>

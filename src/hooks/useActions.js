@@ -3,13 +3,6 @@ import {bindActionCreators} from "redux";
 import {useMemo} from "react";
 
 import ActionCreators from "../actions"
-//
-// const useActions = () => {
-//     const dispatch = useDispatch();
-//     return bindActionCreators(ActionCreators, dispatch);
-// }
-//
-// export default useActions;
 
 export default function useActions(actions = ActionCreators, deps = []) {
     const dispatch = useDispatch();
