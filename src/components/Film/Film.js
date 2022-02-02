@@ -13,7 +13,7 @@ export default function Film({film}) {
                 <CardMedia
                     component="img"
                     height="140"
-                    image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                    image={film.img}
                     alt="green iguana"
                 />
                 <CardContent>
