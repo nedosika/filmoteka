@@ -1,7 +1,9 @@
 import React from 'react';
-import Dialog from "../Dialog";
-import TextField from "@mui/material/TextField";
 import {useNavigate} from "react-router-dom";
+
+import TextField from "@mui/material/TextField";
+
+import Dialog from "../Dialog";
 
 const AddFilmDialog = () => {
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ const AddFilmDialog = () => {
     }
 
     return (
-        <Dialog title="Adding films" open onClose={handleClose} onSubmit={handleSubmit}>
+        <Dialog title="Adding film" open onClose={handleClose} onSubmit={handleSubmit}>
             <TextField
                 label="Name"
                 fullWidth

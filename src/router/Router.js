@@ -6,12 +6,12 @@ import Loader from "../components/Loader";
 import AddFilmDialog from "../components/AddFilmDialog";
 
 const Home = React.lazy(() => import("../pages/Home"));
+const Films = React.lazy(() => import("../pages/Films"));
 const SignIn = React.lazy(() => import("../pages/SignIn"));
 const SignUp = React.lazy(() => import("../pages/SignUp"));
-const Films = React.lazy(() => import("../pages/Films"));
 
 const Router = () => {
-    const isAuth = useSelector((state) => state.auth.isAuth);
+    const isAuth = useSelector(({auth}) => auth.isAuth);
 
     return (
         <Suspense fallback={<Loader/>}>

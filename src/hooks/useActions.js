@@ -1,11 +1,12 @@
+import {useMemo} from "react";
 import {useDispatch} from "react-redux";
 import {bindActionCreators} from "redux";
-import {useMemo} from "react";
 
-import ActionCreators from "../actions"
+import ActionCreators from "../actions";
 
 export default function useActions(actions = ActionCreators, deps = []) {
     const dispatch = useDispatch();
+
     return useMemo(
         () => {
             if (Array.isArray(actions)) {

@@ -8,6 +8,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const AddFilmButton = () => {
     const navigate = useNavigate();
+
     return (
         <Card sx={{height: '100%'}}>
             <CardActionArea sx={{height: '100%'}} onClick={() => navigate('add')} >
