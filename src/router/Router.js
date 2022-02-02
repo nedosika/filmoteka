@@ -3,14 +3,16 @@ import {useSelector} from "react-redux";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Loader from "../components/Loader";
+import Films from "../pages/Films/Films";
 
+import {SELECTORS} from "../reducers";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const SignIn = React.lazy(() => import("../pages/SignIn"));
 const SignUp = React.lazy(() => import("../pages/SignUp"));
 
 const Router = () => {
-    const {isAuth} = useSelector(state => state.auth);
+    const {isAuth} = useSelector(SELECTORS.auth);
 
     return (
         <Suspense fallback={<Loader/>}>
@@ -18,7 +20,8 @@ const Router = () => {
                 {
                     isAuth
                         ? <Routes>
-                            <Route path="/" exact element={<Home/>}/>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/films" element={<Films/>}/>
                             <Route path="*" element={<Navigate to="/"/>}/>
                         </Routes>
                         : <Routes>

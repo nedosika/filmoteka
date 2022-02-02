@@ -1,4 +1,4 @@
-import {authService} from "../services";
+import {AuthService} from "../services";
 import {ACTION_TYPES} from "./index";
 
 const request = () => ({
@@ -16,7 +16,7 @@ const failure = (errorMessage) => ({
 const signIn = (email, password) => (dispatch) => {
     dispatch(request());
 
-    authService.signIn(email, password)
+    AuthService.signIn(email, password)
         .then(({data}) => {
             localStorage.setItem('auth', JSON.stringify({token: data.token}));
             dispatch(success(data.token));
@@ -29,7 +29,7 @@ const signIn = (email, password) => (dispatch) => {
 const signUp = (email, password) => (dispatch) => {
     dispatch(request());
 
-    authService.signUp(email, password)
+    AuthService.signUp(email, password)
         .then(({data}) => {
             localStorage.setItem('auth', JSON.stringify({token: data.token}));
             dispatch(success(data.token))

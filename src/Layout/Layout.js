@@ -19,9 +19,10 @@ import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 
 import {useRouter} from "../hooks/useRouter";
 import useActions from "../hooks/useActions";
+import {SELECTORS} from "../reducers";
 
 const Layout = ({title, children}) => {
-    const {isAuth} = useSelector(state => state.auth);
+    const {isAuth} = useSelector(SELECTORS.auth);
     const {signOut} = useActions();
     const {navigate, location} = useRouter();
 
@@ -31,7 +32,6 @@ const Layout = ({title, children}) => {
         signOut();
         setIsOpenMenuBar(false);
     }
-
 
     return (
         <div>
@@ -82,7 +82,17 @@ const Layout = ({title, children}) => {
                     <List>
                         <ListItem
                             button
-                            selected={location.pathname.split('/')[1] === 'words'}
+                            selected={location.pathname.split('/')[1] === 'home'}
+                            onClick={() => navigate('/')}
+                        >
+                            <ListItemIcon>
+                                <Assignment/>
+                            </ListItemIcon>
+                            <ListItemText primary='Home'/>
+                        </ListItem>
+                        <ListItem
+                            button
+                            selected={location.pathname.split('/')[1] === 'films'}
                             onClick={() => navigate('/films')}
                         >
                             <ListItemIcon>
@@ -128,7 +138,7 @@ const Layout = ({title, children}) => {
                     </List>
                 </Box>
             </Drawer>
-            <Box>
+            <Box sx={{marginTop: '80px'}}>
                 {children}
             </Box>
         </div>

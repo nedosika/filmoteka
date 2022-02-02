@@ -48,7 +48,7 @@ const signUp = async (email, password) => {
     }
 }
 
-export const authService = {
+export const AuthService = {
     signIn,
     signUp
 }
