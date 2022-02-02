@@ -9,8 +9,12 @@ import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Rating from "@mui/material/Rating";
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import {useSelector} from "react-redux";
+import {SELECTORS} from "../../reducers";
 
 export default function Film({film}) {
+    const {isAuth} = useSelector(SELECTORS.auth);
     return (
         <Card>
             <CardActionArea>
@@ -31,13 +35,19 @@ export default function Film({film}) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Rating value={film.rating} size="large"/>
-                <IconButton>
-                    <FavoriteIcon/>
-                </IconButton>
-                <IconButton>
-                    <ShareIcon/>
-                </IconButton>
+                <Rating readOnly value={film.rating} size="large"/>
+                {
+                    isAuth && (
+                        <>
+                            <IconButton>
+                                <FavoriteIcon/>
+                            </IconButton>
+                            <IconButton>
+                                <RemoveCircleIcon/>
+                            </IconButton>
+                        </>
+                    )
+                }
             </CardActions>
         </Card>
     );
