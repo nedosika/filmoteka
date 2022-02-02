@@ -16,6 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import useActions from "../../hooks/useActions";
+import {SELECTORS} from "../../reducers";
 
 function Copyright(props) {
     return (
@@ -32,10 +33,7 @@ function Copyright(props) {
 
 export default function SignIn() {
     const {signIn} = useActions();
-    const {isSigning, isAuth, error} = useSelector((state) => state.auth);
-
-    if (isAuth)
-        return <Navigate to="/"/>
+    const {isSigning, error} = useSelector(SELECTORS.auth);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

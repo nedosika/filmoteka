@@ -1,7 +1,11 @@
 import {combineReducers} from "redux";
 
-import authReducer from "./authReducer";
+import auth from "./authReducer";
 
-const rootReducer = combineReducers({auth: authReducer});
+export const SELECTORS = {
+    auth: (state) => state.auth
+}
+
+const rootReducer = combineReducers({auth});
 
 export default rootReducer;

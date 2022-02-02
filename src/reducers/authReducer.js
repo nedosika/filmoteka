@@ -2,7 +2,7 @@ import {ACTION_TYPES} from "../actions";
 
 const auth = JSON.parse(localStorage.getItem('auth'));
 
-const initialState = auth?.token
+const initialState = auth
     ? {isAuth: true, isSigning: false, token: auth.token}
     : {isAuth: false, isSigning: false}
 
