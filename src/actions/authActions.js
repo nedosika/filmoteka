@@ -19,7 +19,11 @@ const signIn = (email, password) => (dispatch) => {
 
     AuthService.signIn(email, password)
         .then(({data}) => {
-            localStorage.setItem('auth', JSON.stringify({token: data.token, user: data.user}));
+            localStorage.setItem('auth', JSON.stringify({
+                token: data.token,
+                user: data.user,
+                id: data.user.id
+            }));
             dispatch(success(data));
         })
         .catch((error) => {
@@ -32,20 +36,16 @@ const signUp = (email, password) => (dispatch) => {
 
     AuthService.signUp(email, password)
         .then(({data}) => {
-            localStorage.setItem('auth', JSON.stringify({token: data.token, user: data.user}));
+            localStorage.setItem('auth', JSON.stringify({
+                token: data.token,
+                user: data.user,
+                id: data.user.id
+            }));
             dispatch(success(data.token))
         })
         .catch((error) => {
             dispatch(failure(error.message))
         })
-}
-
-const addToFavorite = (film) => (dispatch, getState) => {
-    const {auth: {user}} = getState();
-    UserService.update({
-        ...user,
-        favorites: [...user.favorites, film]
-    })
 }
 
 const signOut = () => {
@@ -56,6 +56,5 @@ const signOut = () => {
 export default {
     signIn,
     signOut,
-    signUp,
-    addToFavorite
+    signUp
 }

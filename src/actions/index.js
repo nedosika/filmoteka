@@ -1,6 +1,7 @@
 import authActionCreator from "./authActions";
 import filmsActionCreator from "./filmsActions";
 import userActionCreator from "./userActions";
+import favoritesActionCreator from "./favoritesActions";
 
 export const ACTION_TYPES = {
     Auth: {
@@ -18,13 +19,19 @@ export const ACTION_TYPES = {
         USER_REQUEST: 'USER_REQUEST',
         USER_SUCCESS: 'USER_SUCCESS',
         USER_FAILURE: 'USER_FAILURE'
+    },
+    Favorites: {
+        FAVORITES_REQUEST: 'FAVORITES_REQUEST',
+        FAVORITES_SUCCESS: 'FAVORITES_REQUEST',
+        FAVORITES_FAILURE: 'FAVORITES_REQUEST'
     }
 };
 
 export const ActionCreators = {
     ...authActionCreator,
     ...filmsActionCreator,
-    ...userActionCreator
+    ...userActionCreator,
+    ...favoritesActionCreator
 }
 
 export default ActionCreators;

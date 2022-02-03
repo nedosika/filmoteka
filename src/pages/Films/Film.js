@@ -11,6 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+
 import useActions from "../../hooks/useActions";
 
 export default function Film({film}) {
