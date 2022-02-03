@@ -11,10 +11,12 @@ import CardContent from '@mui/material/CardContent';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import useActions from "../../hooks/useActions";
 
 export default function Film({film}) {
     const navigate = useNavigate();
     const {isAuth} = useSelector(({auth}) => auth);
+    const {addToFavorite} = useActions();
 
     return (
         <Card>
@@ -40,7 +42,7 @@ export default function Film({film}) {
                 {
                     isAuth && (
                         <>
-                            <IconButton>
+                            <IconButton onClick={() => addToFavorite(film)}>
                                 <FavoriteIcon/>
                             </IconButton>
                             <IconButton onClick={() => navigate('remove')}>

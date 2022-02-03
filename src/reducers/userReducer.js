@@ -2,25 +2,26 @@ import {ACTION_TYPES} from "../actions";
 
 const initialState = {
     isLoading: false,
-    films: [],
+    user: {},
     error: null
 };
 
-export default function filmsReducer(state = initialState, {type, payload}){
+export default function userReducer(state = initialState, {type, payload}){
     switch (type){
-        case ACTION_TYPES.Films.FILMS_REQUEST:
+        case ACTION_TYPES.User.USER_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: null
             }
-        case ACTION_TYPES.Films.FILMS_SUCCESS:
+        case ACTION_TYPES.User.USER_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                films: payload
+                user: payload,
+                error: null
             }
-        case ACTION_TYPES.Films.FILMS_FAILURE:
+        case ACTION_TYPES.User.USER_FAILURE:
             return {
                 ...state,
                 isLoading: false,

@@ -3,8 +3,16 @@ import {ACTION_TYPES} from "../actions";
 const auth = JSON.parse(localStorage.getItem('auth'));
 
 const initialState = auth
-    ? {isAuth: true, isSigning: false, token: auth.token}
-    : {isAuth: false, isSigning: false}
+    ? {
+        isAuth: true,
+        isSigning: false,
+        token: auth.token,
+        user: auth.user
+    }
+    : {
+        isAuth: false,
+        isSigning: false
+    }
 
 const authReducer = (state = initialState, {type, payload}) => {
     switch (type) {
@@ -15,7 +23,8 @@ const authReducer = (state = initialState, {type, payload}) => {
             }
         case ACTION_TYPES.Auth.AUTH_SUCCESS:
             return {
-                token: payload,
+                token: payload.token,
+                user: payload.user,
                 isSigning: false,
                 isAuth: true,
             }
