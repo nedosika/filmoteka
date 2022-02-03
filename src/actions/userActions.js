@@ -27,7 +27,8 @@ const failure = (payload) => ({
 //         })
 // }
 
-const addToFavorite = (film) => (dispatch) => {
+const addToFavorites = (film) => (dispatch) => {
+    console.log(film)
     dispatch(request());
     UserService
         .addFilmToFavorites(film)
@@ -38,7 +39,21 @@ const addToFavorite = (film) => (dispatch) => {
         .catch((error) => dispatch(failure(error.message)))
 }
 
+const getUser = () => (dispatch) => {
+    const auth = JSON.parse(localStorage.getItem('auth'));
+
+    dispatch(request());
+
+    UserService
+        .get(auth.id)
+        .then(({data}) => {
+            dispatch(success(data));
+        })
+        .catch((error) => dispatch(failure(error.message)))
+}
+
 export default {
-    addToFavorite
+    addToFavorites,
+    getUser
 }
 

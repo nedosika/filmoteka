@@ -10,6 +10,7 @@ const Home = React.lazy(() => import("../pages/Home"));
 const Films = React.lazy(() => import("../pages/Films"));
 const SignIn = React.lazy(() => import("../pages/SignIn"));
 const SignUp = React.lazy(() => import("../pages/SignUp"));
+const Favorites = React.lazy(() => import("../pages/Favorites"));
 
 const Router = () => {
     const isAuth = useSelector(({auth}) => auth.isAuth);
@@ -25,6 +26,7 @@ const Router = () => {
                                 <Route path="add" element={<AddDialog/>}/>
                                 <Route path="remove" element={<DeleteDialog/>}/>
                             </Route>
+                            <Route path="fav" element={<Favorites/>}/>
                             <Route path="*" element={<Navigate to="/"/>}/>
                         </Routes>
                         : <Routes>

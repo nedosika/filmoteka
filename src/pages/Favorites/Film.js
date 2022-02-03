@@ -1,24 +1,16 @@
 import * as React from 'react';
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
 import Card from '@mui/material/Card';
 import Rating from "@mui/material/Rating";
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
+
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import {CardActionArea, CardActions} from '@mui/material';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-import useActions from "../../hooks/useActions";
+import {CardActionArea, CardActions} from '@mui/material';
 
 export default function Film({film}) {
-    const navigate = useNavigate();
-    const {isAuth} = useSelector(({auth}) => auth);
-    const {addToFavorites} = useActions();
-
     return (
         <Card>
             <CardActionArea>
@@ -40,18 +32,6 @@ export default function Film({film}) {
             </CardActionArea>
             <CardActions>
                 <Rating readOnly value={film.rating} size="large"/>
-                {
-                    isAuth && (
-                        <>
-                            <IconButton onClick={() => addToFavorites(film)}>
-                                <FavoriteIcon/>
-                            </IconButton>
-                            <IconButton onClick={() => navigate('remove')}>
-                                <RemoveCircleIcon/>
-                            </IconButton>
-                        </>
-                    )
-                }
             </CardActions>
         </Card>
     );
