@@ -31,8 +31,12 @@ function Copyright(props) {
 }
 
 export default function SignUpPage() {
+    const mapState = (state) => ({
+        isSigning: state.auth.isSigning,
+        error: state.auth.error
+    });
+    const {isSigning, error} = useSelector(mapState);
     const {signUp} = useActions();
-    const {isSigning, error} = useSelector((state) => state.auth);
 
     const handleSubmit = (event) => {
         event.preventDefault();

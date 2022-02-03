@@ -13,8 +13,16 @@ import useActions from "../../hooks/useActions";
 import FilmActionCreator from "../../actions/filmsActions";
 
 const Films = () => {
-    const {films, isLoading} = useSelector(({films}) => films);
-    const isAuth = useSelector(({auth}) => auth.isAuth);
+    const mapState = (state) => ({
+        films: state.films.films,
+        isLoading: state.films.isLoading,
+        isAuth: state.auth.isAuth
+    })
+    const {
+        films,
+        isLoading,
+        isAuth
+    } = useSelector(mapState);
     const {getFilms} = useActions(FilmActionCreator);
 
     React.useEffect(() => {

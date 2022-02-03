@@ -21,9 +21,10 @@ import {useRouter} from "../hooks/useRouter";
 import useActions from "../hooks/useActions";
 
 const Layout = ({title, children}) => {
-    const isAuth = useSelector((state) => state.auth.isAuth);
-    const {signOut} = useActions();
     const {navigate, location} = useRouter();
+    const mapState = (state) => ({isAuth: state.auth.isAuth})
+    const {isAuth} = useSelector(mapState);
+    const {signOut} = useActions();
 
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
 

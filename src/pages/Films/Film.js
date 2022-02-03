@@ -43,8 +43,8 @@ export default function Film({film}) {
                             <IconButton>
                                 <FavoriteIcon/>
                             </IconButton>
-                            <IconButton>
-                                <RemoveCircleIcon onClick={() => navigate('remove')}/>
+                            <IconButton onClick={() => navigate('remove')}>
+                                <RemoveCircleIcon/>
                             </IconButton>
                         </>
                     )

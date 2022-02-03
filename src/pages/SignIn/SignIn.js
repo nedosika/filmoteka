@@ -31,8 +31,12 @@ function Copyright(props) {
 }
 
 export default function SignIn() {
+    const mapState = (state) => ({
+        isSigning: state.auth.isSigning,
+        error: state.auth.error
+    });
+    const {isSigning, error} = useSelector(mapState);
     const {signIn} = useActions();
-    const {isSigning, error} = useSelector((state) => state.auth);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
