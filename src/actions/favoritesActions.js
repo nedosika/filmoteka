@@ -12,6 +12,14 @@ const failure = (errorMessage) => ({
     type: ACTION_TYPES.Favorites.FAVORITES_FAILURE,
     payload: errorMessage
 });
+const addSuccess = (film) => ({
+    type: ACTION_TYPES.Favorites.FAVORITES_FAILURE,
+    payload: film
+});
+const removeSuccess = (film) => ({
+    type: ACTION_TYPES.Favorites.FAVORITES_FAILURE,
+    payload: film
+});
 
 const getFavorites = () => (dispatch) => {
     dispatch(request());
@@ -30,7 +38,19 @@ const addToFavorites = (film) => (dispatch) => {
     FavoritesService
         .addToFavorites(film)
         .then((data) => {
-            dispatch(success(data))
+            dispatch(addSuccess(data))
+        })
+        .catch((error) => {
+            dispatch(failure(error.message))
+        })
+}
+
+const removeFromFavorites = (id) => (dispatch) => {
+    dispatch(request());
+    FavoritesService
+        .removeFromFavorites(id)
+        .then((data) => {
+            dispatch(removeSuccess(data))
         })
         .catch((error) => {
             dispatch(failure(error.message))
@@ -39,5 +59,6 @@ const addToFavorites = (film) => (dispatch) => {
 
 export default {
     getFavorites,
-    addToFavorites
+    addToFavorites,
+    removeFromFavorites
 }

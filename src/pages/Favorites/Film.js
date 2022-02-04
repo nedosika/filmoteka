@@ -9,8 +9,15 @@ import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 
 import {CardActionArea, CardActions} from '@mui/material';
+import IconButton from "@mui/material/IconButton";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
 export default function Film({film}) {
+    const navigate = useNavigate();
+    const handleRemove = () => {
+        navigate(`remove/${film.id}`)
+    }
+
     return (
         <Card>
             <CardActionArea>
@@ -32,6 +39,9 @@ export default function Film({film}) {
             </CardActionArea>
             <CardActions>
                 <Rating readOnly value={film.rating} size="large"/>
+                <IconButton onClick={handleRemove}>
+                    <RemoveCircleIcon/>
+                </IconButton>
             </CardActions>
         </Card>
     );

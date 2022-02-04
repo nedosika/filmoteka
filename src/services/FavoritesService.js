@@ -49,7 +49,34 @@ const getFavorites = async () => {
     }
 }
 
+const removeFromFavorites = async (filmId) => {
+    try {
+        const auth = JSON.parse(localStorage.getItem('auth'));
+
+        const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/favorites/${auth.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': 'Bearer ' + auth.token,
+            },
+            body: JSON.stringify({filmId}),
+        })
+
+        if (response.status === 200) {
+            return await response.json();
+        }
+
+        if (response.status === 404) {
+            const data = await response.json();
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
 export default {
     addToFavorites,
-    getFavorites
+    getFavorites,
+    removeFromFavorites
 }
