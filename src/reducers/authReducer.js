@@ -34,7 +34,7 @@ const authReducer = (state = initialState, {type, payload}) => {
                 isSigning: false,
                 isAuth: false
             }
-        case ACTION_TYPES.Auth.SIGNOUT:
+        case ACTION_TYPES.Auth.AUTH_SIGNOUT:
             return {
                 isSigning: false,
                 isAuth: false

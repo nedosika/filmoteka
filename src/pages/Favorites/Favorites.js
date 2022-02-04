@@ -12,8 +12,8 @@ import useActions from "../../hooks/useActions";
 
 const Favorites = () => {
     const mapState = (state) => ({
-        films: state.user.user.favorites,
-        isLoading: state.films.isLoading,
+        films: state.favorites.data,
+        isLoading: state.favorites.isLoading,
         isAuth: state.auth.isAuth
     })
     const {
@@ -21,10 +21,10 @@ const Favorites = () => {
         isLoading,
         isAuth
     } = useSelector(mapState);
-    const {getUser} = useActions();
+    const {getFavorites} = useActions();
 
     React.useEffect(() => {
-        getUser();
+        getFavorites();
     }, []);
 
     return (

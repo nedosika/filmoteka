@@ -2,26 +2,24 @@ import {ACTION_TYPES} from "../actions";
 
 const initialState = {
     isLoading: false,
-    user: {},
     error: null
 };
 
-export default function userReducer(state = initialState, {type, payload}){
+export default function favoritesReducer(state = initialState, {type, payload}){
     switch (type){
-        case ACTION_TYPES.User.USER_REQUEST:
+        case ACTION_TYPES.Favorites.FAVORITES_REQUEST:
             return {
                 isLoading: true,
                 error: null
             }
-        case ACTION_TYPES.User.USER_SUCCESS:
+        case ACTION_TYPES.Favorites.FAVORITES_SUCCESS:
             return {
                 isLoading: false,
-                user: payload,
-                error: null
+                error: null,
+                data: payload
             }
-        case ACTION_TYPES.User.USER_FAILURE:
+        case ACTION_TYPES.Favorites.FAVORITES_FAILURE:
             return {
-                ...state,
                 isLoading: false,
                 error: payload
             }

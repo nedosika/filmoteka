@@ -2,7 +2,7 @@ import {ACTION_TYPES} from "../actions";
 
 const initialState = {
     isLoading: false,
-    films: [],
+    data: [],
     error: null
 };
 
@@ -18,7 +18,7 @@ export default function filmsReducer(state = initialState, {type, payload}){
             return {
                 ...state,
                 isLoading: false,
-                films: payload
+                data: payload
             }
         case ACTION_TYPES.Films.FILMS_FAILURE:
             return {

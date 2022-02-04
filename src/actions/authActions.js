@@ -1,6 +1,5 @@
 import {AuthService} from "../services";
 import {ACTION_TYPES} from "./index";
-import UserService from "../services/UserService";
 
 const request = () => ({
     type: ACTION_TYPES.Auth.AUTH_REQUEST
@@ -49,8 +48,8 @@ const signUp = (email, password) => (dispatch) => {
 }
 
 const signOut = () => {
-    localStorage.removeItem('auth')
-    return {type: ACTION_TYPES.Auth.SIGNOUT}
+    localStorage.removeItem('auth');
+    return {type: ACTION_TYPES.Auth.AUTH_SIGNOUT}
 }
 
 export default {

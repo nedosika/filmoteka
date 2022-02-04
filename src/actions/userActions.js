@@ -27,17 +27,17 @@ const failure = (payload) => ({
 //         })
 // }
 
-const addToFavorites = (film) => (dispatch) => {
-    console.log(film)
-    dispatch(request());
-    UserService
-        .addFilmToFavorites(film)
-        .then((data) => {
-            console.log(data)
-            dispatch(success(data))
-        })
-        .catch((error) => dispatch(failure(error.message)))
-}
+// const addToFavorites = (film) => (dispatch) => {
+//     console.log(film)
+//     dispatch(request());
+//     UserService
+//         .addFilmToFavorites(film)
+//         .then((data) => {
+//             console.log(data)
+//             dispatch(success(data))
+//         })
+//         .catch((error) => dispatch(failure(error.message)))
+// }
 
 const getUser = () => (dispatch) => {
     const auth = JSON.parse(localStorage.getItem('auth'));
@@ -53,7 +53,6 @@ const getUser = () => (dispatch) => {
 }
 
 export default {
-    addToFavorites,
     getUser
 }
 

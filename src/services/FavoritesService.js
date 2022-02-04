@@ -1,19 +1,18 @@
-const update = async (user) => {
+const addToFavorites = async (film) => {
     try {
         const auth = JSON.parse(localStorage.getItem('auth'));
-        console.log(auth.token)
-        const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/users/${user.id}`, {
+
+        const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/favorites/${auth.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Authorization': 'Bearer ' + auth.token,
             },
-            body: JSON.stringify(user),
+            body: JSON.stringify(film),
         })
 
         if (response.status === 201) {
-            const data = await response.json();
-            return {...data}
+            return await response.json();
         }
 
         if (response.status === 404) {
@@ -25,11 +24,11 @@ const update = async (user) => {
     }
 }
 
-const getOne = async (id) => {
+const getFavorites = async () => {
     try {
         const auth = JSON.parse(localStorage.getItem('auth'));
 
-        const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/users/${id}`, {
+        const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/favorites/${auth.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
@@ -38,8 +37,7 @@ const getOne = async (id) => {
         })
 
         if (response.status === 200) {
-            const data = await response.json();
-            return {...data}
+            return await response.json();
         }
 
         if (response.status === 404) {
@@ -52,7 +50,6 @@ const getOne = async (id) => {
 }
 
 export default {
-    update,
-    getOne
+    addToFavorites,
+    getFavorites
 }
-
