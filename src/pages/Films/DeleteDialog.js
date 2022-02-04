@@ -3,9 +3,12 @@ import {useNavigate} from "react-router-dom";
 
 import Dialog from "../../components/Dialog";
 import {Typography} from "@mui/material";
+import useActions from "../../hooks/useActions";
+import {useRouter} from "../../hooks/useRouter";
 
 const AddFilmDialog = () => {
-    const navigate = useNavigate();
+    const {navigate, params} = useRouter();
+    const {removeFilm} = useActions();
 
     const handleClose = () => {
         navigate(-1);
@@ -13,6 +16,11 @@ const AddFilmDialog = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const {id} = params;
+
+        removeFilm(id);
+
         handleClose();
     }
 

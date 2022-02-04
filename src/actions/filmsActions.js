@@ -12,6 +12,14 @@ const failure = (errorMessage) => ({
     type: ACTION_TYPES.Films.FILMS_FAILURE,
     payload: errorMessage
 });
+const addSuccess = (film) => ({
+    type: ACTION_TYPES.Films.FILMS_ADD_SUCCESS,
+    payload: film
+})
+const removeSuccess = (film) => ({
+    type: ACTION_TYPES.Films.FILMS_REMOVE_SUCCESS,
+    payload: film
+})
 
 const getFilms = () => (dispatch) => {
     dispatch(request());
@@ -24,6 +32,30 @@ const getFilms = () => (dispatch) => {
         })
 }
 
+const addFilm = (film) => (dispatch) => {
+    dispatch(request());
+    FilmService.addFilm(film)
+        .then(({data}) => {
+            dispatch(addSuccess(data))
+        })
+        .catch((error) => {
+            dispatch(failure(error.message))
+        })
+}
+
+const removeFilm = (id) => (dispatch) => {
+    dispatch(request());
+    FilmService.removeFilm(id)
+        .then(({data}) => {
+            dispatch(removeSuccess(data))
+        })
+        .catch((error) => {
+            dispatch(failure(error.message))
+        })
+}
+
 export default {
-    getFilms
+    getFilms,
+    addFilm,
+    removeFilm
 }

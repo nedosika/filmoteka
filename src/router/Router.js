@@ -24,7 +24,7 @@ const Router = () => {
                             <Route path="/" element={<Home/>}/>
                             <Route path="films" element={<Films/>}>
                                 <Route path="add" element={<AddDialog/>}/>
-                                <Route path="remove" element={<DeleteDialog/>}/>
+                                <Route path="remove/:id" element={<DeleteDialog/>}/>
                             </Route>
                             <Route path="fav" element={<Favorites/>}/>
                             <Route path="*" element={<Navigate to="/"/>}/>

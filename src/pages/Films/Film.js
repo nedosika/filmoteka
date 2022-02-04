@@ -19,6 +19,10 @@ export default function Film({film}) {
     const {isAuth} = useSelector(({auth}) => auth);
     const {addToFavorites} = useActions();
 
+    const handleRemove = () => {
+        navigate(`remove/${film.id}`)
+    }
+
     return (
         <Card>
             <CardActionArea>
@@ -33,8 +37,7 @@ export default function Film({film}) {
                         {film.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        {film.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -46,7 +49,7 @@ export default function Film({film}) {
                             <IconButton onClick={() => addToFavorites(film)}>
                                 <FavoriteIcon/>
                             </IconButton>
-                            <IconButton onClick={() => navigate('remove')}>
+                            <IconButton onClick={handleRemove}>
                                 <RemoveCircleIcon/>
                             </IconButton>
                         </>

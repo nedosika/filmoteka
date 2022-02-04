@@ -20,6 +20,18 @@ export default function filmsReducer(state = initialState, {type, payload}){
                 isLoading: false,
                 data: payload
             }
+        case ACTION_TYPES.Films.FILMS_ADD_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                data: [...state.data, payload]
+            }
+        case ACTION_TYPES.Films.FILMS_REMOVE_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                data: state.data.filter((film) => film.id !== payload.id)
+            }
         case ACTION_TYPES.Films.FILMS_FAILURE:
             return {
                 ...state,

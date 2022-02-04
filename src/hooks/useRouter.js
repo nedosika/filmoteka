@@ -16,6 +16,7 @@ export function useRouter() {
             pathname: location.pathname,
             location,
             navigate,
+            params
         };
     }, [params, location, navigate]);
 }
