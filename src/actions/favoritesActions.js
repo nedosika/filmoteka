@@ -49,8 +49,7 @@ const removeFromFavorites = (id) => (dispatch) => {
     dispatch(request());
     FavoritesService
         .removeFromFavorites(id)
-        .then((data) => {
-            console.log(data)
+        .then(({data}) => {
             dispatch(removeSuccess(data))
         })
         .catch((error) => {
