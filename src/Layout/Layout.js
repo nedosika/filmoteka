@@ -19,11 +19,15 @@ import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 
 import {useRouter} from "../hooks/useRouter";
 import useActions from "../hooks/useActions";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Layout = ({title, children}) => {
     const {navigate, location} = useRouter();
-    const mapState = (state) => ({isAuth: state.auth.isAuth})
-    const {isAuth} = useSelector(mapState);
+    const mapState = (state) => ({
+        isAuth: state.auth.isAuth,
+        isLoading: state.favorites.isLoading || state.films.isLoading
+    })
+    const {isAuth, isLoading} = useSelector(mapState);
     const {signOut} = useActions();
 
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
@@ -52,15 +56,20 @@ const Layout = ({title, children}) => {
                         </Typography>
                         <Box sx={{display: {xs: 'flex', md: 'flex'}}}>
                             {
-                                isAuth && (
-                                    <IconButton
-                                        size="large"
-                                        edge="end"
-                                        color="inherit"
-                                    >
-                                        <AccountCircle/>
-                                    </IconButton>
-                                )
+                                isLoading &&
+                                <Box sx={{display: 'flex', alignItems: 'center'}}>
+                                    <CircularProgress color="inherit" size={30}/>
+                                </Box>
+                            }
+                            {
+                                isAuth &&
+                                <IconButton
+                                    size="large"
+                                    edge="end"
+                                    color="inherit"
+                                >
+                                    <AccountCircle/>
+                                </IconButton>
                             }
                         </Box>
                     </Toolbar>
@@ -104,16 +113,19 @@ const Layout = ({title, children}) => {
                             </ListItemIcon>
                             <ListItemText primary='Films'/>
                         </ListItem>
-                        <ListItem
-                            button
-                            selected={location.pathname.split('/')[1] === 'boards'}
-                            onClick={() => navigate('/fav')}
-                        >
-                            <ListItemIcon>
-                                <Assignment/>
-                            </ListItemIcon>
-                            <ListItemText primary='Favorites'/>
-                        </ListItem>
+                        {
+                            isAuth &&
+                            <ListItem
+                                button
+                                selected={location.pathname.split('/')[1] === 'fav'}
+                                onClick={() => navigate('/fav')}
+                            >
+                                <ListItemIcon>
+                                    <Assignment/>
+                                </ListItemIcon>
+                                <ListItemText primary='Favorites'/>
+                            </ListItem>
+                        }
                         <Divider/>
                         {isAuth
                             ? (

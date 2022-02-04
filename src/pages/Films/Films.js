@@ -8,20 +8,19 @@ import Grid from "@mui/material/Grid";
 import Film from "./Film";
 import Layout from "../../Layout";
 import AddFilmButton from "./AddFilmButton";
-import Loader from "../../components/Loader";
 import useActions from "../../hooks/useActions";
 import FilmActionCreator from "../../actions/filmsActions";
 
 const Films = () => {
     const mapState = (state) => ({
         films: state.films.data,
-        isLoading: state.films.isLoading,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        isLoading: state.films.isLoading
     })
     const {
         films,
-        isLoading,
-        isAuth
+        isAuth,
+        isLoading
     } = useSelector(mapState);
     const {getFilms} = useActions(FilmActionCreator);
 
@@ -32,10 +31,8 @@ const Films = () => {
     return (
         <Layout title={`Films`}>
             <Box sx={{width: '100%'}}>
+
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
-                    {
-                        isLoading && <Loader/>
-                    }
                     {
                         films.map((film) =>
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
@@ -44,11 +41,10 @@ const Films = () => {
                         )
                     }
                     {
-                        isAuth && (
-                            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                                <AddFilmButton/>
-                            </Grid>
-                        )
+                        isAuth && !isLoading &&
+                        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                            <AddFilmButton/>
+                        </Grid>
                     }
                 </Grid>
             </Box>
