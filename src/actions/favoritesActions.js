@@ -13,11 +13,11 @@ const failure = (errorMessage) => ({
     payload: errorMessage
 });
 const addSuccess = (film) => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_FAILURE,
+    type: ACTION_TYPES.Favorites.FAVORITES_ADD_SUCCESS,
     payload: film
 });
 const removeSuccess = (film) => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_FAILURE,
+    type: ACTION_TYPES.Favorites.FAVORITES_REMOVE_SUCCESS,
     payload: film
 });
 
@@ -50,6 +50,7 @@ const removeFromFavorites = (id) => (dispatch) => {
     FavoritesService
         .removeFromFavorites(id)
         .then((data) => {
+            console.log(data)
             dispatch(removeSuccess(data))
         })
         .catch((error) => {
