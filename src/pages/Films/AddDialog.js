@@ -42,17 +42,19 @@ const AddDialog = () => {
                 value={state.name}
             />
             <TextField
-                label="Description"
-                name="description"
-                value={state.description}
+                label="Image link"
+                name="img"
+                value={state.img}
                 fullWidth
                 margin="normal"
                 onChange={handleChange}
             />
             <TextField
-                label="Image link"
-                name="img"
-                value={state.img}
+                label="Description"
+                name="description"
+                multiline
+                rows={4}
+                value={state.description}
                 fullWidth
                 margin="normal"
                 onChange={handleChange}

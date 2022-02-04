@@ -19,7 +19,12 @@ export default function Film({film}) {
     }
 
     return (
-        <Card>
+        <Card sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+        }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -32,12 +37,11 @@ export default function Film({film}) {
                         {film.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        {film.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
+            <CardActions sx={{justifyContent: 'space-between'}}>
                 <Rating readOnly value={film.rating} size="large"/>
                 <IconButton onClick={handleRemove}>
                     <RemoveCircleIcon/>

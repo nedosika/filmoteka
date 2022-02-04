@@ -30,7 +30,7 @@ export default function favoritesReducer(state = initialState, {type, payload}){
             return {
                 isLoading: false,
                 error: null,
-                data: [...state.data, payload]
+                data: payload
             }
         case ACTION_TYPES.Favorites.FAVORITES_REMOVE_SUCCESS:
             return {

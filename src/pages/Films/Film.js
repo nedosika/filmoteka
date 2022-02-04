@@ -13,6 +13,7 @@ import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import useActions from "../../hooks/useActions";
+import Box from "@mui/material/Box";
 
 export default function Film({film}) {
     const navigate = useNavigate();
@@ -24,7 +25,12 @@ export default function Film({film}) {
     }
 
     return (
-        <Card>
+        <Card sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+        }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -41,19 +47,18 @@ export default function Film({film}) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
+            <CardActions sx={{justifyContent: 'space-between'}}>
                 <Rating readOnly value={film.rating} size="large"/>
                 {
-                    isAuth && (
-                        <>
-                            <IconButton onClick={() => addToFavorites(film)}>
-                                <FavoriteIcon/>
-                            </IconButton>
-                            <IconButton onClick={handleRemove}>
-                                <RemoveCircleIcon/>
-                            </IconButton>
-                        </>
-                    )
+                    isAuth &&
+                    <Box>
+                        <IconButton onClick={() => addToFavorites(film)}>
+                            <FavoriteIcon/>
+                        </IconButton>
+                        <IconButton onClick={handleRemove}>
+                            <RemoveCircleIcon/>
+                        </IconButton>
+                    </Box>
                 }
             </CardActions>
         </Card>
