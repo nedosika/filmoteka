@@ -30,7 +30,7 @@ const Router = () => {
                             <Route path="fav" element={<Favorites/>}>
                                 <Route path="remove/:id" element={<DeleteFavoriteDialog/>}/>
                             </Route>
-                            <Route path="*" element={<Navigate to="/"/>}/>
+                            <Route path="*" element={<Navigate to="/films"/>}/>
                         </Routes>
                         : <Routes>
                             <Route path="/" element={<Home/>}/>
