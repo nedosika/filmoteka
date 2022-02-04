@@ -1,12 +1,12 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+
+import {Typography} from "@mui/material";
 
 import Dialog from "../../components/Dialog";
-import {Typography} from "@mui/material";
 import useActions from "../../hooks/useActions";
 import {useRouter} from "../../hooks/useRouter";
 
-const AddFilmDialog = () => {
+const DeleteFilmDialog = () => {
     const {navigate, params} = useRouter();
     const {removeFilm} = useActions();
 
@@ -31,4 +31,4 @@ const AddFilmDialog = () => {
     );
 };
 
-export default AddFilmDialog;
+export default DeleteFilmDialog;
