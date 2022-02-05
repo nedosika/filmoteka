@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import DeleteFavoriteDialog from "../pages/Favorites/DeleteFovoriteDialog";
 import AddDialog from "../pages/Films/AddDialog";
 import DeleteFilmDialog from "../pages/Films/DeleteFilmDialog";
+import EditFilmDialog from "../pages/Films/EditFilmDialog";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const Films = React.lazy(() => import("../pages/Films"));
@@ -26,6 +27,7 @@ const Router = () => {
                             <Route path="films" element={<Films/>}>
                                 <Route path="add" element={<AddDialog/>}/>
                                 <Route path="remove/:id" element={<DeleteFilmDialog/>}/>
+                                <Route path="edit/:id" element={<EditFilmDialog/>}/>
                             </Route>
                             <Route path="fav" element={<Favorites/>}>
                                 <Route path="remove/:id" element={<DeleteFavoriteDialog/>}/>

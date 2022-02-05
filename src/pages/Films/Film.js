@@ -24,6 +24,10 @@ export default function Film({film}) {
         navigate(`remove/${film.id}`)
     }
 
+    const handleEdit = () => {
+        navigate(`edit/${film.id}`)
+    }
+
     return (
         <Card sx={{
             height: '100%',
@@ -31,7 +35,7 @@ export default function Film({film}) {
             flexDirection: 'column',
             justifyContent: 'space-between'
         }}>
-            <CardActionArea>
+            <CardActionArea onClick={handleEdit}>
                 <CardMedia
                     component="img"
                     height="140"
