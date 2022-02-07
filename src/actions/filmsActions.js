@@ -19,12 +19,12 @@ const removeFilmSuccess = (film) => ({
     payload: film
 })
 
-const getFilms = () => (dispatch) => {
-    dispatch(loadingActions.request());
+const getFilms = ({request, success, failure}) => () =>  (dispatch) => {
+    request();
     FilmService.getAll()
         .then((films) => dispatch(getFilmsSuccess(films.data)))
-        .then(() => dispatch(loadingActions.success()))
-        .catch((error) => dispatch(loadingActions.failure(error)))
+        .then(success)
+        .catch(failure)
 }
 
 const addFilm = (film) => (dispatch) => {

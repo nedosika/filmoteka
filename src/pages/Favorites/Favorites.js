@@ -8,18 +8,19 @@ import Grid from "@mui/material/Grid";
 import Film from "./Film";
 import Layout from "../../Layout";
 import useActions from "../../hooks/useActions";
+import useSmartActions from "../../hooks/useSmartActions";
 
 const Favorites = () => {
     const mapState = (state) => ({
-        films: state.favorites.data,
-        isLoading: state.favorites.isLoading,
+        films: state.favorites,
+        isLoading: state.loading.isLoading,
         isAuth: state.auth.isAuth
     })
     const {
         films,
         isAuth
     } = useSelector(mapState);
-    const {getFavorites} = useActions();
+    const {getFavorites} = useSmartActions();
 
     React.useEffect(() => {
         getFavorites();

@@ -1,20 +1,15 @@
 import {AuthService} from "../services";
 import {ACTION_TYPES} from "./index";
 
-const request = () => ({
-    type: ACTION_TYPES.Auth.AUTH_REQUEST
-});
-const success = (payload) => ({
+const authSuccess = (payload) => ({
     type: ACTION_TYPES.Auth.AUTH_SUCCESS,
     payload
 });
-const failure = (errorMessage) => ({
-    type: ACTION_TYPES.Auth.AUTH_FAILURE,
-    payload: errorMessage
-});
 
-const signIn = (email, password) => (dispatch) => {
-    dispatch(request());
+const signIn = ({request, success, failure}) => (email, password) => (dispatch) => {
+    request()
+
+    console.log('---')
 
     AuthService.signIn(email, password)
         .then(({data}) => {
@@ -23,15 +18,14 @@ const signIn = (email, password) => (dispatch) => {
                 user: data.user,
                 id: data.user.id
             }));
-            dispatch(success(data));
+            dispatch(authSuccess(data));
         })
-        .catch((error) => {
-            dispatch(failure(error.message))
-        })
+        .then(success)
+        .catch(failure)
 }
 
-const signUp = (email, password) => (dispatch) => {
-    dispatch(request());
+const signUp = ({request, success, failure}) => (email, password) => (dispatch) => {
+    request();
 
     AuthService.signUp(email, password)
         .then(({data}) => {
@@ -40,14 +34,13 @@ const signUp = (email, password) => (dispatch) => {
                 user: data.user,
                 id: data.user.id
             }));
-            dispatch(success(data.token))
+            dispatch(authSuccess(data.token))
         })
-        .catch((error) => {
-            dispatch(failure(error.message))
-        })
+        .then(success)
+        .catch(failure)
 }
 
-const signOut = () => {
+const signOut = () => () => {
     localStorage.removeItem('auth');
     return {type: ACTION_TYPES.Auth.AUTH_SIGNOUT}
 }

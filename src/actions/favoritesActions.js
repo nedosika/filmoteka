@@ -1,60 +1,45 @@
 import {ACTION_TYPES} from "./index";
 import FavoritesService from "../services/FavoritesService";
 
-const request = () => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_REQUEST
-});
-const success = (data) => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_SUCCESS,
+const loadFavoritesSuccess = (data) => ({
+    type: ACTION_TYPES.Favorites.FAVORITES_LOADED,
     payload: data
 });
-const failure = (errorMessage) => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_FAILURE,
-    payload: errorMessage
-});
-const addSuccess = (film) => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_ADD_SUCCESS,
+
+const addToFavoritesSuccess = (film) => ({
+    type: ACTION_TYPES.Favorites.FAVORITES_ADDED,
     payload: film
 });
-const removeSuccess = (film) => ({
-    type: ACTION_TYPES.Favorites.FAVORITES_REMOVE_SUCCESS,
+const removeFromFavoritesSuccess = (film) => ({
+    type: ACTION_TYPES.Favorites.FAVORITES_REMOVED,
     payload: film
 });
 
-const getFavorites = () => (dispatch) => {
-    dispatch(request());
+const getFavorites = ({request, success, failure}) => () => (dispatch) => {
+    request();
     FavoritesService
         .getFavorites()
-        .then(({data}) => {
-            dispatch(success(data))
-        })
-        .catch((error) => {
-            dispatch(failure(error.message))
-        })
+        .then((films) => dispatch(loadFavoritesSuccess(films.data)))
+        .then(success)
+        .catch(failure)
 }
 
-const addToFavorites = (film) => (dispatch) => {
-    dispatch(request());
+const addToFavorites = ({request, success, failure}) => (film) => (dispatch) => {
+    request();
     FavoritesService
         .addToFavorites(film)
-        .then((data) => {
-            dispatch(addSuccess(data))
-        })
-        .catch((error) => {
-            dispatch(failure(error.message))
-        })
+        .then((data) => dispatch(addToFavoritesSuccess(data)))
+        .then(success)
+        .catch(failure)
 }
 
-const removeFromFavorites = (id) => (dispatch) => {
-    dispatch(request());
+const removeFromFavorites = ({request, success, failure}) => (id) => (dispatch) => {
+    request();
     FavoritesService
         .removeFromFavorites(id)
-        .then(({data}) => {
-            dispatch(removeSuccess(data))
-        })
-        .catch((error) => {
-            dispatch(failure(error.message))
-        })
+        .then(({data}) => dispatch(removeFromFavoritesSuccess(data)))
+        .then(success)
+        .catch(failure)
 }
 
 export default {

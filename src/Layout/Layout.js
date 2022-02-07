@@ -18,17 +18,17 @@ import ListItemText from "@mui/material/ListItemText/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 
 import {useRouter} from "../hooks/useRouter";
-import useActions from "../hooks/useActions";
 import CircularProgress from "@mui/material/CircularProgress";
+import useSmartActions from "../hooks/useSmartActions";
 
 const Layout = ({title, children}) => {
     const {navigate, location} = useRouter();
     const mapState = (state) => ({
         isAuth: state.auth.isAuth,
-        isLoading: state.favorites.isLoading || state.loading.isLoading
+        isLoading: state.loading.isLoading
     })
     const {isAuth, isLoading} = useSelector(mapState);
-    const {signOut} = useActions();
+    const {signOut} = useSmartActions();
 
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
 

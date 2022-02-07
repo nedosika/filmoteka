@@ -14,11 +14,12 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import useActions from "../../hooks/useActions";
 import Box from "@mui/material/Box";
+import useSmartActions from "../../hooks/useSmartActions";
 
 export default function Film({film}) {
     const navigate = useNavigate();
     const {isAuth} = useSelector(({auth}) => auth);
-    const {addToFavorites} = useActions();
+    const {addToFavorites} = useSmartActions();
 
     const handleRemove = () => {
         navigate(`remove/${film.id}`)
