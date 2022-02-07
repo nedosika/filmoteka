@@ -4,6 +4,11 @@ import userActionCreator from "./userActions";
 import favoritesCreator from "./favoritesActions";
 
 export const ACTION_TYPES = {
+    Loading: {
+        REQUEST: 'REQUEST',
+        SUCCESS: 'SUCCESS',
+        FAILURE: 'FAILURE'
+    },
     Auth: {
         AUTH_REQUEST: 'AUTH_REQUEST',
         AUTH_SUCCESS: 'AUTH_SUCCESS',
@@ -11,12 +16,10 @@ export const ACTION_TYPES = {
         AUTH_SIGNOUT: 'AUTH_SIGNOUT'
     },
     Films: {
-        FILMS_REQUEST: 'FILMS_REQUEST',
-        FILMS_SUCCESS: 'FILMS_SUCCESS',
-        FILMS_FAILURE: 'FILMS_FAILURE',
-        FILMS_ADD_SUCCESS: 'FILMS_ADD_SUCCESS',
-        FILMS_REMOVE_SUCCESS: 'FILMS_REMOVE_SUCCESS',
-        FILMS_UPDATE_SUCCESS: 'FILMS_UPDATE_SUCCESS'
+        FILMS_LOADED:   'FILMS_LOADED',
+        FILM_ADDED:    'FILM_ADDED',
+        FILM_REMOVED: 'FILM_REMOVED',
+        FILM_UPDATED: 'FILM_UPDATED'
     },
     User: {
         USER_REQUEST: 'USER_REQUEST',

@@ -1,72 +1,54 @@
 import {ACTION_TYPES} from "./index";
 import {FilmService} from "../services";
+import loadingActions from "./loadingActions";
 
-const request = () => ({
-    type: ACTION_TYPES.Films.FILMS_REQUEST
-});
-const success = (token) => ({
-    type: ACTION_TYPES.Films.FILMS_SUCCESS,
+const getFilmsSuccess = (token) => ({
+    type: ACTION_TYPES.Films.FILMS_LOADED,
     payload: token
 });
-const failure = (errorMessage) => ({
-    type: ACTION_TYPES.Films.FILMS_FAILURE,
-    payload: errorMessage
-});
-const addSuccess = (film) => ({
-    type: ACTION_TYPES.Films.FILMS_ADD_SUCCESS,
+const addFilmSuccess = (film) => ({
+    type: ACTION_TYPES.Films.FILM_ADDED,
     payload: film
 })
-const updateSuccess = (film) => ({
-    type: ACTION_TYPES.Films.FILMS_UPDATE_SUCCESS,
+const updateFilmSuccess = (film) => ({
+    type: ACTION_TYPES.Films.FILM_UPDATED,
     payload: film
 })
-const removeSuccess = (film) => ({
-    type: ACTION_TYPES.Films.FILMS_REMOVE_SUCCESS,
+const removeFilmSuccess = (film) => ({
+    type: ACTION_TYPES.Films.FILM_REMOVED,
     payload: film
 })
 
 const getFilms = () => (dispatch) => {
-    dispatch(request());
+    dispatch(loadingActions.request());
     FilmService.getAll()
-        .then(({data}) => {
-            dispatch(success(data));
-        })
-        .catch((error) => {
-            dispatch(failure(error.message));
-        })
+        .then((films) => dispatch(getFilmsSuccess(films.data)))
+        .then(() => dispatch(loadingActions.success()))
+        .catch((error) => dispatch(loadingActions.failure(error)))
 }
 
 const addFilm = (film) => (dispatch) => {
-    dispatch(request());
+    dispatch(loadingActions.request());
     FilmService.addFilm(film)
-        .then(({data}) => {
-            dispatch(addSuccess(data));
-        })
-        .catch((error) => {
-            dispatch(failure(error.message));
-        })
+        .then((film) => dispatch(addFilmSuccess(film.data)))
+        .then(() => dispatch(loadingActions.success()))
+        .catch((error) => dispatch(loadingActions.failure(error)))
 }
 
 const updateFilm = (film) => (dispatch) => {
-    dispatch(request());
+    dispatch(loadingActions.request());
     FilmService.updateFilm(film)
-        .then(({data}) => {
-            dispatch(updateSuccess(data));
-        })
-        .catch((error) => {
-            dispatch(failure(error.message));
-        })
+        .then(({data}) => dispatch(updateFilmSuccess(data)))
+        .then(() => dispatch(loadingActions.success()))
+        .catch((error) => dispatch(loadingActions.failure(error)))
 }
 
 const removeFilm = (id) => (dispatch) => {
-    dispatch(request());
+    dispatch(loadingActions.request());
     FilmService.removeFilm(id)
-        .then(({data}) => {
-            dispatch(removeSuccess(data));
-        })
-        .catch((error) => {
-            dispatch(failure(error.message));
-        })
+        .then(({data}) => dispatch(removeFilmSuccess(data)))
+        .then(() => dispatch(loadingActions.success()))
+        .catch((error) => dispatch(loadingActions.failure(error)))
 }
 
 export default {

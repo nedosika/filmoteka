@@ -1,49 +1,17 @@
 import {ACTION_TYPES} from "../actions";
 
-const initialState = {
-    isLoading: false,
-    data: [],
-    error: null
-};
+const initialState = [];
 
 export default function filmsReducer(state = initialState, {type, payload}){
     switch (type){
-        case ACTION_TYPES.Films.FILMS_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: null
-            }
-        case ACTION_TYPES.Films.FILMS_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                data: payload
-            }
-        case ACTION_TYPES.Films.FILMS_ADD_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                data: [...state.data, payload]
-            }
-        case ACTION_TYPES.Films.FILMS_REMOVE_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                data: state.data.filter((film) => film.id !== payload.id)
-            }
-        case ACTION_TYPES.Films.FILMS_UPDATE_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                data: [...state.data.filter((film) => film.id !== payload.id), payload]
-            }
-        case ACTION_TYPES.Films.FILMS_FAILURE:
-            return {
-                ...state,
-                isLoading: false,
-                error: payload
-            }
+        case ACTION_TYPES.Films.FILMS_LOADED:
+            return [...payload]
+        case ACTION_TYPES.Films.FILM_ADDED:
+            return [...state, payload]
+        case ACTION_TYPES.Films.FILM_REMOVED:
+            return state.filter((film) => film.id !== payload.id)
+        case ACTION_TYPES.Films.FILM_UPDATED:
+            return [...state.filter((film) => film.id !== payload.id), payload]
         default:
             return state
     }

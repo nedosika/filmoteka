@@ -25,7 +25,7 @@ const Layout = ({title, children}) => {
     const {navigate, location} = useRouter();
     const mapState = (state) => ({
         isAuth: state.auth.isAuth,
-        isLoading: state.favorites.isLoading || state.films.isLoading
+        isLoading: state.favorites.isLoading || state.loading.isLoading
     })
     const {isAuth, isLoading} = useSelector(mapState);
     const {signOut} = useActions();

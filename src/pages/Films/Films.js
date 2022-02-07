@@ -13,9 +13,9 @@ import FilmActionCreator from "../../actions/filmsActions";
 
 const Films = () => {
     const mapState = (state) => ({
-        films: state.films.data,
+        films: state.films,
         isAuth: state.auth.isAuth,
-        isLoading: state.films.isLoading
+        isLoading: state.loading.isLoading
     })
     const {
         films,
