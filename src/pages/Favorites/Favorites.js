@@ -8,7 +8,6 @@ import Grid from "@mui/material/Grid";
 import Film from "./Film";
 import Layout from "../../Layout";
 import useActions from "../../hooks/useActions";
-import useSmartActions from "../../hooks/useSmartActions";
 
 const Favorites = () => {
     const mapState = (state) => ({
@@ -20,7 +19,7 @@ const Favorites = () => {
         films,
         isAuth
     } = useSelector(mapState);
-    const {getFavorites} = useSmartActions();
+    const {getFavorites} = useActions();
 
     React.useEffect(() => {
         getFavorites();

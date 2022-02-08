@@ -1,12 +1,12 @@
 import {ACTION_TYPES} from "./index";
 
-const request = () => ({
+export const request = () => ({
     type: ACTION_TYPES.Loading.REQUEST
 });
-const success = () => ({
+export const success = () => ({
     type: ACTION_TYPES.Loading.SUCCESS,
 });
-const failure = (error) => ({
+export const failure = (error) => ({
     type: ACTION_TYPES.Loading.FAILURE,
     payload: error
 });

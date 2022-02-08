@@ -1,6 +1,6 @@
 import {ACTION_TYPES} from "./index";
 import {FilmService} from "../services";
-import loadingActions from "./loadingActions";
+import {request, success, failure} from "./loadingActions";
 
 const getFilmsSuccess = (token) => ({
     type: ACTION_TYPES.Films.FILMS_LOADED,
@@ -19,36 +19,36 @@ const removeFilmSuccess = (film) => ({
     payload: film
 })
 
-const getFilms = ({request, success, failure}) => () =>  (dispatch) => {
-    request();
-    FilmService.getAll()
+const getFilms = () => (dispatch) => {
+    dispatch(request());
+    return FilmService.getAll()
         .then((films) => dispatch(getFilmsSuccess(films.data)))
-        .then(success)
-        .catch(failure)
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
 const addFilm = (film) => (dispatch) => {
-    dispatch(loadingActions.request());
-    FilmService.addFilm(film)
+    dispatch(request());
+    return FilmService.addFilm(film)
         .then((film) => dispatch(addFilmSuccess(film.data)))
-        .then(() => dispatch(loadingActions.success()))
-        .catch((error) => dispatch(loadingActions.failure(error)))
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
 const updateFilm = (film) => (dispatch) => {
-    dispatch(loadingActions.request());
-    FilmService.updateFilm(film)
-        .then(({data}) => dispatch(updateFilmSuccess(data)))
-        .then(() => dispatch(loadingActions.success()))
-        .catch((error) => dispatch(loadingActions.failure(error)))
+    dispatch(request());
+    return FilmService.updateFilm(film)
+        .then((film) => dispatch(updateFilmSuccess(film.data)))
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
 const removeFilm = (id) => (dispatch) => {
-    dispatch(loadingActions.request());
-    FilmService.removeFilm(id)
-        .then(({data}) => dispatch(removeFilmSuccess(data)))
-        .then(() => dispatch(loadingActions.success()))
-        .catch((error) => dispatch(loadingActions.failure(error)))
+    dispatch(request());
+    return FilmService.removeFilm(id)
+        .then((film) => dispatch(removeFilmSuccess(film.data)))
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
 export default {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
+import Box from "@mui/material/Box";
 import Card from '@mui/material/Card';
 import Rating from "@mui/material/Rating";
 import CardMedia from '@mui/material/CardMedia';
@@ -13,13 +14,13 @@ import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import useActions from "../../hooks/useActions";
-import Box from "@mui/material/Box";
-import useSmartActions from "../../hooks/useSmartActions";
+import {SnackBarSeverities, useSnackBar} from "../../hooks/useSnackBar";
 
 export default function Film({film}) {
     const navigate = useNavigate();
     const {isAuth} = useSelector(({auth}) => auth);
-    const {addToFavorites} = useSmartActions();
+    const {addToFavorites} = useActions();
+    const {showMessage} = useSnackBar();
 
     const handleRemove = () => {
         navigate(`remove/${film.id}`)
@@ -27,6 +28,11 @@ export default function Film({film}) {
 
     const handleEdit = () => {
         navigate(`edit/${film.id}`)
+    }
+
+    const handleAdd = () => {
+        addToFavorites(film)
+            .then(() => showMessage('Film added to favorites', SnackBarSeverities.info))
     }
 
     return (
@@ -57,7 +63,7 @@ export default function Film({film}) {
                 {
                     isAuth &&
                     <Box>
-                        <IconButton onClick={() => addToFavorites(film)}>
+                        <IconButton onClick={handleAdd}>
                             <FavoriteIcon/>
                         </IconButton>
                         <IconButton onClick={handleRemove}>

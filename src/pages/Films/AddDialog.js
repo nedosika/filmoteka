@@ -8,7 +8,7 @@ import useActions from "../../hooks/useActions";
 
 const AddDialog = () => {
     const navigate = useNavigate();
-    const {addFilm} = useActions()
+    const {addFilm} = useActions();
     const [state, setState] = React.useState({
         name: '',
         img: '',

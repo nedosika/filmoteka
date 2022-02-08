@@ -8,8 +8,7 @@ import Grid from "@mui/material/Grid";
 import Film from "./Film";
 import Layout from "../../Layout";
 import AddFilmButton from "./AddFilmButton";
-import FilmActionCreator from "../../actions/filmsActions";
-import useSmartActions from "../../hooks/useSmartActions";
+import useActions from "../../hooks/useActions";
 
 const Films = () => {
     const mapState = (state) => ({
@@ -23,7 +22,7 @@ const Films = () => {
         isLoading
     } = useSelector(mapState);
 
-    const {getFilms} = useSmartActions();
+    const {getFilms} = useActions();
 
     React.useEffect(() => {
         getFilms();

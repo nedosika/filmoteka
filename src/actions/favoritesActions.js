@@ -1,5 +1,8 @@
 import {ACTION_TYPES} from "./index";
+
+import {request, success, failure} from "./loadingActions";
 import FavoritesService from "../services/FavoritesService";
+
 
 const loadFavoritesSuccess = (data) => ({
     type: ACTION_TYPES.Favorites.FAVORITES_LOADED,
@@ -15,31 +18,31 @@ const removeFromFavoritesSuccess = (film) => ({
     payload: film
 });
 
-const getFavorites = ({request, success, failure}) => () => (dispatch) => {
-    request();
-    FavoritesService
+const getFavorites = () => (dispatch) => {
+    dispatch(request());
+    return FavoritesService
         .getFavorites()
         .then((films) => dispatch(loadFavoritesSuccess(films.data)))
-        .then(success)
-        .catch(failure)
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
-const addToFavorites = ({request, success, failure}) => (film) => (dispatch) => {
-    request();
-    FavoritesService
+const addToFavorites = (film) => (dispatch) => {
+    dispatch(request());
+    return FavoritesService
         .addToFavorites(film)
-        .then((data) => dispatch(addToFavoritesSuccess(data)))
-        .then(success)
-        .catch(failure)
+        .then((film) => dispatch(addToFavoritesSuccess(film.data)))
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
-const removeFromFavorites = ({request, success, failure}) => (id) => (dispatch) => {
-    request();
-    FavoritesService
+const removeFromFavorites = (id) => (dispatch) => {
+    dispatch(request());
+    return FavoritesService
         .removeFromFavorites(id)
-        .then(({data}) => dispatch(removeFromFavoritesSuccess(data)))
-        .then(success)
-        .catch(failure)
+        .then((film) => dispatch(removeFromFavoritesSuccess(film.data)))
+        .then(() => dispatch(success()))
+        .catch((error) => dispatch(failure(error)))
 }
 
 export default {

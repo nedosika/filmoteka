@@ -16,7 +16,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import useActions from "../../hooks/useActions";
-import useSmartActions from "../../hooks/useSmartActions";
 
 function Copyright(props) {
     return (
@@ -37,14 +36,14 @@ export default function SignIn() {
         error: state.loading.error
     });
     const {isSigning, error} = useSelector(mapState);
-    const {signIn} = useSmartActions();
+    const {signIn} = useActions();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const data = new FormData(event.currentTarget);
 
-        signIn(data.get('email'), data.get('password'));
+        signIn(data.get('email'), data.get('password'))
     };
 
     return (
