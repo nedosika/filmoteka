@@ -11,7 +11,7 @@ export const SnackBarSeverities = {
 const SnackBarContext = createContext({});
 
 export const useSnackBar = () => {
-    const {message, setMessage} = useContext(SnackBarContext);
+    const {setMessage} = useContext(SnackBarContext);
 
     const showMessage = (message, severity) => {
         setMessage({
@@ -34,14 +34,14 @@ export const SnackBarProvider = ({children}) => {
 
     const onClose = () => {
         setMessage({
-            severity: '',
+            severity: SnackBarSeverities.info,
             text: '',
             isShow: false
         })
     }
 
     return(
-        <SnackBarContext.Provider value={{message, setMessage, onClose}}>
+        <SnackBarContext.Provider value={{setMessage, onClose}}>
             {children}
             <SnackBar
                 open={message.isShow}

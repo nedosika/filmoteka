@@ -21,7 +21,8 @@ const removeFilmSuccess = (film) => ({
 
 const getFilms = () => (dispatch) => {
     dispatch(request());
-    return FilmService.getAll()
+    return FilmService
+        .getAll()
         .then((films) => dispatch(getFilmsSuccess(films.data)))
         .then(() => dispatch(success()))
         .catch((error) => dispatch(failure(error)))
@@ -29,7 +30,8 @@ const getFilms = () => (dispatch) => {
 
 const addFilm = (film) => (dispatch) => {
     dispatch(request());
-    return FilmService.addFilm(film)
+    return FilmService
+        .addFilm(film)
         .then((film) => dispatch(addFilmSuccess(film.data)))
         .then(() => dispatch(success()))
         .catch((error) => dispatch(failure(error)))
@@ -37,7 +39,8 @@ const addFilm = (film) => (dispatch) => {
 
 const updateFilm = (film) => (dispatch) => {
     dispatch(request());
-    return FilmService.updateFilm(film)
+    return FilmService
+        .updateFilm(film)
         .then((film) => dispatch(updateFilmSuccess(film.data)))
         .then(() => dispatch(success()))
         .catch((error) => dispatch(failure(error)))
@@ -45,7 +48,8 @@ const updateFilm = (film) => (dispatch) => {
 
 const removeFilm = (id) => (dispatch) => {
     dispatch(request());
-    return FilmService.removeFilm(id)
+    return FilmService
+        .removeFilm(id)
         .then((film) => dispatch(removeFilmSuccess(film.data)))
         .then(() => dispatch(success()))
         .catch((error) => dispatch(failure(error)))
