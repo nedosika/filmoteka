@@ -13,14 +13,16 @@ import Drawer from "@mui/material/Drawer/Drawer";
 import IconButton from "@mui/material/IconButton";
 import {AccountCircle} from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItemText from "@mui/material/ListItemText/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 
-import {useRouter} from "../hooks/useRouter";
-import CircularProgress from "@mui/material/CircularProgress";
 import useActions from "../hooks/useActions";
+import {useRouter} from "../hooks/useRouter";
 import SnackBar from "../components/SnackBar";
+import SearchInput from "../components/SearchInput";
+
 
 const Layout = ({title, children}) => {
     const {navigate, location} = useRouter();
@@ -57,23 +59,20 @@ const Layout = ({title, children}) => {
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             {title}
                         </Typography>
-                        <Box sx={{display: {xs: 'flex', md: 'flex'}}}>
-                            {
-                                isLoading &&
-                                <Box sx={{display: 'flex', alignItems: 'center'}}>
-                                    <CircularProgress color="inherit" size={30}/>
-                                </Box>
-                            }
-                            {
-                                isAuth &&
-                                <IconButton
-                                    size="large"
-                                    edge="end"
-                                    color="inherit"
-                                >
+                        <SearchInput/>
+                        <Box sx={{display: 'flex', alignItems: 'center'}}>
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                color="inherit"
+                            >
+                                {
+                                    isLoading &&
+                                    <CircularProgress color="inherit" size={24}/>
+                                    || isAuth &&
                                     <AccountCircle/>
-                                </IconButton>
-                            }
+                                }
+                            </IconButton>
                         </Box>
                     </Toolbar>
                 </AppBar>
