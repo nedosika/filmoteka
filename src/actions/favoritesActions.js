@@ -33,7 +33,7 @@ const addToFavorites = (film) => (dispatch) => {
     return FavoritesService
         .addToFavorites(film)
         .then((film) => dispatch(addToFavoritesSuccess(film)))
-        .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('Film added to favorites', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error added film: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
@@ -43,7 +43,7 @@ const removeFromFavorites = (id) => (dispatch) => {
     return FavoritesService
         .removeFromFavorites(id)
         .then((film) => dispatch(removeFromFavoritesSuccess(film.data)))
-        .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('Film removed from favorites', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error removing film: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
