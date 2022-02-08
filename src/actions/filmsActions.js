@@ -1,6 +1,8 @@
 import {ACTION_TYPES} from "./index";
 import {FilmService} from "../services";
 import {request, success, failure} from "./loadingActions";
+import {showNotice} from "./noticeActions";
+import {SnackBarSeverities} from "../hooks/useSnackBar";
 
 const getFilmsSuccess = (token) => ({
     type: ACTION_TYPES.Films.FILMS_LOADED,
@@ -21,20 +23,22 @@ const removeFilmSuccess = (film) => ({
 
 const getFilms = () => (dispatch) => {
     dispatch(request());
-    return FilmService
+    FilmService
         .getAll()
         .then((films) => dispatch(getFilmsSuccess(films.data)))
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .then(() => dispatch(showNotice('films loaded', SnackBarSeverities.success)))
+        .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 const addFilm = (film) => (dispatch) => {
     dispatch(request());
-    return FilmService
+    FilmService
         .addFilm(film)
         .then((film) => dispatch(addFilmSuccess(film.data)))
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
+        .catch((error) => dispatch(showNotice(`Error adding films: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 const updateFilm = (film) => (dispatch) => {
@@ -43,16 +47,20 @@ const updateFilm = (film) => (dispatch) => {
         .updateFilm(film)
         .then((film) => dispatch(updateFilmSuccess(film.data)))
         .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .then(() => dispatch(showNotice('Film updated', SnackBarSeverities.success)))
+        .catch((error) => dispatch(showNotice(`Error updating films: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 const removeFilm = (id) => (dispatch) => {
     dispatch(request());
-    return FilmService
+    FilmService
         .removeFilm(id)
         .then((film) => dispatch(removeFilmSuccess(film.data)))
         .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
+        .catch((error) => dispatch(showNotice(`Error removing films: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 export default {

@@ -1,11 +1,12 @@
 import {combineReducers} from "redux";
 
 import auth from "./authReducer";
-import films from "./filmsReducer";
 import user from "./userReducer";
-import favorites from "./favoritesReducer";
+import films from "./filmsReducer";
+import notice from "./noticeReducer";
 import loading from "./loadingReducer";
+import favorites from "./favoritesReducer";
 
-const rootReducer = combineReducers({auth, films, user, favorites, loading});
+const rootReducer = combineReducers({auth, films, user, favorites, loading, notice});
 
 export default rootReducer;

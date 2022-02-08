@@ -14,13 +14,11 @@ import {CardActionArea, CardActions} from '@mui/material';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import useActions from "../../hooks/useActions";
-import {SnackBarSeverities, useSnackBar} from "../../hooks/useSnackBar";
 
 export default function Film({film}) {
     const navigate = useNavigate();
     const {isAuth} = useSelector(({auth}) => auth);
     const {addToFavorites} = useActions();
-    const {showMessage} = useSnackBar();
 
     const handleRemove = () => {
         navigate(`remove/${film.id}`)
@@ -32,7 +30,6 @@ export default function Film({film}) {
 
     const handleAdd = () => {
         addToFavorites(film)
-            .then(() => showMessage('Film added to favorites', SnackBarSeverities.info))
     }
 
     return (

@@ -5,12 +5,10 @@ import TextField from "@mui/material/TextField";
 
 import Dialog from "../../components/Dialog";
 import useActions from "../../hooks/useActions";
-import {SnackBarSeverities, useSnackBar} from "../../hooks/useSnackBar";
 
 const AddDialog = () => {
     const navigate = useNavigate();
     const {addFilm} = useActions();
-    const {showMessage} = useSnackBar();
     const [state, setState] = React.useState({
         name: '',
         img: '',
@@ -24,8 +22,6 @@ const AddDialog = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         addFilm({...state})
-            .then(() => showMessage('Film added', SnackBarSeverities.success));
-
         handleClose();
     }
 

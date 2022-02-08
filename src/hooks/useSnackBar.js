@@ -22,22 +22,20 @@ export const useSnackBar = () => {
     }
 
     return {showMessage}
-
 }
 
 export const SnackBarProvider = ({children}) => {
     const [message, setMessage] = React.useState({
-        severity: SnackBarSeverities.info,
+        severity: SnackBarSeverities.success,
         text: '',
         isShow: false
     });
 
     const onClose = () => {
-        setMessage({
-            severity: SnackBarSeverities.info,
-            text: '',
+        setMessage((prevMessage) => ({
+            ...prevMessage,
             isShow: false
-        })
+        }))
     }
 
     return(

@@ -1,8 +1,9 @@
 import {ACTION_TYPES} from "./index";
 
+import {showNotice} from "./noticeActions";
+import {SnackBarSeverities} from "../hooks/useSnackBar";
 import {request, success, failure} from "./loadingActions";
 import FavoritesService from "../services/FavoritesService";
-
 
 const loadFavoritesSuccess = (data) => ({
     type: ACTION_TYPES.Favorites.FAVORITES_LOADED,
@@ -23,17 +24,18 @@ const getFavorites = () => (dispatch) => {
     return FavoritesService
         .getFavorites()
         .then((films) => dispatch(loadFavoritesSuccess(films.data)))
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .catch((error) => dispatch(showNotice(`Error: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 const addToFavorites = (film) => (dispatch) => {
     dispatch(request());
     return FavoritesService
         .addToFavorites(film)
-        .then((film) => dispatch(addToFavoritesSuccess(film.data)))
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .then((film) => dispatch(addToFavoritesSuccess(film)))
+        .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
+        .catch((error) => dispatch(showNotice(`Error added film: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 const removeFromFavorites = (id) => (dispatch) => {
@@ -41,8 +43,9 @@ const removeFromFavorites = (id) => (dispatch) => {
     return FavoritesService
         .removeFromFavorites(id)
         .then((film) => dispatch(removeFromFavoritesSuccess(film.data)))
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
+        .catch((error) => dispatch(showNotice(`Error removing film: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
 }
 
 export default {

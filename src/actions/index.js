@@ -1,7 +1,8 @@
 import authActionCreator from "./authActions";
-import filmsActionCreator from "./filmsActions";
 import userActionCreator from "./userActions";
-import favoritesCreator from "./favoritesActions";
+import filmsActionCreator from "./filmsActions";
+import noticeActionCreator from "./noticeActions";
+import favoritesActionCreator from "./favoritesActions";
 
 export const ACTION_TYPES = {
     Loading: {
@@ -29,13 +30,18 @@ export const ACTION_TYPES = {
         FAVORITES_ADDED: 'FAVORITES_ADDED',
         FAVORITES_REMOVED: 'FAVORITES_REMOVED'
     },
+    Notice: {
+        SHOW_NOTICE: 'SHOW_NOTICE',
+        HIDE_NOTICE: 'HIDE_NOTICE'
+    }
 };
 
 export const ActionCreators = {
     ...authActionCreator,
-    ...filmsActionCreator,
     ...userActionCreator,
-    ...favoritesCreator
+    ...filmsActionCreator,
+    ...noticeActionCreator,
+    ...favoritesActionCreator,
 }
 
 export default ActionCreators;

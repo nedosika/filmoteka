@@ -27,10 +27,11 @@ const Layout = ({title, children}) => {
     const mapState = (state) => ({
         isAuth: state.auth.isAuth,
         isLoading: state.loading.isLoading,
-        error: state.loading.error
+        error: state.loading.error,
+        notice: state.notice
     })
-    const {isAuth, isLoading, error} = useSelector(mapState);
-    const {signOut} = useActions();
+    const {isAuth, isLoading, notice} = useSelector(mapState);
+    const {signOut, hideNotice} = useActions();
 
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
 
@@ -159,6 +160,12 @@ const Layout = ({title, children}) => {
             <Box sx={{marginTop: '80px'}}>
                 {children}
             </Box>
+            <SnackBar
+                open={notice.isShow}
+                message={notice.message}
+                onClose={hideNotice}
+                severity={notice.severity}
+            />
         </div>
     );
 };

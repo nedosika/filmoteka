@@ -6,20 +6,20 @@ import TextField from "@mui/material/TextField";
 import Dialog from "../../components/Dialog";
 import useActions from "../../hooks/useActions";
 import {useRouter} from "../../hooks/useRouter";
+import {SnackBarSeverities, useSnackBar} from "../../hooks/useSnackBar";
 
 const EditFilmDialog = () => {
     const {navigate, params} = useRouter();
     const mapState = (state) => ({
-        films: state.films.data
+        films: state.films
     })
     const {films} = useSelector(mapState);
     const {updateFilm} = useActions();
+    const {showMessage} = useSnackBar();
     const {id} = params;
 
     const film = films.find((film) => film.id === id);
     const [state, setState] = React.useState({...film})
-
-    console.log(state)
 
     const handleClose = () => {
         navigate(-1);
@@ -28,6 +28,12 @@ const EditFilmDialog = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         updateFilm({...state})
+            .then(() => {
+                showMessage('Film updated')
+            })
+            .catch((error) => {
+                showMessage(error.message, SnackBarSeverities.error)
+            })
         handleClose();
     }
 
