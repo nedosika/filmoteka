@@ -9,6 +9,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import useDebounce from "../../hooks/useDebounce";
 import useActions from "../../hooks/useActions";
 import {useSelector} from "react-redux";
+import TextField from "@mui/material/TextField";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -79,6 +80,7 @@ const SearchInput = () => {
             </SearchIconWrapper>
             <Autocomplete
                 freeSolo
+                autoComplete
                 options={films}
                 getOptionLabel={(option) => option.name}
                 renderInput={(params) => <StyledInputBase
