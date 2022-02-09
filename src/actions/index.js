@@ -2,6 +2,7 @@ import authActionCreator from "./authActions";
 import userActionCreator from "./userActions";
 import filmsActionCreator from "./filmsActions";
 import noticeActionCreator from "./noticeActions";
+import searchActionCreators from "./serachActions";
 import favoritesActionCreator from "./favoritesActions";
 
 export const ACTION_TYPES = {
@@ -18,7 +19,8 @@ export const ACTION_TYPES = {
         FILMS_LOADED: 'FILMS_LOADED',
         FILM_ADDED: 'FILM_ADDED',
         FILM_REMOVED: 'FILM_REMOVED',
-        FILM_UPDATED: 'FILM_UPDATED'
+        FILM_UPDATED: 'FILM_UPDATED',
+        FILMS_SEARCHED: 'FILMS_SEARCHED'
     },
     User: {
         USER_REQUEST: 'USER_REQUEST',
@@ -29,6 +31,9 @@ export const ACTION_TYPES = {
         FAVORITES_LOADED: 'FAVORITES_LOADED',
         FAVORITES_ADDED: 'FAVORITES_ADDED',
         FAVORITES_REMOVED: 'FAVORITES_REMOVED'
+    },
+    Search: {
+        SEARCH_SUCCESS: 'SEARCH_SUCCESS'
     },
     Notice: {
         SHOW_NOTICE: 'SHOW_NOTICE',
@@ -42,6 +47,7 @@ export const ActionCreators = {
     ...filmsActionCreator,
     ...noticeActionCreator,
     ...favoritesActionCreator,
+    ...searchActionCreators
 }
 
 export default ActionCreators;
