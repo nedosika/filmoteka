@@ -1,5 +1,6 @@
 import React from 'react';
 import lodash from "lodash";
+import {useSelector} from "react-redux";
 
 import InputBase from '@mui/material/InputBase';
 import {styled, alpha} from '@mui/material/styles';
@@ -8,8 +9,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import useDebounce from "../../hooks/useDebounce";
 import useActions from "../../hooks/useActions";
-import {useSelector} from "react-redux";
-import TextField from "@mui/material/TextField";
+
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -40,7 +40,6 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
@@ -54,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 const SearchInput = () => {
-    const [state, setState] = React.useState('');
+    const [state, setState] = React.useState([]);
     const {searchFilms} = useActions();
     const films = useSelector(state => state.search);
 
@@ -62,15 +61,17 @@ const SearchInput = () => {
 
     React.useEffect(
         () => {
-            // if (debouncedSearchTerm) {
-                searchFilms(debouncedSearchTerm)
-//            }
+            searchFilms(debouncedSearchTerm)
         },
         [debouncedSearchTerm]
     );
 
-    const handleChange = ({target: {value}}) => {
+    const handleInputChange = (event, value) => {
         setState(value);
+    }
+
+    const handleSubmit = (event, value) => {
+        console.log(value)
     }
 
     return (
@@ -79,17 +80,16 @@ const SearchInput = () => {
                 <SearchIcon/>
             </SearchIconWrapper>
             <Autocomplete
-                freeSolo
-                autoComplete
+                autoHighlight
                 options={films}
-                getOptionLabel={(option) => option.name}
+                onChange={handleSubmit}
+                onInputChange={handleInputChange}
                 renderInput={(params) => <StyledInputBase
                     ref={params.InputProps.ref}
                     {...lodash.omit(params, ['InputLabelProps', 'InputProps'])}
-                    onChange={handleChange}
                     placeholder="Search…"
-                />
-                }
+                />}
+
             />
         </Search>
     );

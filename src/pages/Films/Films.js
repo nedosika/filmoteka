@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
 
@@ -9,8 +9,10 @@ import Film from "./Film";
 import Layout from "../../Layout";
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
+import Pagination from "@mui/material/Pagination";
 
 const Films = () => {
+    const [page, setPage] = useState(1);
     const mapState = (state) => ({
         films: state.films,
         isAuth: state.auth.isAuth,
@@ -24,6 +26,10 @@ const Films = () => {
 
     const {getFilms} = useActions();
 
+    const handleChangePage = (event, page) => {
+        console.log(page)
+    }
+
     React.useEffect(() => {
         getFilms();
     }, []);
@@ -31,7 +37,6 @@ const Films = () => {
     return (
         <Layout title={`Films`}>
             <Box sx={{width: '100%'}}>
-
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     {
                         films.map((film) =>
@@ -47,6 +52,17 @@ const Films = () => {
                         </Grid>
                     }
                 </Grid>
+                {
+                    !isLoading &&
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '15px'
+                    }}>
+                        <Pagination count={10} size="large" onChange={handleChangePage}/>
+                    </Box>
+                }
+
             </Box>
             <Outlet/>
         </Layout>);
