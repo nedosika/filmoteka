@@ -12,6 +12,7 @@ const Home = React.lazy(() => import("../pages/Home"));
 const Films = React.lazy(() => import("../pages/Films"));
 const SignIn = React.lazy(() => import("../pages/SignIn"));
 const SignUp = React.lazy(() => import("../pages/SignUp"));
+const Search = React.lazy(() => import("../pages/Search"));
 const Favorites = React.lazy(() => import("../pages/Favorites"));
 
 const Router = () => {
@@ -29,6 +30,7 @@ const Router = () => {
                                 <Route path="remove/:id" element={<DeleteFilmDialog/>}/>
                                 <Route path="edit/:id" element={<EditFilmDialog/>}/>
                             </Route>
+                            <Route path="films/search" element={<Search/>}/>
                             <Route path="fav" element={<Favorites/>}>
                                 <Route path="remove/:id" element={<DeleteFavoriteDialog/>}/>
                             </Route>
@@ -36,7 +38,9 @@ const Router = () => {
                         </Routes>
                         : <Routes>
                             <Route path="/" element={<Home/>}/>
-                            <Route path="films" element={<Films/>}/>
+                            <Route path="films" element={<Films/>}>
+                                <Route path="search" element={<Search/>}/>
+                            </Route>
                             <Route path="signin" element={<SignIn/>}/>
                             <Route path="signup" element={<SignUp/>}/>
                             <Route path="*" element={<Navigate to="/signin"/>}/>

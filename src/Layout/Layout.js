@@ -22,6 +22,7 @@ import useActions from "../hooks/useActions";
 import {useRouter} from "../hooks/useRouter";
 import SnackBar from "../components/SnackBar";
 import SearchInput from "../components/SearchInput";
+import {createSearchParams} from "react-router-dom";
 
 
 const Layout = ({title, children}) => {
@@ -30,16 +31,25 @@ const Layout = ({title, children}) => {
         isAuth: state.auth.isAuth,
         isLoading: state.loading.isLoading,
         error: state.loading.error,
-        notice: state.notice
-    })
-    const {isAuth, isLoading, notice} = useSelector(mapState);
-    const {signOut, hideNotice} = useActions();
-
+        notice: state.notice,
+        searchedFilms: state.search
+    });
+    const {isAuth, isLoading, notice, searchedFilms} = useSelector(mapState);
+    const {signOut, hideNotice, searchFilms} = useActions();
     const [isOpenMenuBar, setIsOpenMenuBar] = useState(false);
 
     const handleSignOut = () => {
         signOut();
         setIsOpenMenuBar(false);
+    }
+
+    const handleSearch = (query) => {
+        navigate({
+            pathname: "/films/search",
+            search: `?${createSearchParams({
+                query
+            })}`
+        });
     }
 
     return (
@@ -59,7 +69,7 @@ const Layout = ({title, children}) => {
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             {title}
                         </Typography>
-                        <SearchInput/>
+                        <SearchInput searchFilms={searchFilms} films={searchedFilms} onSubmit={handleSearch}/>
                         <Box sx={{display: 'flex', alignItems: 'center'}}>
                             <IconButton
                                 size="large"

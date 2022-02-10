@@ -82,8 +82,28 @@ const updateFilm = async (film) => {
     }
 }
 
-const getAllFilmsByQuery = async (query) => {
+const searchFilms = async (query) => {
     const response = await fetch('https://rj2zi.sse.codesandbox.io/api/search', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(query)
+    })
+
+    if (response.status === 200) {
+        const data = await response.json();
+        return {...data}
+    }
+
+    if (response.status === 404) {
+        const data = await response.json();
+        throw new Error(data.message);
+    }
+}
+
+const getAllByQuery = async (query) => {
+    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/query', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -107,5 +127,6 @@ export const FilmService = {
     addFilm,
     removeFilm,
     updateFilm,
-    getAllFilmsByQuery
+    searchFilms,
+    getAllByQuery
 }

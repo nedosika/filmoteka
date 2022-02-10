@@ -52,16 +52,14 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-const SearchInput = () => {
+const SearchInput = ({onSubmit, searchFilms, films}) => {
     const [state, setState] = React.useState([]);
-    const {searchFilms} = useActions();
-    const films = useSelector(state => state.search);
-
     const debouncedSearchTerm = useDebounce(state, 500);
 
     React.useEffect(
         () => {
-            searchFilms(debouncedSearchTerm)
+            if(debouncedSearchTerm)
+                searchFilms(debouncedSearchTerm)
         },
         [debouncedSearchTerm]
     );
@@ -71,7 +69,7 @@ const SearchInput = () => {
     }
 
     const handleSubmit = (event, value) => {
-        console.log(value)
+        onSubmit(value);
     }
 
     return (
