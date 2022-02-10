@@ -83,7 +83,7 @@ const updateFilm = async (film) => {
 }
 
 const searchFilms = async (query) => {
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/search', {
+    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/films/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -102,25 +102,25 @@ const searchFilms = async (query) => {
     }
 }
 
-const getAllByQuery = async (query) => {
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/query', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(query)
-    })
-
-    if (response.status === 200) {
-        const data = await response.json();
-        return {...data}
-    }
-
-    if (response.status === 404) {
-        const data = await response.json();
-        throw new Error(data.message);
-    }
-}
+// const getAllByQuery = async (query) => {
+//     const response = await fetch('https://rj2zi.sse.codesandbox.io/api/films/query', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: JSON.stringify(query)
+//     })
+//
+//     if (response.status === 200) {
+//         const data = await response.json();
+//         return {...data}
+//     }
+//
+//     if (response.status === 404) {
+//         const data = await response.json();
+//         throw new Error(data.message);
+//     }
+// }
 
 export const FilmService = {
     getAll,
@@ -128,5 +128,5 @@ export const FilmService = {
     removeFilm,
     updateFilm,
     searchFilms,
-    getAllByQuery
+    //getAllByQuery
 }

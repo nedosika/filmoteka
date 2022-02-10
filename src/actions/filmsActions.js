@@ -31,10 +31,10 @@ const getFilms = () => (dispatch) => {
         .finally(() => dispatch(success()))
 }
 
-const getFilmsByQuery = (query) => (dispatch) => {
+const getFilmsByQuery = (text) => (dispatch) => {
     dispatch(request());
     FilmService
-        .getAllByQuery(query)
+        .searchFilms({field: 'name', value: text})
         .then((films) => dispatch(getFilmsSuccess(films.data)))
         .then(() => dispatch(showNotice('films loaded', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))

@@ -23,7 +23,7 @@ const Search = () => {
 
     React.useEffect(() => {
         getFilmsByQuery(params.query);
-    }, []);
+    }, [params.query]);
 
     return (
         <Layout title="Search">

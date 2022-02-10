@@ -69,7 +69,7 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
     }
 
     const handleSubmit = (event, value) => {
-        onSubmit(value);
+        onSubmit(value.name);
     }
 
     return (
@@ -81,6 +81,7 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
                 autoHighlight
                 options={films}
                 onChange={handleSubmit}
+                getOptionLabel={(option) => option.name}
                 onInputChange={handleInputChange}
                 renderInput={(params) => <StyledInputBase
                     ref={params.InputProps.ref}
