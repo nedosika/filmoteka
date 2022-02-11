@@ -4,9 +4,9 @@ import {request, success, failure} from "./loadingActions";
 import {showNotice} from "./noticeActions";
 import {SnackBarSeverities} from "../hooks/useSnackBar";
 
-const getFilmsSuccess = (token) => ({
+const getFilmsSuccess = (films) => ({
     type: ACTION_TYPES.Films.FILMS_LOADED,
-    payload: token
+    payload: films
 });
 const addFilmSuccess = (film) => ({
     type: ACTION_TYPES.Films.FILM_ADDED,
@@ -21,20 +21,10 @@ const removeFilmSuccess = (film) => ({
     payload: film
 })
 
-const getFilms = () => (dispatch) => {
+const getFilms = (query) => (dispatch) => {
     dispatch(request());
     FilmService
-        .getAll()
-        .then((films) => dispatch(getFilmsSuccess(films.data)))
-        .then(() => dispatch(showNotice('films loaded', SnackBarSeverities.success)))
-        .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
-        .finally(() => dispatch(success()))
-}
-
-const getFilmsByQuery = (text) => (dispatch) => {
-    dispatch(request());
-    FilmService
-        .searchFilms({field: 'name', value: text})
+        .getAll(query)
         .then((films) => dispatch(getFilmsSuccess(films.data)))
         .then(() => dispatch(showNotice('films loaded', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
@@ -77,6 +67,5 @@ export default {
     getFilms,
     addFilm,
     removeFilm,
-    updateFilm,
-    getFilmsByQuery
+    updateFilm
 }

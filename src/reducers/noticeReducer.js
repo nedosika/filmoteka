@@ -14,7 +14,6 @@ const initialState = {
 }
 
 const noticeReducer = (state = initialState, {type, payload}) => {
-    console.log(payload)
     switch (type){
         case ACTION_TYPES.Notice.SHOW_NOTICE:
             return {...state, ...payload, isShow: true}

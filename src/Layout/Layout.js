@@ -32,7 +32,7 @@ const Layout = ({title, children}) => {
         isLoading: state.loading.isLoading,
         error: state.loading.error,
         notice: state.notice,
-        searchedFilms: state.search
+        searchedFilms: state.search.results
     });
     const {isAuth, isLoading, notice, searchedFilms} = useSelector(mapState);
     const {signOut, hideNotice, searchFilms} = useActions();
@@ -43,11 +43,12 @@ const Layout = ({title, children}) => {
         setIsOpenMenuBar(false);
     }
 
-    const handleSearch = (query) => {
+    const handleSearch = (text) => {
         navigate({
-            pathname: "/films/search",
+            pathname: "/search",
             search: `?${createSearchParams({
-                query
+                field: 'name',
+                value: text
             })}`
         });
     }
@@ -124,6 +125,16 @@ const Layout = ({title, children}) => {
                                 <Assignment/>
                             </ListItemIcon>
                             <ListItemText primary='Films'/>
+                        </ListItem>
+                        <ListItem
+                            button
+                            selected={location.pathname.split('/')[1] === 'search'}
+                            onClick={() => navigate('/search')}
+                        >
+                            <ListItemIcon>
+                                <Assignment/>
+                            </ListItemIcon>
+                            <ListItemText primary='Search'/>
                         </ListItem>
                         {
                             isAuth &&

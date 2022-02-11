@@ -1,5 +1,9 @@
-const getAll = async () => {
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/films', {
+const getAll = async (params = {field: 'name', value: ''}) => {
+    const url = new URL("https://rj2zi.sse.codesandbox.io/api/films");
+
+    params && Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -82,51 +86,9 @@ const updateFilm = async (film) => {
     }
 }
 
-const searchFilms = async (query) => {
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/films/search', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(query)
-    })
-
-    if (response.status === 200) {
-        const data = await response.json();
-        return {...data}
-    }
-
-    if (response.status === 404) {
-        const data = await response.json();
-        throw new Error(data.message);
-    }
-}
-
-// const getAllByQuery = async (query) => {
-//     const response = await fetch('https://rj2zi.sse.codesandbox.io/api/films/query', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//         },
-//         body: JSON.stringify(query)
-//     })
-//
-//     if (response.status === 200) {
-//         const data = await response.json();
-//         return {...data}
-//     }
-//
-//     if (response.status === 404) {
-//         const data = await response.json();
-//         throw new Error(data.message);
-//     }
-// }
-
 export const FilmService = {
     getAll,
     addFilm,
     removeFilm,
     updateFilm,
-    searchFilms,
-    //getAllByQuery
 }

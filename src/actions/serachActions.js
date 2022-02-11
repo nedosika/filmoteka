@@ -10,8 +10,8 @@ const searchFilmsSuccess = (films) => ({
 const searchFilms = (text) => (dispatch) => {
     dispatch(request());
     FilmService
-        .searchFilms({field: 'name', value: text})
-        .then((films) => dispatch(searchFilmsSuccess(films.data)))
+        .getAll({field: 'name', value: text})
+        .then((films) => dispatch(searchFilmsSuccess(films.data.map(film => film.name))))
         .catch(() => dispatch(searchFilmsSuccess([])))
         .finally(() => dispatch(success()))
 }

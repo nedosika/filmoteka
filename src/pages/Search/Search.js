@@ -5,10 +5,9 @@ import Layout from "../../Layout";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Film from "../Films/Film";
-import AddFilmButton from "../Films/AddFilmButton";
-import Pagination from "@mui/material/Pagination";
 import {useSelector} from "react-redux";
 import useActions from "../../hooks/useActions";
+import TextField from "@mui/material/TextField";
 
 const Search = () => {
     const [searchParams] = useSearchParams();
@@ -19,15 +18,22 @@ const Search = () => {
         isLoading: state.loading.isLoading
     })
     const {films} = useSelector(mapState);
-    const {getFilmsByQuery} = useActions();
+    const {getFilms} = useActions();
 
     React.useEffect(() => {
-        getFilmsByQuery(params.query);
-    }, [params.query]);
+        getFilms(params);
+    }, [searchParams]);
 
     return (
         <Layout title="Search">
-            <Box sx={{width: '100%'}}>
+            <Box sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1rem'
+            }}>
+                {/*<TextField label="Search" variant="outlined"/>*/}
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     {
                         films.map((film) =>

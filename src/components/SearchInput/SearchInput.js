@@ -8,8 +8,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import Autocomplete from "@mui/material/Autocomplete";
 
 import useDebounce from "../../hooks/useDebounce";
-import useActions from "../../hooks/useActions";
-
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -53,12 +51,12 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 const SearchInput = ({onSubmit, searchFilms, films}) => {
-    const [state, setState] = React.useState([]);
+    const [state, setState] = React.useState('');
     const debouncedSearchTerm = useDebounce(state, 500);
 
     React.useEffect(
         () => {
-            if(debouncedSearchTerm)
+            if (debouncedSearchTerm)
                 searchFilms(debouncedSearchTerm)
         },
         [debouncedSearchTerm]
@@ -68,8 +66,11 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
         setState(value);
     }
 
-    const handleSubmit = (event, value) => {
-        onSubmit(value.name);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        console.log(data.get('search'))
+        onSubmit(data.get('search'));
     }
 
     return (
@@ -77,19 +78,20 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
             <SearchIconWrapper>
                 <SearchIcon/>
             </SearchIconWrapper>
-            <Autocomplete
-                autoHighlight
-                options={films}
-                onChange={handleSubmit}
-                getOptionLabel={(option) => option.name}
-                onInputChange={handleInputChange}
-                renderInput={(params) => <StyledInputBase
-                    ref={params.InputProps.ref}
-                    {...lodash.omit(params, ['InputLabelProps', 'InputProps'])}
-                    placeholder="Search…"
-                />}
+            <form onSubmit={handleSubmit}>
+                <Autocomplete
 
-            />
+                    options={films}
+                    onInputChange={handleInputChange}
+                    renderInput={(params) => <StyledInputBase
+                        ref={params.InputProps.ref}
+                        {...lodash.omit(params, ['InputLabelProps', 'InputProps'])}
+                        type='search'
+                        placeholder="Search…"
+                        name='search'
+                    />}
+                />
+            </form>
         </Search>
     );
 };
