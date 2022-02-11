@@ -12,26 +12,32 @@ import useActions from "../../hooks/useActions";
 import Pagination from "@mui/material/Pagination";
 
 const Films = () => {
-    const [page, setPage] = useState(1);
     const mapState = (state) => ({
-        films: state.films,
+        films: state.films.data,
+        page: state.films.page,
+        limit: state.films.limit,
+        size: state.films.size,
         isAuth: state.auth.isAuth,
         isLoading: state.loading.isLoading
     })
     const {
         films,
+        page,
+        limit,
+        size,
         isAuth,
         isLoading
     } = useSelector(mapState);
 
     const {getFilms} = useActions();
+    const pages = Math.round(size / limit);
 
     const handleChangePage = (event, page) => {
-        console.log(page)
+        getFilms({page, limit});
     }
 
     React.useEffect(() => {
-        getFilms();
+        getFilms({page: 1, limit: 3});
     }, []);
 
     return (
@@ -59,7 +65,7 @@ const Films = () => {
                         justifyContent: 'center',
                         marginTop: '15px'
                     }}>
-                        <Pagination count={10} size="large" onChange={handleChangePage}/>
+                        <Pagination count={pages} page={page * 1} size="large" onChange={handleChangePage}/>
                     </Box>
                 }
 

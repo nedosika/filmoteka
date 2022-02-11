@@ -48,7 +48,9 @@ const Layout = ({title, children}) => {
             pathname: "/search",
             search: `?${createSearchParams({
                 field: 'name',
-                value: text
+                value: text,
+                page: 1,
+                limit: 10
             })}`
         });
     }

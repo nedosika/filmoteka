@@ -14,7 +14,7 @@ const Search = () => {
     const params = Object.fromEntries([...searchParams]);
 
     const mapState = (state) => ({
-        films: state.films,
+        films: state.films.data,
         isLoading: state.loading.isLoading
     })
     const {films} = useSelector(mapState);

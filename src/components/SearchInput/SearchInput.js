@@ -1,6 +1,5 @@
 import React from 'react';
 import lodash from "lodash";
-import {useSelector} from "react-redux";
 
 import InputBase from '@mui/material/InputBase';
 import {styled, alpha} from '@mui/material/styles';
@@ -69,7 +68,7 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log(data.get('search'))
+
         onSubmit(data.get('search'));
     }
 
@@ -80,7 +79,6 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
             </SearchIconWrapper>
             <form onSubmit={handleSubmit}>
                 <Autocomplete
-
                     options={films}
                     onInputChange={handleInputChange}
                     renderInput={(params) => <StyledInputBase

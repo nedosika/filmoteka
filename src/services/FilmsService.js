@@ -1,4 +1,4 @@
-const getAll = async (params = {field: 'name', value: ''}) => {
+const getAll = async (params) => {
     const url = new URL("https://rj2zi.sse.codesandbox.io/api/films");
 
     params && Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
