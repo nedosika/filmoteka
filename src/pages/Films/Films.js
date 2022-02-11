@@ -30,7 +30,7 @@ const Films = () => {
     } = useSelector(mapState);
 
     const {getFilms} = useActions();
-    const pages = Math.round(size / limit);
+    const pages = Math.ceil(size / limit);
 
     const handleChangePage = (event, page) => {
         getFilms({page, limit});

@@ -30,32 +30,35 @@ const getFilms = (query) => (dispatch) => {
         .finally(() => dispatch(success()))
 }
 
-const addFilm = (film) => (dispatch) => {
+const addFilm = (film) => (dispatch, getState) => {
+    const {films: {page, limit}} = getState();
     dispatch(request());
     FilmService
         .addFilm(film)
-        .then((film) => dispatch(addFilmSuccess(film.data)))
+        .then(() => dispatch(getFilms({page, limit})))
         .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error adding films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
 
-const updateFilm = (film) => (dispatch) => {
+const updateFilm = (film) => (dispatch, getState) => {
+    const {films: {page, limit}} = getState();
     dispatch(request());
     return FilmService
         .updateFilm(film)
-        .then((film) => dispatch(updateFilmSuccess(film.data)))
+        .then(() => dispatch(getFilms({page, limit})))
         .then(() => dispatch(success()))
         .then(() => dispatch(showNotice('Film updated', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error updating films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
 
-const removeFilm = (id) => (dispatch) => {
+const removeFilm = (id) => (dispatch, getState) => {
+    const {films: {page, limit}} = getState();
     dispatch(request());
     FilmService
         .removeFilm(id)
-        .then((film) => dispatch(removeFilmSuccess(film.data)))
+        .then(() => dispatch(getFilms({page, limit})))
         .then(() => dispatch(success()))
         .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error removing films: ${error.message}`, SnackBarSeverities.error)))
