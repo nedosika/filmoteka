@@ -20,7 +20,7 @@ const signIn = (email, password) => (dispatch) => {
             dispatch(authSuccess(data));
         })
         .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .catch((error) => dispatch(failure(error.message)))
 }
 
 const signUp = (email, password) => (dispatch) => {
@@ -36,7 +36,7 @@ const signUp = (email, password) => (dispatch) => {
             dispatch(authSuccess(data.token))
         })
         .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error)))
+        .catch((error) => dispatch(failure(error.message)))
 }
 
 const signOut = () => {

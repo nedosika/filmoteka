@@ -32,8 +32,8 @@ function Copyright(props) {
 
 export default function SignUpPage() {
     const mapState = (state) => ({
-        isSigning: state.auth.isSigning,
-        error: state.auth.error
+        isSigning: state.loading.isLoading,
+        error: state.loading.error
     });
     const {isSigning, error} = useSelector(mapState);
     const {signUp} = useActions();
