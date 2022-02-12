@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
 
@@ -17,16 +17,14 @@ const Films = () => {
         page: state.films.page,
         limit: state.films.limit,
         size: state.films.size,
-        isAuth: state.auth.isAuth,
-        isLoading: state.loading.isLoading
+        isAuth: state.auth.isAuth
     })
     const {
         films,
         page,
         limit,
         size,
-        isAuth,
-        isLoading
+        isAuth
     } = useSelector(mapState);
 
     const {getFilms} = useActions();
@@ -37,7 +35,7 @@ const Films = () => {
     }
 
     React.useEffect(() => {
-        getFilms({page: 1, limit: 3});
+        getFilms({page: 1, limit: 5});
     }, []);
 
     return (
@@ -52,22 +50,19 @@ const Films = () => {
                         )
                     }
                     {
-                        isAuth && !isLoading &&
+                        isAuth &&
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                             <AddFilmButton/>
                         </Grid>
                     }
                 </Grid>
-                {
-                    !isLoading &&
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginTop: '15px'
-                    }}>
-                        <Pagination count={pages} page={page * 1} size="large" onChange={handleChangePage}/>
-                    </Box>
-                }
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '15px'
+                }}>
+                    <Pagination count={pages} page={page * 1} size="large" onChange={handleChangePage}/>
+                </Box>
 
             </Box>
             <Outlet/>
