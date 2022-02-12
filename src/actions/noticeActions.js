@@ -5,6 +5,13 @@ export const showNotice = (message, severity) => ({
     payload: {message, severity}
 })
 
+export const SnackBarSeverities = {
+    error: 'error',
+    warning: 'warning',
+    info: 'info',
+    success: 'success'
+}
+
 const hideNotice = () => ({
     type: ACTION_TYPES.Notice.HIDE_NOTICE
 })

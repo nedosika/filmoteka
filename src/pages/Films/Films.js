@@ -1,5 +1,5 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {Provider, useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -10,6 +10,8 @@ import Layout from "../../Layout";
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
 import Pagination from "@mui/material/Pagination";
+import {Button} from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 
 const Films = () => {
     const mapState = (state) => ({
@@ -40,6 +42,7 @@ const Films = () => {
 
     return (
         <Layout title={`Films`}>
+
             <Box sx={{width: '100%'}}>
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     {

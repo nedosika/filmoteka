@@ -26,6 +26,7 @@ const getFilms = (query) => (dispatch) => {
     FilmService
         .getAll(query)
         .then((films) => dispatch(getFilmsSuccess(films)))
+        .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }

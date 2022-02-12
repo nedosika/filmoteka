@@ -1,11 +1,5 @@
 import {ACTION_TYPES} from "../actions";
-
-export const SnackBarSeverities = {
-    error: 'error',
-    warning: 'warning',
-    info: 'info',
-    success: 'success'
-}
+import {SnackBarSeverities} from "../actions/noticeActions";
 
 const initialState = {
     severity: SnackBarSeverities.success,
