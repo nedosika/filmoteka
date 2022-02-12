@@ -7,11 +7,17 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const SnackBar = ({severity, onClose, message, open}) =>
-    <Snackbar sx={{position: 'static'}} open={open} autoHideDuration={6000} onClose={onClose}>
+const SnackBar = (props) => {
+    const {severity, onClose, message} = props;
+    return <Snackbar
+        {...props}
+        sx={{position: 'static'}}
+        autoHideDuration={6000}
+    >
         <Alert onClose={onClose} severity={severity} sx={{width: '100%'}}>
             {message}
         </Alert>
     </Snackbar>
+}
 
 export default SnackBar;

@@ -3,6 +3,7 @@ import {Stack} from "@mui/material";
 
 import SnackBar from "../SnackBar";
 import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
 
 const SnackStack = () => {
     const [snacks, setSnacks] = React.useState([
