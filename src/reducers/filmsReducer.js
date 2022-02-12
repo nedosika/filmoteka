@@ -8,7 +8,6 @@ const initialState = {
 };
 
 export default function filmsReducer(state = initialState, {type, payload}){
-    console.log(state)
     switch (type){
         case ACTION_TYPES.Films.FILMS_LOADED:
             return {...payload}
