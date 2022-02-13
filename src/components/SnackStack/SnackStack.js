@@ -1,27 +1,20 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+
 import {Stack} from "@mui/material";
 
 import SnackBar from "../SnackBar";
-import Button from "@mui/material/Button";
-import Snackbar from "@mui/material/Snackbar";
+import useActions from "../../hooks/useActions";
 
 const SnackStack = () => {
-    const [snacks, setSnacks] = React.useState([
-        {
-            message: 'test1',
-            isOpen: true
-        }
-    ]);
+    const mapState = (state) => state.notice
+    const {notices} = useSelector(mapState);
+    const {hideNotice} = useActions();
 
-    const handleClose = (index) => (event, reason) => {
-        if(reason !== 'clickaway')
-            setSnacks((prevState) =>
-            [
-                ...prevState.slice(0, index),
-                {...prevState[index], isOpen: false},
-                ...prevState.slice(index + 1)
-            ]
-        );
+    const handleClose = (key) => (event, reason) => {
+        if (reason !== 'clickaway') {
+            hideNotice(key);
+        }
     }
 
     return (
@@ -34,24 +27,15 @@ const SnackStack = () => {
                 position: 'fixed'
             }}>
             {
-                snacks.map((snack, index) =>
+                notices.map((notice) =>
                     <SnackBar
-                        key={index}
-                        message={snack.message}
-                        open={snack.isOpen}
-                        onClose={handleClose(index)}
+                        key={notice.key}
+                        severity={notice.severity}
+                        message={notice.message}
+                        open={notice.isOpen}
+                        onClose={handleClose(notice.key)}
                     />)
             }
-            <Button onClick={() =>
-                setSnacks((prevState) => [
-                    ...prevState, {
-                        message: 'test2',
-                        isOpen: true
-                    }
-                ])
-            }>
-                test
-            </Button>
         </Stack>
     );
 };

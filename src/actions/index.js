@@ -4,6 +4,7 @@ import filmsActionCreator from "./filmsActions";
 import noticeActionCreator from "./noticeActions";
 import searchActionCreators from "./serachActions";
 import favoritesActionCreator from "./favoritesActions";
+import snackStackActions from "./noticeActions";
 
 export const ACTION_TYPES = {
     Loading: {
@@ -38,6 +39,11 @@ export const ACTION_TYPES = {
     Notice: {
         SHOW_NOTICE: 'SHOW_NOTICE',
         HIDE_NOTICE: 'HIDE_NOTICE'
+    },
+    SnackStack: {
+        ADD_SNACK: 'ADD_SNACK',
+        DISABLE_SNACK: 'DISABLE_SNACK',
+        REMOVE_SNACK: 'REMOVE_SNACK'
     }
 };
 
@@ -46,8 +52,9 @@ export const ActionCreators = {
     ...userActionCreator,
     ...filmsActionCreator,
     ...noticeActionCreator,
+    ...searchActionCreators,
     ...favoritesActionCreator,
-    ...searchActionCreators
+    ...snackStackActions
 }
 
 export default ActionCreators;

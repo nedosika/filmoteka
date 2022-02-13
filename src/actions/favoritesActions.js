@@ -1,7 +1,7 @@
 import {ACTION_TYPES} from "./index";
 
 import {showNotice} from "./noticeActions";
-import {SnackBarSeverities} from "../hooks/useSnackBar";
+import {SnackBarSeverities} from "../components/SnackStack";
 import {request, success, failure} from "./loadingActions";
 import FavoritesService from "../services/FavoritesService";
 

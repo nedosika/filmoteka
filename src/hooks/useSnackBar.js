@@ -1,7 +1,7 @@
 import React, {createContext, useContext} from "react";
 import SnackBar from "../components/SnackBar";
 
-export const SnackBarSeverities = {
+const SnackBarSeverities = {
     error: 'error',
     warning: 'warning',
     info: 'info',

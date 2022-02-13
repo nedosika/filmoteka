@@ -1,20 +1,32 @@
 import {ACTION_TYPES} from "./index";
 
-export const showNotice = (message, severity) => ({
-    type: ACTION_TYPES.Notice.SHOW_NOTICE,
-    payload: {message, severity}
+const addSnack = (snack) => ({
+    type: ACTION_TYPES.SnackStack.ADD_SNACK,
+    payload: snack
 })
 
-export const SnackBarSeverities = {
-    error: 'error',
-    warning: 'warning',
-    info: 'info',
-    success: 'success'
+const disableSnack = (key) => ({
+    type: ACTION_TYPES.SnackStack.DISABLE_SNACK,
+    payload: key
+})
+
+const removeSnack = (key) => ({
+    type: ACTION_TYPES.SnackStack.REMOVE_SNACK,
+    payload: key
+})
+
+export const showNotice = (message, severity) => (dispatch) => {
+    dispatch(addSnack({
+        key: new Date().getTime() + Math.random(),
+        message,
+        severity
+    }))
 }
 
-const hideNotice = () => ({
-    type: ACTION_TYPES.Notice.HIDE_NOTICE
-})
+export const hideNotice = (key) => (dispatch) => {
+    dispatch(disableSnack(key));
+    setTimeout(() => dispatch(removeSnack(key)), 300);
+}
 
 export default {
     showNotice,

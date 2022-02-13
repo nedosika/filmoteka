@@ -3,10 +3,10 @@ import {combineReducers} from "redux";
 import auth from "./authReducer";
 import user from "./userReducer";
 import films from "./filmsReducer";
-import notice from "./noticeReducer";
 import loading from "./loadingReducer";
 import favorites from "./favoritesReducer";
 import search from "./serachReducer";
+import notice from "./noticeReducer";
 
 const rootReducer = combineReducers({
     auth,
@@ -14,8 +14,8 @@ const rootReducer = combineReducers({
     user,
     favorites,
     loading,
-    notice,
-    search
+    search,
+    notice
 });
 
 export default rootReducer;

@@ -2,7 +2,7 @@ import {ACTION_TYPES} from "./index";
 import {FilmService} from "../services";
 import {request, success, failure} from "./loadingActions";
 import {showNotice} from "./noticeActions";
-import {SnackBarSeverities} from "../hooks/useSnackBar";
+import {SnackBarSeverities} from "../components/SnackStack";
 
 const getFilmsSuccess = (films) => ({
     type: ACTION_TYPES.Films.FILMS_LOADED,
@@ -26,7 +26,9 @@ const getFilms = (query) => (dispatch) => {
     FilmService
         .getAll(query)
         .then((films) => dispatch(getFilmsSuccess(films)))
-        .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.success)))
+        // .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.success)))
+        // .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.info)))
+        // .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.warning)))
         .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
