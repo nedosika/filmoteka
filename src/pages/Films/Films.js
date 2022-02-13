@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import Film from "./Film";
+import FilmCard from "./FilmCard";
 import Layout from "../../Layout";
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
@@ -48,7 +48,7 @@ const Films = () => {
                     {
                         films.map((film) =>
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-                                <Film film={film}/>
+                                <FilmCard film={film}/>
                             </Grid>
                         )
                     }

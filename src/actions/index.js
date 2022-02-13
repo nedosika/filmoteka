@@ -18,10 +18,10 @@ export const ACTION_TYPES = {
     },
     Films: {
         FILMS_LOADED: 'FILMS_LOADED',
+        FILM_LOADED: 'FILM_LOADED',
         FILM_ADDED: 'FILM_ADDED',
         FILM_REMOVED: 'FILM_REMOVED',
         FILM_UPDATED: 'FILM_UPDATED',
-        FILMS_SEARCHED: 'FILMS_SEARCHED'
     },
     User: {
         USER_REQUEST: 'USER_REQUEST',
@@ -37,10 +37,6 @@ export const ACTION_TYPES = {
         SEARCH_SUCCESS: 'SEARCH_SUCCESS'
     },
     Notice: {
-        SHOW_NOTICE: 'SHOW_NOTICE',
-        HIDE_NOTICE: 'HIDE_NOTICE'
-    },
-    SnackStack: {
         ADD_SNACK: 'ADD_SNACK',
         DISABLE_SNACK: 'DISABLE_SNACK',
         REMOVE_SNACK: 'REMOVE_SNACK'

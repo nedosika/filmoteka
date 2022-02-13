@@ -8,6 +8,12 @@ const getFilmsSuccess = (films) => ({
     type: ACTION_TYPES.Films.FILMS_LOADED,
     payload: films
 });
+
+const getFilmSuccess = (film) => ({
+    type: ACTION_TYPES.Films.FILM_LOADED,
+    payload: film
+});
+
 const addFilmSuccess = (film) => ({
     type: ACTION_TYPES.Films.FILM_ADDED,
     payload: film
@@ -21,14 +27,23 @@ const removeFilmSuccess = (film) => ({
     payload: film
 })
 
+const getFilm = (id) => (dispatch) => {
+    dispatch(request());
+    FilmService
+        .getOne(id)
+        .then((response) => dispatch(getFilmSuccess(response.data)))
+        .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
+        .finally(() => dispatch(success()))
+}
+
 const getFilms = (query) => (dispatch) => {
     dispatch(request());
     FilmService
         .getAll(query)
         .then((films) => dispatch(getFilmsSuccess(films)))
-        // .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.success)))
-        // .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.info)))
-        // .then(() => dispatch(showNotice('Film loaded', SnackBarSeverities.warning)))
+        // .then(() => dispatch(showNotice('FilmCard loaded', SnackBarSeverities.success)))
+        // .then(() => dispatch(showNotice('FilmCard loaded', SnackBarSeverities.info)))
+        // .then(() => dispatch(showNotice('FilmCard loaded', SnackBarSeverities.warning)))
         .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
@@ -39,7 +54,7 @@ const addFilm = (film) => (dispatch, getState) => {
     FilmService
         .addFilm(film)
         .then(() => dispatch(getFilms({page, limit})))
-        .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('FilmCard added', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error adding films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
@@ -51,7 +66,7 @@ const updateFilm = (film) => (dispatch, getState) => {
         .updateFilm(film)
         .then(() => dispatch(getFilms({page, limit})))
         .then(() => dispatch(success()))
-        .then(() => dispatch(showNotice('Film updated', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('FilmCard updated', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error updating films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
@@ -63,12 +78,13 @@ const removeFilm = (id) => (dispatch, getState) => {
         .removeFilm(id)
         .then(() => dispatch(getFilms({page, limit})))
         .then(() => dispatch(success()))
-        .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('FilmCard removed', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error removing films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
 
 export default {
+    getFilm,
     getFilms,
     addFilm,
     removeFilm,

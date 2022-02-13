@@ -2,6 +2,7 @@ import {ACTION_TYPES} from "../actions";
 
 const initialState = {
     data: [],
+    currentFilm: {},
     page: 1,
     limit: 5,
     size: 0
@@ -26,6 +27,11 @@ export default function filmsReducer(state = initialState, {type, payload}){
             return {
                 ...state,
                 data: [...state.data.slice(0, index), payload, ...state.data.slice(index + 1)]
+            }
+        case ACTION_TYPES.Films.FILM_LOADED:
+            return {
+                ...state,
+                currentFilm: payload
             }
         default:
             return state

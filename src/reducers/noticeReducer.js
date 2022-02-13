@@ -6,7 +6,7 @@ const initialState = {
 
 const noticeReducer = (state = initialState, {type, payload}) => {
     switch (type) {
-        case ACTION_TYPES.SnackStack.ADD_SNACK:
+        case ACTION_TYPES.Notice.ADD_SNACK:
             return {
                 ...state,
                 notices: [...state.notices, {
@@ -16,7 +16,7 @@ const noticeReducer = (state = initialState, {type, payload}) => {
                     isOpen: true
                 }],
             }
-        case ACTION_TYPES.SnackStack.DISABLE_SNACK:
+        case ACTION_TYPES.Notice.DISABLE_SNACK:
             const index = state.notices.findIndex((notice) => notice.key === payload);
             return {
                 ...state,
@@ -26,7 +26,7 @@ const noticeReducer = (state = initialState, {type, payload}) => {
                     ...state.notices.slice(index + 1)
                 ]
             }
-        case ACTION_TYPES.SnackStack.REMOVE_SNACK:
+        case ACTION_TYPES.Notice.REMOVE_SNACK:
             return {
                 ...state,
                 notices: state.notices.filter((notice) => notice.key !== payload)

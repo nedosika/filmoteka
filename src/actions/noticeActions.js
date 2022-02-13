@@ -1,17 +1,17 @@
 import {ACTION_TYPES} from "./index";
 
 const addSnack = (snack) => ({
-    type: ACTION_TYPES.SnackStack.ADD_SNACK,
+    type: ACTION_TYPES.Notice.ADD_SNACK,
     payload: snack
 })
 
 const disableSnack = (key) => ({
-    type: ACTION_TYPES.SnackStack.DISABLE_SNACK,
+    type: ACTION_TYPES.Notice.DISABLE_SNACK,
     payload: key
 })
 
 const removeSnack = (key) => ({
-    type: ACTION_TYPES.SnackStack.REMOVE_SNACK,
+    type: ACTION_TYPES.Notice.REMOVE_SNACK,
     payload: key
 })
 

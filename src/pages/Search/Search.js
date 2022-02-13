@@ -4,7 +4,7 @@ import {useSearchParams} from "react-router-dom";
 import Layout from "../../Layout";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Film from "../Films/Film";
+import FilmCard from "../Films/FilmCard";
 import {useSelector} from "react-redux";
 import useActions from "../../hooks/useActions";
 import TextField from "@mui/material/TextField";
@@ -38,7 +38,7 @@ const Search = () => {
                     {
                         films.map((film) =>
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-                                <Film film={film}/>
+                                <FilmCard film={film}/>
                             </Grid>
                         )
                     }

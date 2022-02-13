@@ -1,3 +1,22 @@
+const getOne = async (id) => {
+    const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/films/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
+    })
+
+    if (response.status === 200) {
+        const data = await response.json();
+        return {...data}
+    }
+
+    if (response.status === 404) {
+        const data = await response.json();
+        throw new Error(data.message);
+    }
+};
+
 const getAll = async (params) => {
     const url = new URL("https://rj2zi.sse.codesandbox.io/api/films");
 
@@ -87,6 +106,7 @@ const updateFilm = async (film) => {
 }
 
 export const FilmService = {
+    getOne,
     getAll,
     addFilm,
     removeFilm,
