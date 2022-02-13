@@ -37,6 +37,10 @@ const Header = ({title, onOpenMenuBar}) => {
         });
     }
 
+    const handleSubmit = (id) => {
+        navigate(`/film/${id}`);
+    }
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="fixed">
@@ -53,7 +57,12 @@ const Header = ({title, onOpenMenuBar}) => {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         {title}
                     </Typography>
-                    <SearchInput searchFilms={searchFilms} films={searchedFilms} onSubmit={handleSearch}/>
+                    <SearchInput
+                        search={searchFilms}
+                        options={searchedFilms}
+                        onSearch={handleSearch}
+                        onSubmit={handleSubmit}
+                    />
                     <Box sx={{display: 'flex', alignItems: 'center'}}>
                         <IconButton
                             size="large"

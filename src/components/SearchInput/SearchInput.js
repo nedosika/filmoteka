@@ -1,5 +1,5 @@
-import React from 'react';
-import lodash from "lodash";
+import React, {useEffect, useState} from 'react';
+import omit from "lodash/omit";
 
 import InputBase from '@mui/material/InputBase';
 import {styled, alpha} from '@mui/material/styles';
@@ -41,14 +41,14 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-const SearchInput = ({onSubmit, searchFilms, films}) => {
-    const [state, setState] = React.useState('');
+const SearchInput = ({onSubmit, onSearch, search, options}) => {
+    const [state, setState] = useState('');
     const debouncedSearchTerm = useDebounce(state, 500);
 
-    React.useEffect(
+    useEffect(
         () => {
             if (debouncedSearchTerm)
-                searchFilms(debouncedSearchTerm)
+                search(debouncedSearchTerm)
         },
         [debouncedSearchTerm]
     );
@@ -57,11 +57,16 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
         setState(value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSearch = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        onSubmit(data.get('search'));
+        onSearch(data.get('search'));
+    }
+
+    const handleSubmit = (event, value) => {
+        console.log(value);
+        onSubmit(value);
     }
 
     return (
@@ -69,13 +74,14 @@ const SearchInput = ({onSubmit, searchFilms, films}) => {
             <SearchIconWrapper>
                 <SearchIcon/>
             </SearchIconWrapper>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSearch}>
                 <Autocomplete
-                    options={films}
+                    options={options}
                     onInputChange={handleInputChange}
+                    onChange={handleSubmit}
                     renderInput={(params) => <StyledInputBase
                         ref={params.InputProps.ref}
-                        {...lodash.omit(params, ['InputLabelProps', 'InputProps'])}
+                        {...omit(params, ['InputLabelProps', 'InputProps'])}
                         type='search'
                         placeholder="Search…"
                         name='search'
