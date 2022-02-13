@@ -59,14 +59,16 @@ const Films = () => {
                         </Grid>
                     }
                 </Grid>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: '15px'
-                }}>
-                    <Pagination count={pages} page={page * 1} size="large" onChange={handleChangePage}/>
-                </Box>
-
+                {
+                    films.length > 0 &&
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '15px'
+                    }}>
+                        <Pagination count={pages} page={page * 1} size="large" onChange={handleChangePage}/>
+                    </Box>
+                }
             </Box>
             <Outlet/>
         </Layout>);
