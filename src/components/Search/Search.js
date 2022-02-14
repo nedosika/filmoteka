@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Autocomplete from "@mui/material/Autocomplete";
 
 import useDebounce from "../../hooks/useDebounce";
+import AutocompleteItem from "./AutocompleteItem";
 
 const Container = styled('div')(({theme}) => ({
     position: 'relative',
@@ -68,6 +69,11 @@ const Search = ({onSubmit, onSearch, search, options}) => {
         value && onSubmit(value.id);
     }
 
+    const handleHook = (value) => (event) => {
+        event.preventDefault();
+        setState(value);
+    }
+
     return (
         <Container>
             <SearchIconWrapper>
@@ -76,17 +82,28 @@ const Search = ({onSubmit, onSearch, search, options}) => {
             <form onSubmit={handleSubmit}>
                 <Autocomplete
                     options={options}
+                    inputValue={state}
                     onInputChange={handleInputChange}
                     onChange={handleChange}
                     getOptionLabel={option => option.name}
                     isOptionEqualToValue={(option, value) => option.id === value.id}
-                    renderInput={(params) => <StyledInputBase
-                        ref={params.InputProps.ref}
-                        {...omit(params, ['InputLabelProps', 'InputProps'])}
-                        type='search'
-                        placeholder="Search…"
-                        name='search'
-                    />}
+                    renderOption={({key, ...props}) =>
+                        <AutocompleteItem
+                            {...props}
+                            key={key}
+                            value={key}
+                            onHook={handleHook(key)}
+                        />
+                    }
+                    renderInput={(props) =>
+                        <StyledInputBase
+                            ref={props.InputProps.ref}
+                            {...omit(props, ['InputLabelProps', 'InputProps'])}
+                            type='search'
+                            placeholder="Search…"
+                            name='search'
+                        />
+                    }
                 />
             </form>
         </Container>
