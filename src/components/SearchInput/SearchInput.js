@@ -65,8 +65,7 @@ const SearchInput = ({onSubmit, onSearch, search, options}) => {
     }
 
     const handleSubmit = (event, value) => {
-        console.log(value);
-        onSubmit(value);
+        onSubmit(value.id);
     }
 
     return (
@@ -79,9 +78,11 @@ const SearchInput = ({onSubmit, onSearch, search, options}) => {
                     options={options}
                     onInputChange={handleInputChange}
                     onChange={handleSubmit}
+                    getOptionLabel={option => option.name}
+                    getOptionSelected={(option, value) => option.value === value.name}
                     renderInput={(params) => <StyledInputBase
                         ref={params.InputProps.ref}
-                        {...omit(params, ['InputLabelProps', 'InputProps'])}
+                        {...omit(params, ['InputLabelProps', 'InputProps', 'getOptionSelected'])}
                         type='search'
                         placeholder="Search…"
                         name='search'

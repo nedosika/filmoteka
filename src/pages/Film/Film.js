@@ -23,29 +23,19 @@ const Film = () => {
         film: state.films.currentFilm,
         isLoading: state.loading.isLoading
     });
-    const {film, isLoading} = useSelector(mapState)
+    const {film} = useSelector(mapState)
     const {params} = useRouter();
 
     useEffect(() => {
         getFilm(params.id)
-    }, [])
+    }, [params])
 
     return (
         <Layout title="Film">
             <Container maxWidth="xs">
                 {
-                    isLoading
+                    film
                         ?
-                        <Stack spacing={1}>
-                            <Skeleton variant="text" />
-                            <Skeleton variant="text" />
-                            <Skeleton variant="rectangular" width={400} height={200}/>
-                            <Skeleton variant="text" />
-                            <Skeleton variant="text" />
-                            <Skeleton variant="circular" width={40} height={40} />
-                        </Stack>
-
-                        :
                         <Card sx={{maxWidth: 500}}>
                             <CardHeader
                                 title={film.name}
@@ -71,6 +61,15 @@ const Film = () => {
                                 </IconButton>
                             </CardActions>
                         </Card>
+                        :
+                        <Stack spacing={1}>
+                            <Skeleton variant="text"/>
+                            <Skeleton variant="text"/>
+                            <Skeleton variant="rectangular" width={400} height={200}/>
+                            <Skeleton variant="text"/>
+                            <Skeleton variant="text"/>
+                            <Skeleton variant="circular" width={40} height={40}/>
+                        </Stack>
                 }
             </Container>
         </Layout>
