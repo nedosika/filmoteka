@@ -1,7 +1,8 @@
 import {ACTION_TYPES} from "../actions";
 
 const initialState = {
-    results: []
+    results: [],
+    options: []
 };
 
 export default function searchReducer(state = initialState, {type, payload}){
@@ -10,6 +11,11 @@ export default function searchReducer(state = initialState, {type, payload}){
             return {
                 ...state,
                 results: payload
+            }
+        case ACTION_TYPES.Search.GET_SEARCH_OPTIONS_SUCCESS:
+            return {
+                ...state,
+                options: payload
             }
         default:
             return state

@@ -8,7 +8,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import useDebounce from "../../hooks/useDebounce";
 
-const Search = styled('div')(({theme}) => ({
+const Container = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     marginLeft: '10px',
@@ -41,7 +41,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     },
 }));
 
-const SearchInput = ({onSubmit, onSearch, search, options}) => {
+const Search = ({onSubmit, onSearch, search, options}) => {
     const [state, setState] = useState('');
     const debouncedSearchTerm = useDebounce(state, 500);
 
@@ -57,40 +57,40 @@ const SearchInput = ({onSubmit, onSearch, search, options}) => {
         setState(value);
     }
 
-    const handleSearch = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
         onSearch(data.get('search'));
     }
 
-    const handleSubmit = (event, value) => {
-        onSubmit(value.id);
+    const handleChange = (event, value) => {
+        value && onSubmit(value.id);
     }
 
     return (
-        <Search>
+        <Container>
             <SearchIconWrapper>
                 <SearchIcon/>
             </SearchIconWrapper>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSubmit}>
                 <Autocomplete
                     options={options}
                     onInputChange={handleInputChange}
-                    onChange={handleSubmit}
+                    onChange={handleChange}
                     getOptionLabel={option => option.name}
-                    getOptionSelected={(option, value) => option.value === value.name}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
                     renderInput={(params) => <StyledInputBase
                         ref={params.InputProps.ref}
-                        {...omit(params, ['InputLabelProps', 'InputProps', 'getOptionSelected'])}
+                        {...omit(params, ['InputLabelProps', 'InputProps'])}
                         type='search'
                         placeholder="Search…"
                         name='search'
                     />}
                 />
             </form>
-        </Search>
+        </Container>
     );
 };
 
-export default SearchInput;
+export default Search;

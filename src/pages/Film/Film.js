@@ -31,7 +31,7 @@ const Film = () => {
     }, [params])
 
     return (
-        <Layout title="Film">
+        <Layout title={film?.name}>
             <Container maxWidth="xs">
                 {
                     film

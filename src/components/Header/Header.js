@@ -11,7 +11,7 @@ import {AccountCircle} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import SearchInput from "../SearchInput";
+import Search from "../Search";
 import {useRouter} from "../../hooks/useRouter";
 import useActions from "../../hooks/useActions";
 
@@ -20,17 +20,16 @@ const Header = ({title, onOpenMenuBar}) => {
     const mapState = (state) => ({
         isAuth: state.auth.isAuth,
         isLoading: state.loading.isLoading,
-        searchedFilms: state.search.results
+        options: state.search.options
     });
-    const {isAuth, isLoading, searchedFilms} = useSelector(mapState);
-    const {searchFilms} = useActions();
+    const {isAuth, isLoading, options} = useSelector(mapState);
+    const {getSearchOptions: getOptions} = useActions();
 
-    const handleSearch = (text) => {
+    const handleSearch = (query) => {
         navigate({
             pathname: "/search",
             search: `?${createSearchParams({
-                field: 'name',
-                value: text,
+                query,
                 page: 1,
                 limit: 10
             })}`
@@ -57,9 +56,9 @@ const Header = ({title, onOpenMenuBar}) => {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         {title}
                     </Typography>
-                    <SearchInput
-                        search={searchFilms}
-                        options={searchedFilms}
+                    <Search
+                        search={getOptions}
+                        options={options}
                         onSearch={handleSearch}
                         onSubmit={handleSubmit}
                     />

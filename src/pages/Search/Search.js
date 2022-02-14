@@ -1,27 +1,27 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import {useSearchParams} from "react-router-dom";
 
-import Layout from "../../Layout";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import FilmCard from "../Films/FilmCard";
-import {useSelector} from "react-redux";
+
+import Layout from "../../Layout";
 import useActions from "../../hooks/useActions";
-import TextField from "@mui/material/TextField";
 
 const Search = () => {
     const [searchParams] = useSearchParams();
     const params = Object.fromEntries([...searchParams]);
 
     const mapState = (state) => ({
-        films: state.films.data,
+        films: state.search.results,
         isLoading: state.loading.isLoading
     })
     const {films} = useSelector(mapState);
-    const {getFilms} = useActions();
+    const {searchFilms} = useActions();
 
     React.useEffect(() => {
-        getFilms(params);
+        searchFilms(params.query);
     }, [searchParams]);
 
     return (
@@ -33,7 +33,6 @@ const Search = () => {
                 alignItems: 'center',
                 gap: '1rem'
             }}>
-                {/*<TextField label="Search" variant="outlined"/>*/}
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     {
                         films.map((film) =>
