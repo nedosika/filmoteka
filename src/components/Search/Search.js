@@ -70,7 +70,7 @@ const Search = ({onSubmit, onSearch, search, options}) => {
     }
 
     const handleHook = (value) => (event) => {
-        event.preventDefault();
+        event.stopPropagation();
         setState(value);
     }
 

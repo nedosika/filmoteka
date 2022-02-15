@@ -7,13 +7,14 @@ const StyledItem = styled('div')(({theme}) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'spaceBetween',
+    width: '100%'
 }));
 
-const AutocompleteItem = ({onClick, value, onHook, ...props}) => {
+const AutocompleteItem = ({value, onHook, ...props}) => {
     return (
         <li {...props}>
             <StyledItem>
-                <div onClick={onClick}>{value}</div><IconButton onClick={onHook}><ShareIcon/></IconButton>
+                <div>{value}</div><IconButton onClick={onHook}><ShareIcon/></IconButton>
             </StyledItem>
         </li>
     );
