@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 
 import {Stack} from "@mui/material";
 
-import SnackBar from "../SnackBar";
+import SnackBar from "./SnackBar";
 import useActions from "../../hooks/useActions";
 
 const SnackStack = () => {

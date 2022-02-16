@@ -4,12 +4,10 @@ import {Outlet, useNavigate} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-
 import Pagination from "@mui/material/Pagination";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
 
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
@@ -23,7 +21,7 @@ const Films = () => {
         page: state.films.page,
         pages: state.films.pages,
         isAuth: state.auth.isAuth
-    })
+    });
     const {
         films,
         page,
@@ -33,25 +31,27 @@ const Films = () => {
 
     const {getFilms, addToFavorites} = useActions();
 
-    const handleChangePage = (event, page) => {
+    const handleChangePage = (event, page = 1) => {
         getFilms({page});
-    }
-
-    const handleNavigateToRemove = (film) => () => {
-        navigate(`remove/${film.id}`)
     }
 
     const handleClickAddToFavorites = (film) => () => {
         addToFavorites(film);
     }
 
+    const handleNavigateToRemove = (film) => () => {
+        navigate(`remove/${film.id}`)
+    }
+
     const handleClickEditFilm = (film) => () => {
         navigate(`edit/${film.id}`)
     }
 
-    React.useEffect(() => {
-        getFilms({page: 1});
-    }, []);
+    const handleClickAddFilm = () => {
+        navigate('add');
+    }
+
+    React.useEffect(handleChangePage, []);
 
     return <Layout title={LayoutTitles.FILMS}>
         <Box sx={{width: '100%'}}>
@@ -82,7 +82,7 @@ const Films = () => {
                 {
                     isAuth &&
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                        <AddFilmButton/>
+                        <AddFilmButton onClick={handleClickAddFilm}/>
                     </Grid>
                 }
             </Grid>
