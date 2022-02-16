@@ -1,6 +1,8 @@
 import {ACTION_TYPES} from "./index";
 import {FilmService} from "../services";
 import {request, success} from "./loadingActions";
+import {showNotice} from "./noticeActions";
+import {SnackBarSeverities} from "../components/SnackStack";
 
 const searchFilmsSuccess = (films) => ({
     type: ACTION_TYPES.Search.SEARCH_SUCCESS,
@@ -17,7 +19,7 @@ const searchFilms = (query) => (dispatch) => {
     FilmService
         .getAll({field: 'name', value: query})
         .then((films) => dispatch(searchFilmsSuccess(films.data)))
-        .catch(() => dispatch(searchFilmsSuccess([])))
+        .catch((error) => dispatch(showNotice(error.message, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
 
@@ -26,7 +28,7 @@ const getSearchOptions = (query) => (dispatch) => {
     FilmService
         .getAll({field: 'name', value: query})
         .then((films) => dispatch(getOptionsSuccess(films.data)))
-        .catch(() => dispatch(searchFilmsSuccess([])))
+        .catch((error) => dispatch(showNotice(error.message, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
 

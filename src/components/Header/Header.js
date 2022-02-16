@@ -29,9 +29,7 @@ const Header = ({title, onOpenMenuBar}) => {
         navigate({
             pathname: "/search",
             search: `?${createSearchParams({
-                query,
-                page: 1,
-                limit: 10
+                query
             })}`
         });
     }
