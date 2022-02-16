@@ -13,8 +13,8 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import Layout from "../../Layout";
-import FilmCard from "../Films/FilmCard";
+import Layout, {LayoutTitles} from "../../Layout";
+import FilmCard from "../../components/FilmCard/FilmCard";
 import useActions from "../../hooks/useActions";
 
 const Search = () => {
@@ -58,7 +58,7 @@ const Search = () => {
     }
 
     return (
-        <Layout title="Search">
+        <Layout title={LayoutTitles.SEARCH}>
             <Box sx={{
                 width: '100%',
                 display: 'flex',

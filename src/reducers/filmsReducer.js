@@ -11,7 +11,7 @@ const initialState = {
 export default function filmsReducer(state = initialState, {type, payload}){
     switch (type){
         case ACTION_TYPES.Films.FILMS_LOADED:
-            return {...payload}
+            return payload
         case ACTION_TYPES.Films.FILM_ADDED:
             return {
                 ...state,

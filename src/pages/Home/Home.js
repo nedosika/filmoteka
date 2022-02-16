@@ -1,11 +1,9 @@
 import React from "react";
 
-import Layout from "../../Layout";
+import Layout, {LayoutTitles} from "../../Layout";
 
 const Home = () => {
-    return (
-        <Layout title="Home"/>
-        );
+    return <Layout title={LayoutTitles.HOME}/>
 }
 
 export default Home;

@@ -43,7 +43,7 @@ const removeFromFavorites = (id) => (dispatch) => {
     return FavoritesService
         .removeFromFavorites(id)
         .then((film) => dispatch(removeFromFavoritesSuccess(film.data)))
-        .then(() => dispatch(showNotice('FilmCard removed from favorites', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('Film removed from favorites', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error removing film: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }

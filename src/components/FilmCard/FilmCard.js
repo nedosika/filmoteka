@@ -1,23 +1,14 @@
-import * as React from 'react';
-import {useNavigate} from "react-router-dom";
+import React from 'react';
 
+import Box from "@mui/material/Box";
 import Card from '@mui/material/Card';
 import Rating from "@mui/material/Rating";
 import CardMedia from '@mui/material/CardMedia';
-
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
-
 import {CardActionArea, CardActions} from '@mui/material';
-import IconButton from "@mui/material/IconButton";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
-export default function Film({film}) {
-    const navigate = useNavigate();
-    const handleRemove = () => {
-        navigate(`remove/${film.id}`)
-    }
-
+const FilmCard = ({film, actionsButtons, onEdit}) => {
     return (
         <Card sx={{
             height: '100%',
@@ -25,7 +16,7 @@ export default function Film({film}) {
             flexDirection: 'column',
             justifyContent: 'space-between'
         }}>
-            <CardActionArea>
+            <CardActionArea onClick={onEdit}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -36,6 +27,9 @@ export default function Film({film}) {
                     <Typography gutterBottom variant="h5" component="div">
                         {film.name}
                     </Typography>
+                    <Typography gutterBottom variant="body2" component="div">
+                        {film.year}, {film.genre}
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {film.description}
                     </Typography>
@@ -43,10 +37,12 @@ export default function Film({film}) {
             </CardActionArea>
             <CardActions sx={{justifyContent: 'space-between'}}>
                 <Rating readOnly value={film.rating} size="large"/>
-                <IconButton onClick={handleRemove}>
-                    <RemoveCircleIcon/>
-                </IconButton>
+                <Box>
+                    {actionsButtons.map((ActionButton) => ActionButton && React.cloneElement(ActionButton))}
+                </Box>
             </CardActions>
         </Card>
     );
 }
+
+export default FilmCard;
