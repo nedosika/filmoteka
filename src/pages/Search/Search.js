@@ -26,8 +26,20 @@ const Search = () => {
     const {films} = useSelector(mapState);
     const {searchFilms} = useActions();
     const [state, setState] = useState({
-        filter: ''
+        filter: '',
+        sort: 'name',
+        order: 'ASC'
     });
+    const filteredFilms = films
+        .filter((film) =>
+            film.name.toLowerCase().includes(state.filter.toLowerCase())
+        )
+        .sort((a, b) => {
+            if (state.order === 'ASC')
+                return a[state.sort] > b[state.sort] ? 1 : -1
+            if (state.order === 'DESC')
+                return a[state.sort] < b[state.sort] ? 1 : -1
+        });
 
     useEffect(() => {
         searchFilms(params.query);
@@ -64,16 +76,33 @@ const Search = () => {
                     />
                     <FormControl sx={{minWidth: 120}}>
                         <InputLabel>Sort by</InputLabel>
-                        <Select label="Sort by">
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                        <Select
+                            name='sort'
+                            label='Sort by'
+                            onChange={handleChange}
+                            defaultValue='name'
+                        >
+                            <MenuItem value='name'>Name</MenuItem>
+                            <MenuItem value='year'>Year</MenuItem>
+                            <MenuItem value='genre'>Genre</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl sx={{minWidth: 120}}>
+                        <InputLabel>Order by</InputLabel>
+                        <Select
+                            name='order'
+                            label='Order by'
+                            onChange={handleChange}
+                            defaultValue='ASC'
+                        >
+                            <MenuItem value='ASC'>ASC</MenuItem>
+                            <MenuItem value='DESC'>DESC</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     {
-                        films.filter((film) => film.name.toLowerCase().includes(state.filter.toLowerCase())).map((film) =>
+                        filteredFilms.map((film) =>
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                                 <FilmCard film={film}/>
                             </Grid>
