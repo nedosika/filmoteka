@@ -8,6 +8,11 @@ import FilmCard from "../Films/FilmCard";
 
 import Layout from "../../Layout";
 import useActions from "../../hooks/useActions";
+import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 const Search = () => {
     const [searchParams] = useSearchParams();
@@ -33,6 +38,22 @@ const Search = () => {
                 alignItems: 'center',
                 gap: '1rem'
             }}>
+                <Box sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '1rem'
+                }}>
+                    <TextField label="Filter" variant="outlined"/>
+                    <FormControl sx={{minWidth: 120}}>
+                        <InputLabel>Sort by</InputLabel>
+                        <Select label="Sort by">
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
                 <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
                     {
                         films.map((film) =>
