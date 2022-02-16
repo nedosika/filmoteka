@@ -1,17 +1,18 @@
 import React from "react";
-import {Provider, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Outlet} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
+import Pagination from "@mui/material/Pagination";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import FilmCard from "./FilmCard";
 import Layout from "../../Layout";
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
-import Pagination from "@mui/material/Pagination";
-import {Button} from "@mui/material";
-import Snackbar from "@mui/material/Snackbar";
 
 const Films = () => {
     const mapState = (state) => ({
@@ -29,7 +30,7 @@ const Films = () => {
         isAuth
     } = useSelector(mapState);
 
-    const {getFilms} = useActions();
+    const {getFilms, addToFavorites} = useActions();
     const pages = Math.ceil(size / limit);
 
     const handleChangePage = (event, page) => {
@@ -48,7 +49,14 @@ const Films = () => {
                     {
                         films.map((film) =>
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-                                <FilmCard film={film}/>
+                                <FilmCard
+                                    film={film}
+                                    actionsButtons={[
+                                        isAuth && <IconButton onClick={() => addToFavorites(film)}>
+                                            <FavoriteIcon/>
+                                        </IconButton>
+                                    ]}
+                                />
                             </Grid>
                         )
                     }

@@ -1,36 +1,21 @@
-import * as React from 'react';
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import React from 'react';
 
 import Box from "@mui/material/Box";
 import Card from '@mui/material/Card';
 import Rating from "@mui/material/Rating";
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import {CardActionArea, CardActions} from '@mui/material';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-import useActions from "../../hooks/useActions";
-
-export default function FilmCard({film}) {
-    const navigate = useNavigate();
-    const {isAuth} = useSelector(({auth}) => auth);
-    const {addToFavorites} = useActions();
-
-    const handleRemove = () => {
-        navigate(`remove/${film.id}`)
-    }
-
-    const handleEdit = () => {
-        navigate(`edit/${film.id}`)
-    }
-
-    const handleAdd = () => {
-        addToFavorites(film)
-    }
+const FilmCard = ({film, actionsButtons, onEdit}) => {
+    // const handleRemove = () => {
+    //     navigate(`remove/${film.id}`)
+    // }
+    //
+    // const handleEdit = () => {
+    //     navigate(`edit/${film.id}`)
+    // }
 
     return (
         <Card sx={{
@@ -39,7 +24,7 @@ export default function FilmCard({film}) {
             flexDirection: 'column',
             justifyContent: 'space-between'
         }}>
-            <CardActionArea onClick={handleEdit}>
+            <CardActionArea onClick={onEdit}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -50,6 +35,9 @@ export default function FilmCard({film}) {
                     <Typography gutterBottom variant="h5" component="div">
                         {film.name}
                     </Typography>
+                    <Typography gutterBottom variant="body2" component="div">
+                        {film.year}, {film.genre}
+                    </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {film.description}
                     </Typography>
@@ -57,18 +45,12 @@ export default function FilmCard({film}) {
             </CardActionArea>
             <CardActions sx={{justifyContent: 'space-between'}}>
                 <Rating readOnly value={film.rating} size="large"/>
-                {
-                    isAuth &&
-                    <Box>
-                        <IconButton onClick={handleAdd}>
-                            <FavoriteIcon/>
-                        </IconButton>
-                        <IconButton onClick={handleRemove}>
-                            <RemoveCircleIcon/>
-                        </IconButton>
-                    </Box>
-                }
+                <Box>
+                    {actionsButtons.map((ActionButton) => ActionButton && React.cloneElement(ActionButton))}
+                </Box>
             </CardActions>
         </Card>
     );
 }
+
+export default FilmCard;

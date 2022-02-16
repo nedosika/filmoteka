@@ -33,7 +33,7 @@ const addToFavorites = (film) => (dispatch) => {
     return FavoritesService
         .addToFavorites(film)
         .then((film) => dispatch(addToFavoritesSuccess(film)))
-        .then(() => dispatch(showNotice('FilmCard added to favorites', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('Film added to favorites', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error added film: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }

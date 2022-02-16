@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {useSearchParams} from "react-router-dom";
+
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import Layout from "../../Layout";
 import FilmCard from "../Films/FilmCard";
@@ -21,15 +23,18 @@ const Search = () => {
 
     const mapState = (state) => ({
         films: state.search.results,
+        isAuth: state.auth.isAuth,
         isLoading: state.loading.isLoading
     })
-    const {films} = useSelector(mapState);
-    const {searchFilms} = useActions();
+    const {films, isAuth} = useSelector(mapState);
+    const {searchFilms, addToFavorites} = useActions();
+
     const [state, setState] = useState({
         filter: '',
         sort: 'name',
         order: 'ASC'
     });
+
     const filteredFilms = films
         .filter((film) =>
             film.name.toLowerCase().includes(state.filter.toLowerCase())
@@ -100,11 +105,22 @@ const Search = () => {
                         </Select>
                     </FormControl>
                 </Box>
-                <Grid container rowSpacing={1} columnSpacing={{xs: 1, sm: 2, md: 3}}>
+                <Grid
+                    container
+                    rowSpacing={1}
+                    columnSpacing={{xs: 1, sm: 2, md: 3}}
+                >
                     {
                         filteredFilms.map((film) =>
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-                                <FilmCard film={film}/>
+                                <FilmCard
+                                    film={film}
+                                    actionsButtons={[
+                                        isAuth && <IconButton onClick={() => addToFavorites(film)}>
+                                            <FavoriteIcon/>
+                                        </IconButton>
+                                    ]}
+                                />
                             </Grid>
                         )
                     }
