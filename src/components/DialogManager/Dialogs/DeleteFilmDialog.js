@@ -4,10 +4,11 @@ import useActions from "../../../hooks/useActions";
 import ConfirmDialog from "./ConfirmDialog";
 
 const DeleteFilmDialog = ({id}) => {
-    const {removeFilm} = useActions();
+    const {removeFilm, closeDialog} = useActions();
 
     const handleRemove = () => {
         removeFilm(id);
+        closeDialog();
     }
 
     return (

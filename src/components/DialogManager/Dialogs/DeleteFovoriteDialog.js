@@ -4,10 +4,11 @@ import useActions from "../../../hooks/useActions";
 import ConfirmDialog from "./ConfirmDialog";
 
 const DeleteFavoriteDialog = ({id}) => {
-    const {removeFromFavorites} = useActions();
+    const {removeFromFavorites, closeDialog} = useActions();
 
     const handleRemove = () => {
-        removeFromFavorites(id)
+        removeFromFavorites(id);
+        closeDialog();
     }
 
     return (

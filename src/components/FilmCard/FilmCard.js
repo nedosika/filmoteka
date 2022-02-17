@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Box from "@mui/material/Box";
 import Card from '@mui/material/Card';
 import Rating from "@mui/material/Rating";
 import CardMedia from '@mui/material/CardMedia';
