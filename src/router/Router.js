@@ -3,9 +3,9 @@ import {useSelector} from "react-redux";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Loader from "../components/Loader";
-import DeleteFavoriteDialog from "../pages/Favorites/DeleteFovoriteDialog";
-import DeleteFilmDialog from "../pages/Films/DeleteFilmDialog";
-import EditFilmDialog from "../pages/Films/EditFilmDialog";
+import DeleteFavoriteDialog from "../components/DialogManager/Dialogs/DeleteFovoriteDialog";
+import DeleteFilmDialog from "../components/DialogManager/Dialogs/DeleteFilmDialog";
+import EditFilmDialog from "../components/DialogManager/Dialogs/EditFilmDialog";
 
 const Film = React.lazy(() => import("../pages/Film"));
 const Home = React.lazy(() => import("../pages/Home"));

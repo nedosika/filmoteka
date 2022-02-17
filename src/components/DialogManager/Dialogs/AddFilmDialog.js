@@ -3,8 +3,8 @@ import {useNavigate} from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 
-import Dialog from "../../components/Dialog";
-import useActions from "../../hooks/useActions";
+import Dialog from "./index";
+import useActions from "../../../hooks/useActions";
 
 const AddFilmDialog = () => {
     const {addFilm, closeDialog} = useActions();

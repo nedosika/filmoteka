@@ -1,6 +1,6 @@
 import React from 'react';
-import {useRouter} from "../../hooks/useRouter";
-import Dialog from "../Dialog/Dialog";
+import {useRouter} from "../../../hooks/useRouter";
+import Dialog from "./Dialog";
 import {Typography} from "@mui/material";
 
 const DeleteDialog = ({title, onSubmit}) => {

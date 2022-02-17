@@ -1,6 +1,6 @@
 import React from 'react';
-import useActions from "../../hooks/useActions";
-import DeleteDialog from "../../components/DeleteDialog";
+import useActions from "../../../hooks/useActions";
+import DeleteDialog from "./DeleteDialog";
 
 const DeleteFilmDialog = () => {
     const {removeFromFavorites} = useActions();

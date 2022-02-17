@@ -1,26 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 
 import TextField from "@mui/material/TextField";
 
-import Dialog from "../../components/Dialog";
-import useActions from "../../hooks/useActions";
-import {useRouter} from "../../hooks/useRouter";
+import Dialog from "./Dialog";
+import useActions from "../../../hooks/useActions";
 
-const EditFilmDialog = () => {
-    const {navigate, params} = useRouter();
+const EditFilmDialog = ({id}) => {
     const mapState = (state) => ({
-        films: state.films.data
+        currentFilm: state.films.currentFilm
     })
-    const {films} = useSelector(mapState);
-    const {updateFilm} = useActions();
-    const {id} = params;
+    const {currentFilm} = useSelector(mapState);
+    const {updateFilm, getFilm, closeDialog} = useActions();
 
-    const film = films.find((film) => film.id === id);
-    const [state, setState] = React.useState({...film})
+    const [state, setState] = useState({...currentFilm});
+
+    useEffect(() => {
+        getFilm(id);
+    }, [id]);
 
     const handleClose = () => {
-        navigate(-1);
+        closeDialog();
     }
 
     const handleSubmit = (event) => {
@@ -36,7 +36,12 @@ const EditFilmDialog = () => {
         }));
     }
     return (
-        <Dialog title="Editing film" open onClose={handleClose} onSubmit={handleSubmit}>
+        <Dialog
+            title="Editing film"
+            open
+            onClose={handleClose}
+            onSubmit={handleSubmit}
+        >
             <TextField
                 label="Name"
                 name="name"

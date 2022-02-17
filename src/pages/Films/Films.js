@@ -13,7 +13,7 @@ import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
 import Layout, {LayoutTitles} from "../../Layout";
 import FilmCard from "../../components/FilmCard/FilmCard";
-import {DIALOG_TYPES} from "../../components/Dialog";
+import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
 const Films = () => {
     const navigate = useNavigate();
@@ -45,12 +45,11 @@ const Films = () => {
     }
 
     const handleClickEditFilm = (film) => () => {
-        navigate(`edit/${film.id}`)
+        openDialog(DIALOG_TYPES.EDIT_FILM, {id: film.id});
     }
 
     const handleClickAddFilm = () => {
-        console.log('open')
-        openDialog(DIALOG_TYPES.ADD_FILM)
+        openDialog(DIALOG_TYPES.ADD_FILM);
     }
 
     React.useEffect(handleChangePage, []);
