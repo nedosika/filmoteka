@@ -55,7 +55,7 @@ const addFilm = (film) => (dispatch, getState) => {
     FilmService
         .addFilm(film)
         .then(() => dispatch(getFilms({page})))
-        .then(() => dispatch(showNotice('FilmCard added', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error adding films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }
@@ -67,7 +67,7 @@ const updateFilm = (film) => (dispatch, getState) => {
         .updateFilm(film)
         .then(() => dispatch(getFilms({page})))
         .then(() => dispatch(success()))
-        .then(() => dispatch(showNotice('FilmCard updated', SnackBarSeverities.success)))
+        .then(() => dispatch(showNotice('Film updated', SnackBarSeverities.success)))
         .catch((error) => dispatch(showNotice(`Error updating films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }

@@ -1,18 +1,17 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Outlet, useNavigate} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import Layout, {LayoutTitles} from "../../Layout";
 import useActions from "../../hooks/useActions";
+import Layout, {LayoutTitles} from "../../Layout";
 import FilmCard from "../../components/FilmCard/FilmCard";
+import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
 const Favorites = () => {
-    const navigate = useNavigate();
     const mapState = (state) => ({
         films: state.favorites,
         isLoading: state.loading.isLoading,
@@ -22,14 +21,14 @@ const Favorites = () => {
         films,
         isAuth
     } = useSelector(mapState);
-    const {getFavorites} = useActions();
+    const {getFavorites, openDialog} = useActions();
 
     React.useEffect(() => {
         getFavorites();
     }, []);
 
-    const handleRemove = (film) => () => {
-        navigate(`remove/${film.id}`)
+    const handleRemove = (id) => () => {
+        openDialog(DIALOG_TYPES.DELETE_FILM_FROM_FAV, {id})
     }
 
     return (
@@ -42,7 +41,7 @@ const Favorites = () => {
                                 film={film}
                                 actionsButtons={[
                                     isAuth &&
-                                    <IconButton onClick={handleRemove(film)}>
+                                    <IconButton onClick={handleRemove(film.id)}>
                                         <DeleteOutlineIcon/>
                                     </IconButton>
                                 ]}
@@ -51,7 +50,6 @@ const Favorites = () => {
                     )}
                 </Grid>
             </Box>
-            <Outlet/>
         </Layout>);
 }
 

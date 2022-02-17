@@ -1,13 +1,17 @@
 import React from 'react';
 
 import useActions from "../../../hooks/useActions";
-import DeleteDialog from "./DeleteDialog";
+import ConfirmDialog from "./ConfirmDialog";
 
-const DeleteFilmDialog = () => {
+const DeleteFilmDialog = ({id}) => {
     const {removeFilm} = useActions();
 
+    const handleRemove = () => {
+        removeFilm(id);
+    }
+
     return (
-        <DeleteDialog onSubmit={removeFilm}/>
+        <ConfirmDialog title='Remove film' onSubmit={handleRemove}/>
     );
 };
 

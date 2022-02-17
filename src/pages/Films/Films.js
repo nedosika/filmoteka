@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
-import {Outlet, useNavigate} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -16,7 +15,6 @@ import FilmCard from "../../components/FilmCard/FilmCard";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
 const Films = () => {
-    const navigate = useNavigate();
     const mapState = (state) => ({
         films: state.films.data,
         page: state.films.page,
@@ -36,23 +34,15 @@ const Films = () => {
         getFilms({page});
     }
 
-    const handleClickAddToFavorites = (film) => () => {
+    const handleAddToFavorites = (film) => () => {
         addToFavorites(film);
     }
 
-    const handleNavigateToRemove = (film) => () => {
-        navigate(`remove/${film.id}`)
+    const handleOpenDialog = (dialog, id) => () => {
+        openDialog(dialog, {id})
     }
 
-    const handleClickEditFilm = (film) => () => {
-        openDialog(DIALOG_TYPES.EDIT_FILM, {id: film.id});
-    }
-
-    const handleClickAddFilm = () => {
-        openDialog(DIALOG_TYPES.ADD_FILM);
-    }
-
-    React.useEffect(handleChangePage, []);
+    useEffect(handleChangePage, []);
 
     return <Layout title={LayoutTitles.FILMS}>
         <Box sx={{width: '100%'}}>
@@ -66,13 +56,13 @@ const Films = () => {
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                             <FilmCard
                                 film={film}
-                                onEdit={handleClickEditFilm(film)}
+                                onEdit={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}
                                 actionsButtons={[
                                     isAuth &&
-                                    <IconButton onClick={handleClickAddToFavorites(film)}>
+                                    <IconButton onClick={handleAddToFavorites(film)}>
                                         <FavoriteIcon/>
                                     </IconButton>,
-                                    <IconButton onClick={handleNavigateToRemove(film)}>
+                                    <IconButton onClick={handleOpenDialog(DIALOG_TYPES.DELETE_FILM, film.id)}>
                                         <DeleteOutlineIcon/>
                                     </IconButton>
                                 ]}
@@ -83,7 +73,7 @@ const Films = () => {
                 {
                     isAuth &&
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                        <AddFilmButton onClick={handleClickAddFilm}/>
+                        <AddFilmButton onClick={handleOpenDialog(DIALOG_TYPES.ADD_FILM)}/>
                     </Grid>
                 }
             </Grid>
@@ -103,7 +93,6 @@ const Films = () => {
                 </Box>
             }
         </Box>
-        <Outlet/>
     </Layout>
 }
 

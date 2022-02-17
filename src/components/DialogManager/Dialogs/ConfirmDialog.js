@@ -1,20 +1,20 @@
 import React from 'react';
-import {useRouter} from "../../../hooks/useRouter";
-import Dialog from "./Dialog";
+
 import {Typography} from "@mui/material";
 
-const DeleteDialog = ({title, onSubmit}) => {
-    const {navigate, params} = useRouter();
+import Dialog from "./Dialog";
+import useActions from "../../../hooks/useActions";
+
+const ConfirmDialog = ({title, onSubmit}) => {
+    const {closeDialog} = useActions();
 
     const handleClose = () => {
-        navigate(-1);
+        closeDialog();
     }
 
     const handleSubmit = (e) => {
-        const {id} = params;
-
         e.preventDefault();
-        onSubmit(id);
+        onSubmit();
         handleClose();
     }
 
@@ -25,4 +25,4 @@ const DeleteDialog = ({title, onSubmit}) => {
     );
 };
 
-export default DeleteDialog;
+export default ConfirmDialog;
