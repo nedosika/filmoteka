@@ -1,25 +1,22 @@
 import React from 'react';
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
+import MUIDialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContentText from "@mui/material/DialogContentText";
 
-export default ({
-                    children,
+const Dialog =({
+                    open,
                     title,
+                    children,
                     description,
-                    onSubmit,
-                    onClose,
-                    open
+                    dialogActions,
+                    onClose
                 }) =>
-    <Dialog
+    <MUIDialog
         component="form"
-        onSubmit={onSubmit}
-        open={open}
         onClose={onClose}
+        open={open}
     >
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
@@ -28,8 +25,7 @@ export default ({
             </DialogContentText>
             {children}
         </DialogContent>
-        <DialogActions>
-            <Button variant="outlined" onClick={onClose}>Cancel</Button>
-            <Button variant="outlined" type="submit">Approve</Button>
-        </DialogActions>
-    </Dialog>
+        {dialogActions}
+    </MUIDialog>
+
+export default Dialog;

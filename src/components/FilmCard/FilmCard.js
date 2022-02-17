@@ -37,9 +37,7 @@ const FilmCard = ({film, actionsButtons, onEdit}) => {
             </CardActionArea>
             <CardActions sx={{justifyContent: 'space-between'}}>
                 <Rating readOnly value={film.rating} size="large"/>
-                <Box>
-                    {actionsButtons.map((ActionButton) => ActionButton && React.cloneElement(ActionButton))}
-                </Box>
+                {actionsButtons}
             </CardActions>
         </Card>
     );

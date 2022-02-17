@@ -1,9 +1,10 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
 
+import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import DialogActions from "@mui/material/DialogActions";
 
-import Dialog from "./index";
+import Dialog from "../Dialog";
 import useActions from "../../../hooks/useActions";
 
 const AddFilmDialog = () => {
@@ -31,7 +32,17 @@ const AddFilmDialog = () => {
         }));
     }
     return (
-        <Dialog title="Adding film" open onClose={handleClose} onSubmit={handleSubmit}>
+        <Dialog
+            title="Adding film"
+            open
+            onClose={handleClose}
+            dialogActions={
+                <DialogActions>
+                    <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleSubmit}>Approve</Button>
+                </DialogActions>
+            }
+        >
             <TextField
                 label="Name"
                 name="name"

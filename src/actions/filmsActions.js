@@ -31,7 +31,7 @@ const getFilm = (id) => (dispatch) => {
     dispatch(request());
     FilmService
         .getOne(id)
-        .then((response) => dispatch(getFilmSuccess(response.data)))
+        .then(({data}) => dispatch(getFilmSuccess(data)))
         .catch((error) => dispatch(showNotice(`Error loading films: ${error.message}`, SnackBarSeverities.error)))
         .finally(() => dispatch(success()))
 }

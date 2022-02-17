@@ -1,8 +1,10 @@
 import React from 'react';
 
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 import {Typography} from "@mui/material";
 
-import Dialog from "./Dialog";
+import Dialog from "../Dialog";
 import useActions from "../../../hooks/useActions";
 
 const ConfirmDialog = ({title, onSubmit}) => {
@@ -19,7 +21,17 @@ const ConfirmDialog = ({title, onSubmit}) => {
     }
 
     return (
-        <Dialog title={title} open onClose={handleClose} onSubmit={handleSubmit}>
+        <Dialog
+            open
+            title={title}
+            onClose={handleClose}
+            dialogActions={
+                <DialogActions>
+                    <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                    <Button variant="outlined" color="secondary" onClick={handleSubmit}>Approve</Button>
+                </DialogActions>
+            }
+        >
             <Typography>Are you sure?</Typography>
         </Dialog>
     );

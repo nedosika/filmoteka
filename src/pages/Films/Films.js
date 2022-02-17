@@ -57,15 +57,17 @@ const Films = () => {
                             <FilmCard
                                 film={film}
                                 onEdit={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}
-                                actionsButtons={[
+                                actionsButtons={
                                     isAuth &&
-                                    <IconButton onClick={handleAddToFavorites(film)}>
-                                        <FavoriteIcon/>
-                                    </IconButton>,
-                                    <IconButton onClick={handleOpenDialog(DIALOG_TYPES.DELETE_FILM, film.id)}>
-                                        <DeleteOutlineIcon/>
-                                    </IconButton>
-                                ]}
+                                    <Box>
+                                        <IconButton onClick={handleAddToFavorites(film)}>
+                                            <FavoriteIcon/>
+                                        </IconButton>
+                                        <IconButton onClick={handleOpenDialog(DIALOG_TYPES.DELETE_FILM, film.id)}>
+                                            <DeleteOutlineIcon/>
+                                        </IconButton>
+                                    </Box>
+                                }
                             />
                         </Grid>
                     )

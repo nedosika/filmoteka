@@ -3,9 +3,6 @@ import {useSelector} from "react-redux";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Loader from "../components/Loader";
-import DeleteFavoriteDialog from "../components/DialogManager/Dialogs/DeleteFovoriteDialog";
-import DeleteFilmDialog from "../components/DialogManager/Dialogs/DeleteFilmDialog";
-import EditFilmDialog from "../components/DialogManager/Dialogs/EditFilmDialog";
 
 const Film = React.lazy(() => import("../pages/Film"));
 const Home = React.lazy(() => import("../pages/Home"));
@@ -26,14 +23,9 @@ const Router = () => {
                         ? <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="film/:id" element={<Film/>}/>
-                            <Route path="films" element={<Films/>}>
-                                <Route path="remove/:id" element={<DeleteFilmDialog/>}/>
-                                <Route path="edit/:id" element={<EditFilmDialog/>}/>
-                            </Route>
+                            <Route path="films" element={<Films/>}/>
                             <Route path="search" element={<Search/>}/>
-                            <Route path="fav" element={<Favorites/>}>
-                                <Route path="remove/:id" element={<DeleteFavoriteDialog/>}/>
-                            </Route>
+                            <Route path="fav" element={<Favorites/>}/>
                             <Route path="*" element={<Navigate to="/films"/>}/>
                         </Routes>
                         : <Routes>

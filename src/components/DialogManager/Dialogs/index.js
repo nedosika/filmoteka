@@ -4,8 +4,6 @@ import EditFilmDialog from "./EditFilmDialog";
 import DeleteFilmDialog from "./DeleteFilmDialog";
 import DeleteFavoriteDialog from "./DeleteFovoriteDialog";
 
-export {default} from "./Dialog";
-
 export const DIALOG_TYPES = {
     ADD_FILM: 'AddFilmDialog',
     EDIT_FILM: 'EditFilmDialog',
@@ -14,10 +12,11 @@ export const DIALOG_TYPES = {
     DELETE_FILM_FROM_FAV: 'DeleteFavoriteDialog',
 }
 
-export {
+export const Dialogs = {
     AddFilmDialog,
     ConfirmDialog,
     EditFilmDialog,
     DeleteFilmDialog,
     DeleteFavoriteDialog
 }
+
