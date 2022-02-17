@@ -60,14 +60,17 @@ const Header = ({title, onOpenMenuBar}) => {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         {title}
                     </Typography>
-                    <Button
-                        color="inherit"
-                        variant='outlined'
-                        sx={{mr: 2}}
-                        onClick={handleAddFilm}
-                    >
-                        Add film
-                    </Button>
+                    {
+                        isAuth &&
+                        <Button
+                            color="inherit"
+                            variant='outlined'
+                            sx={{mr: 2}}
+                            onClick={handleAddFilm}
+                        >
+                            Add film
+                        </Button>
+                    }
                     <Search
                         search={getOptions}
                         options={options}

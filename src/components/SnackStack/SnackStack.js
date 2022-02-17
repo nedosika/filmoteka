@@ -9,7 +9,7 @@ import useActions from "../../hooks/useActions";
 const SnackStack = () => {
     const mapState = (state) => state.notice
     const {notices} = useSelector(mapState);
-    const {hideNotice} = useActions();
+    const {hideNotice, removeNotice} = useActions();
 
     const handleClose = (key) => (event, reason) => {
         if (reason !== 'clickaway') {
@@ -17,24 +17,37 @@ const SnackStack = () => {
         }
     }
 
+    const handleEnd = (key) => () => {
+        removeNotice(key);
+    }
+
     return (
         <Stack
             spacing={1}
             sx={{
-                bottom: '24px',
                 left: '24px',
                 right: 'auto',
+                bottom: '24px',
                 position: 'fixed'
-            }}>
+            }}
+        >
             {
-                notices.map((notice) =>
+                notices.map(({
+                                 key,
+                                 isOpen,
+                                 message,
+                                 severity
+                             }) =>
                     <SnackBar
-                        key={notice.key}
-                        severity={notice.severity}
-                        message={notice.message}
-                        open={notice.isOpen}
-                        onClose={handleClose(notice.key)}
-                    />)
+                        key={key}
+                        open={isOpen}
+                        message={message}
+                        severity={severity}
+                        onEnd={handleEnd(key)}
+                        onClose={handleClose(key)}
+
+                    />
+                )
             }
         </Stack>
     );
