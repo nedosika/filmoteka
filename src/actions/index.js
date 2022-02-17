@@ -1,10 +1,11 @@
+import dialogsActions from "./dialogsActions";
 import authActionCreator from "./authActions";
 import userActionCreator from "./userActions";
 import filmsActionCreator from "./filmsActions";
+import snackStackActions from "./noticeActions";
 import noticeActionCreator from "./noticeActions";
 import searchActionCreators from "./serachActions";
 import favoritesActionCreator from "./favoritesActions";
-import snackStackActions from "./noticeActions";
 
 export const ACTION_TYPES = {
     Loading: {
@@ -41,17 +42,22 @@ export const ACTION_TYPES = {
         ADD_SNACK: 'ADD_SNACK',
         DISABLE_SNACK: 'DISABLE_SNACK',
         REMOVE_SNACK: 'REMOVE_SNACK'
+    },
+    Dialog: {
+        PUSH_DIALOG: 'PUSH_DIALOG',
+        POP_DIALOG: 'POP_DIALOG'
     }
 };
 
 export const ActionCreators = {
+    ...dialogsActions,
+    ...snackStackActions,
     ...authActionCreator,
     ...userActionCreator,
     ...filmsActionCreator,
     ...noticeActionCreator,
     ...searchActionCreators,
     ...favoritesActionCreator,
-    ...snackStackActions
 }
 
 export default ActionCreators;

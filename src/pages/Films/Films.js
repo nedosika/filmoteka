@@ -13,6 +13,7 @@ import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
 import Layout, {LayoutTitles} from "../../Layout";
 import FilmCard from "../../components/FilmCard/FilmCard";
+import {DIALOG_TYPES} from "../../components/Dialog";
 
 const Films = () => {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Films = () => {
         isAuth
     } = useSelector(mapState);
 
-    const {getFilms, addToFavorites} = useActions();
+    const {getFilms, addToFavorites, openDialog} = useActions();
 
     const handleChangePage = (event, page = 1) => {
         getFilms({page});
@@ -48,7 +49,8 @@ const Films = () => {
     }
 
     const handleClickAddFilm = () => {
-        navigate('add');
+        console.log('open')
+        openDialog(DIALOG_TYPES.ADD_FILM)
     }
 
     React.useEffect(handleChangePage, []);

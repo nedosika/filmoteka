@@ -6,9 +6,8 @@ import TextField from "@mui/material/TextField";
 import Dialog from "../../components/Dialog";
 import useActions from "../../hooks/useActions";
 
-const AddDialog = () => {
-    const navigate = useNavigate();
-    const {addFilm} = useActions();
+const AddFilmDialog = () => {
+    const {addFilm, closeDialog} = useActions();
     const [state, setState] = React.useState({
         name: '',
         img: '',
@@ -16,7 +15,7 @@ const AddDialog = () => {
     })
 
     const handleClose = () => {
-        navigate(-1);
+        closeDialog();
     }
 
     const handleSubmit = (event) => {
@@ -63,4 +62,4 @@ const AddDialog = () => {
     );
 };
 
-export default AddDialog;
+export default AddFilmDialog;

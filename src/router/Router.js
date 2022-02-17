@@ -4,7 +4,6 @@ import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
 import Loader from "../components/Loader";
 import DeleteFavoriteDialog from "../pages/Favorites/DeleteFovoriteDialog";
-import AddDialog from "../pages/Films/AddDialog";
 import DeleteFilmDialog from "../pages/Films/DeleteFilmDialog";
 import EditFilmDialog from "../pages/Films/EditFilmDialog";
 
@@ -28,7 +27,6 @@ const Router = () => {
                             <Route path="/" element={<Home/>}/>
                             <Route path="film/:id" element={<Film/>}/>
                             <Route path="films" element={<Films/>}>
-                                <Route path="add" element={<AddDialog/>}/>
                                 <Route path="remove/:id" element={<DeleteFilmDialog/>}/>
                                 <Route path="edit/:id" element={<EditFilmDialog/>}/>
                             </Route>

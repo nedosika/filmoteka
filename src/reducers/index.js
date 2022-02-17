@@ -3,19 +3,21 @@ import {combineReducers} from "redux";
 import auth from "./authReducer";
 import user from "./userReducer";
 import films from "./filmsReducer";
-import loading from "./loadingReducer";
-import favorites from "./favoritesReducer";
 import search from "./serachReducer";
 import notice from "./noticeReducer";
+import loading from "./loadingReducer";
+import dialogs from "./dialogsReducer";
+import favorites from "./favoritesReducer";
 
 const rootReducer = combineReducers({
     auth,
-    films,
     user,
-    favorites,
-    loading,
+    films,
+    dialogs,
     search,
-    notice
+    notice,
+    loading,
+    favorites
 });
 
 export default rootReducer;
