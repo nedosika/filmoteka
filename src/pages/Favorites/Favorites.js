@@ -39,12 +39,14 @@ const Favorites = () => {
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                             <FilmCard
                                 film={film}
-                                actionsButtons={[
+                                actionsButtons={
                                     isAuth &&
+                                    <Box>
                                     <IconButton onClick={handleRemove(film.id)}>
                                         <DeleteOutlineIcon/>
                                     </IconButton>
-                                ]}
+                                    </Box>
+                                }
                             />
                         </Grid>
                     )}

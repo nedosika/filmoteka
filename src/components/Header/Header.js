@@ -4,6 +4,7 @@ import {createSearchParams} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
@@ -14,6 +15,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Search from "../Search";
 import {useRouter} from "../../hooks/useRouter";
 import useActions from "../../hooks/useActions";
+import {DIALOG_TYPES} from "../DialogManager/Dialogs";
 
 const Header = ({title, onOpenMenuBar}) => {
     const {navigate} = useRouter();
@@ -23,7 +25,7 @@ const Header = ({title, onOpenMenuBar}) => {
         options: state.search.options
     });
     const {isAuth, isLoading, options} = useSelector(mapState);
-    const {getSearchOptions: getOptions} = useActions();
+    const {getSearchOptions: getOptions, openDialog} = useActions();
 
     const handleSearch = (query) => {
         navigate({
@@ -36,6 +38,10 @@ const Header = ({title, onOpenMenuBar}) => {
 
     const handleSubmit = (id) => {
         navigate(`/film/${id}`);
+    }
+
+    const handleAddFilm = () => {
+        openDialog(DIALOG_TYPES.ADD_FILM)
     }
 
     return (
@@ -54,6 +60,14 @@ const Header = ({title, onOpenMenuBar}) => {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         {title}
                     </Typography>
+                    <Button
+                        color="inherit"
+                        variant='outlined'
+                        sx={{mr: 2}}
+                        onClick={handleAddFilm}
+                    >
+                        Add film
+                    </Button>
                     <Search
                         search={getOptions}
                         options={options}
