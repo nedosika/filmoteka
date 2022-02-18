@@ -51,7 +51,7 @@ const AddFilmDialog = () => {
             open
             onClose={handleClose}
             dialogActions={
-                <DialogActions>
+                <DialogActions sx={{padding: '20px 24px'}}>
                     <Button variant="outlined" onClick={handleClose}>Cancel</Button>
                     <Button variant="outlined" color="secondary" onClick={handleSubmit}>Approve</Button>
                 </DialogActions>
@@ -105,6 +105,7 @@ const AddFilmDialog = () => {
                         : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU'
                 }
                 alt="film image"
+                onChange={handleChange}
             />
             <TextField
                 label="Description"

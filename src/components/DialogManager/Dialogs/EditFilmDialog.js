@@ -17,6 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import CardMedia from "@mui/material/CardMedia";
+import useExists from "../../../hooks/useExists";
 
 const EditFilmDialog = ({id}) => {
     const mapState = (state) => ({
@@ -34,6 +35,8 @@ const EditFilmDialog = ({id}) => {
         description: '',
         genre: ''
     });
+
+    const isExists = useExists(state.img);
 
     useEffect(() => {
         getFilm(id);
@@ -127,11 +130,16 @@ const EditFilmDialog = ({id}) => {
                 fullWidth
                 margin="normal"
                 onChange={handleChange}
+                alt="film image"
             />
             <CardMedia
                 component="img"
                 height="140"
-                image={state.img}
+                image={
+                    isExists
+                        ? state.img
+                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU'
+                }
                 alt="film image"
             />
             <TextField
