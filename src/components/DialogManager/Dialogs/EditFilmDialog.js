@@ -12,6 +12,10 @@ import Loader from "../../Loader";
 import Dialog from "../Dialog";
 import useSmartAction from "../../../hooks/useSmartAction";
 import ActionCreators from "../../../actions";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const EditFilmDialog = ({id}) => {
     const mapState = (state) => ({
@@ -23,7 +27,12 @@ const EditFilmDialog = ({id}) => {
     const updateFilm = useSmartAction(ActionCreators.updateFilm);
     const getFilm = useSmartAction(ActionCreators.getFilm);
 
-    const [state, setState] = useState({});
+    const [state, setState] = useState({
+        name: '',
+        img: '',
+        description: '',
+        genre: ''
+    });
 
     useEffect(() => {
         getFilm(id);
@@ -83,6 +92,33 @@ const EditFilmDialog = ({id}) => {
                 onChange={handleChange}
                 value={state.name}
             />
+            <Stack direction='row' spacing={2} sx={{width: '100%', marginTop: '10px'}}>
+                <FormControl fullWidth>
+                    <InputLabel>Genre</InputLabel>
+                    <Select
+                        name='genre'
+                        label='Genre'
+                        onChange={handleChange}
+                        value={state.genre || ''}
+                    >
+                        <MenuItem value=''><em>None</em></MenuItem>
+                        <MenuItem value='Detective'>Detective</MenuItem>
+                        <MenuItem value='Anime'>Anime</MenuItem>
+                        <MenuItem value='BlockBaster'>BlockBaster</MenuItem>
+                        <MenuItem value='RomCom'>RomCom</MenuItem>
+                        <MenuItem value='SciFi'>SciFi</MenuItem>
+                        <MenuItem value='Horror'>Horror</MenuItem>
+                    </Select>
+                </FormControl>
+                <TextField
+                    type="number"
+                    label="Year"
+                    name="year"
+                    value={state.year}
+                    fullWidth
+                    onChange={handleChange}
+                />
+            </Stack>
             <TextField
                 label="Image link"
                 name="img"
