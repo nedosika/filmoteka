@@ -27,8 +27,9 @@ const Favorites = () => {
         getFavorites();
     }, []);
 
-    const handleRemove = (id) => () => {
-        openDialog(DIALOG_TYPES.DELETE_FILM_FROM_FAV, {id})
+
+    const handleOpenDialog = (dialog, id) => () => {
+        openDialog(dialog, {id})
     }
 
     return (
@@ -39,10 +40,11 @@ const Favorites = () => {
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                             <FilmCard
                                 film={film}
+                                onEdit={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}
                                 actionsButtons={
                                     isAuth &&
                                     <Box>
-                                    <IconButton onClick={handleRemove(film.id)}>
+                                    <IconButton onClick={handleOpenDialog(DIALOG_TYPES.DELETE_FILM_FROM_FAV, film.id)}>
                                         <DeleteOutlineIcon/>
                                     </IconButton>
                                     </Box>
