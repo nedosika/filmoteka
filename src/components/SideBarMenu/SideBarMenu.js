@@ -6,8 +6,14 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import {Assignment} from "@mui/icons-material";
+import HomeIcon from '@mui/icons-material/Home';
 import Drawer from "@mui/material/Drawer/Drawer";
+import LoginIcon from '@mui/icons-material/Login';
 import IconButton from "@mui/material/IconButton";
+import LogoutIcon from '@mui/icons-material/Logout';
+import SearchIcon from '@mui/icons-material/Search';
+import TheatersIcon from '@mui/icons-material/Theaters';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItemIcon from "@mui/material/ListItemIcon/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText/ListItemText";
@@ -57,7 +63,7 @@ const SideBarMenu = ({isOpen, onClose}) => {
                         onClick={() => navigate('/')}
                     >
                         <ListItemIcon>
-                            <Assignment/>
+                            <HomeIcon/>
                         </ListItemIcon>
                         <ListItemText primary='Home'/>
                     </ListItem>
@@ -67,7 +73,7 @@ const SideBarMenu = ({isOpen, onClose}) => {
                         onClick={() => navigate('/films')}
                     >
                         <ListItemIcon>
-                            <Assignment/>
+                            <TheatersIcon/>
                         </ListItemIcon>
                         <ListItemText primary='Films'/>
                     </ListItem>
@@ -77,7 +83,7 @@ const SideBarMenu = ({isOpen, onClose}) => {
                         onClick={() => navigate('/search')}
                     >
                         <ListItemIcon>
-                            <Assignment/>
+                            <SearchIcon/>
                         </ListItemIcon>
                         <ListItemText primary='Search'/>
                     </ListItem>
@@ -89,7 +95,7 @@ const SideBarMenu = ({isOpen, onClose}) => {
                             onClick={() => navigate('/fav')}
                         >
                             <ListItemIcon>
-                                <Assignment/>
+                                <FavoriteIcon/>
                             </ListItemIcon>
                             <ListItemText primary='Favorites'/>
                         </ListItem>
@@ -102,7 +108,7 @@ const SideBarMenu = ({isOpen, onClose}) => {
                                 onClick={handleSignOut}
                             >
                                 <ListItemIcon>
-                                    <Assignment/>
+                                    <LogoutIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary='Logout'/>
                             </ListItem>
@@ -113,7 +119,7 @@ const SideBarMenu = ({isOpen, onClose}) => {
                                 onClick={() => navigate("/signin")}
                             >
                                 <ListItemIcon>
-                                    <Assignment/>
+                                    <LoginIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary='Login'/>
                             </ListItem>
