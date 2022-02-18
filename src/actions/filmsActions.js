@@ -20,7 +20,7 @@ const getFilm = (id) => (dispatch) =>
 
 const getFilms = (query) => (dispatch) =>
     FilmService
-        .getAll(query)
+        .getAll({...query, limit: 5})
         .then(({data, size, limit, page}) =>
             dispatch(getFilmsSuccess({
                 data,
