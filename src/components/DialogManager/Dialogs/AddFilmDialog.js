@@ -1,29 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 
+import {Stack} from "@mui/material";
 import Button from "@mui/material/Button";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import CardMedia from "@mui/material/CardMedia";
 import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 import DialogActions from "@mui/material/DialogActions";
 
 import Dialog from "../Dialog";
+import ActionCreators from "../../../actions";
+import useExists from "../../../hooks/useExists";
 import useActions from "../../../hooks/useActions";
 import useSmartAction from "../../../hooks/useSmartAction";
-import ActionCreators from "../../../actions";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import {Stack} from "@mui/material";
 
 const AddFilmDialog = () => {
     const {closeDialog} = useActions();
     const addFilm = useSmartAction(ActionCreators.addFilm);
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         name: '',
         img: '',
         description: '',
         genre: ''
-    })
+    });
+
+    const isExists = useExists(state.img);
 
     const handleClose = () => {
         closeDialog();
@@ -41,6 +44,7 @@ const AddFilmDialog = () => {
             [event.target.name]: event.target.value
         }));
     }
+
     return (
         <Dialog
             title="Adding film"
@@ -59,7 +63,6 @@ const AddFilmDialog = () => {
                 fullWidth
                 margin="normal"
                 onChange={handleChange}
-                value={state.name}
             />
             <Stack direction='row' spacing={2} sx={{width: '100%', marginTop: '10px'}}>
                 <FormControl fullWidth>
@@ -92,6 +95,16 @@ const AddFilmDialog = () => {
                 fullWidth
                 margin="normal"
                 onChange={handleChange}
+            />
+            <CardMedia
+                component="img"
+                height="140"
+                image={
+                    isExists
+                        ? state.img
+                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU'
+                }
+                alt="film image"
             />
             <TextField
                 label="Description"

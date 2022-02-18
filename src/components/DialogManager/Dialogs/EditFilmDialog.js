@@ -16,6 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import CardMedia from "@mui/material/CardMedia";
 
 const EditFilmDialog = ({id}) => {
     const mapState = (state) => ({
@@ -126,6 +127,12 @@ const EditFilmDialog = ({id}) => {
                 fullWidth
                 margin="normal"
                 onChange={handleChange}
+            />
+            <CardMedia
+                component="img"
+                height="140"
+                image={state.img}
+                alt="film image"
             />
             <TextField
                 label="Description"

@@ -15,6 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Layout, {LayoutTitles} from "../../Layout";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import useActions from "../../hooks/useActions";
+import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
 const Search = () => {
     const [searchParams] = useSearchParams();
@@ -26,23 +27,24 @@ const Search = () => {
         isLoading: state.loading.isLoading
     })
     const {films, isAuth} = useSelector(mapState);
-    const {searchFilms, addToFavorites} = useActions();
+    const {searchFilms, addToFavorites, openDialog} = useActions();
     const [state, setState] = useState({
         filter: '',
         sort: 'name',
         order: 'ASC'
     });
 
-    const filteredFilms = films
-        .filter((film) =>
-            film.name.toLowerCase().includes(state.filter.toLowerCase())
-        )
-        .sort((a, b) => {
-            if (state.order === 'ASC')
-                return a[state.sort] > b[state.sort] ? 1 : -1
-            if (state.order === 'DESC')
-                return a[state.sort] < b[state.sort] ? 1 : -1
-        });
+    const filteredFilms =
+        films
+            .filter((film) =>
+                film.name.toLowerCase().includes(state.filter.toLowerCase())
+            )
+            .sort((a, b) => {
+                if (state.order === 'ASC')
+                    return a[state.sort] > b[state.sort] ? 1 : -1
+                if (state.order === 'DESC')
+                    return a[state.sort] < b[state.sort] ? 1 : -1
+            });
 
     useEffect(() => {
         searchFilms(params.query);
@@ -53,6 +55,10 @@ const Search = () => {
             ...prevState,
             [name]: value
         }))
+    }
+
+    const handleOpenDialog = (dialog, id) => () => {
+        openDialog(dialog, {id})
     }
 
     return (
@@ -113,12 +119,13 @@ const Search = () => {
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                                 <FilmCard
                                     film={film}
-                                    actionsButtons={[
+                                    onEdit={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}
+                                    actionsButtons={
                                         isAuth &&
                                         <IconButton onClick={() => addToFavorites(film)}>
                                             <FavoriteIcon/>
                                         </IconButton>
-                                    ]}
+                                    }
                                 />
                             </Grid>
                         )
