@@ -2,7 +2,6 @@ import {ACTION_TYPES} from "./index";
 
 import {showNotice} from "./noticeActions";
 import {SnackBarSeverities} from "../components/SnackStack";
-import {request, success, failure} from "./loadingActions";
 import FavoritesService from "../services/FavoritesService";
 
 const loadFavoritesSuccess = (data) => ({
@@ -19,34 +18,22 @@ const removeFromFavoritesSuccess = (film) => ({
     payload: film
 });
 
-const getFavorites = () => (dispatch) => {
-    dispatch(request());
-    return FavoritesService
+const getFavorites = () => (dispatch) =>
+    FavoritesService
         .getFavorites()
         .then((films) => dispatch(loadFavoritesSuccess(films.data)))
-        .catch((error) => dispatch(showNotice(`Error: ${error.message}`, SnackBarSeverities.error)))
-        .finally(() => dispatch(success()))
-}
 
-const addToFavorites = (film) => (dispatch) => {
-    dispatch(request());
-    return FavoritesService
+const addToFavorites = (film) => (dispatch) =>
+    FavoritesService
         .addToFavorites(film)
         .then((film) => dispatch(addToFavoritesSuccess(film)))
         .then(() => dispatch(showNotice('Film added to favorites', SnackBarSeverities.success)))
-        .catch((error) => dispatch(showNotice(`Error added film: ${error.message}`, SnackBarSeverities.error)))
-        .finally(() => dispatch(success()))
-}
 
-const removeFromFavorites = (id) => (dispatch) => {
-    dispatch(request());
-    return FavoritesService
+const removeFromFavorites = (id) => (dispatch) =>
+    FavoritesService
         .removeFromFavorites(id)
         .then((film) => dispatch(removeFromFavoritesSuccess(film.data)))
         .then(() => dispatch(showNotice('Film removed from favorites', SnackBarSeverities.success)))
-        .catch((error) => dispatch(showNotice(`Error removing film: ${error.message}`, SnackBarSeverities.error)))
-        .finally(() => dispatch(success()))
-}
 
 export default {
     getFavorites,

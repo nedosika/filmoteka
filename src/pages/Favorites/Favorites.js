@@ -6,8 +6,10 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
+import ActionCreators from "../../actions";
 import useActions from "../../hooks/useActions";
 import Layout, {LayoutTitles} from "../../Layout";
+import useSmartAction from "../../hooks/useSmartAction";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
@@ -21,7 +23,8 @@ const Favorites = () => {
         films,
         isAuth
     } = useSelector(mapState);
-    const {getFavorites, openDialog} = useActions();
+    const {openDialog} = useActions();
+    const getFavorites = useSmartAction(ActionCreators.getFavorites);
 
     React.useEffect(() => {
         getFavorites();
