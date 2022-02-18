@@ -10,6 +10,8 @@ import useActions from "../../../hooks/useActions";
 import {DIALOG_TYPES} from "./";
 import Loader from "../../Loader";
 import Dialog from "../Dialog";
+import useSmartAction from "../../../hooks/useSmartAction";
+import ActionCreators from "../../../actions";
 
 const EditFilmDialog = ({id}) => {
     const mapState = (state) => ({
@@ -17,7 +19,9 @@ const EditFilmDialog = ({id}) => {
         film: state.films.current
     })
     const {film, isLoading} = useSelector(mapState);
-    const {updateFilm, getFilm, closeDialog, openDialog} = useActions();
+    const {closeDialog, openDialog} = useActions();
+    const updateFilm = useSmartAction(ActionCreators.updateFilm);
+    const getFilm = useSmartAction(ActionCreators.getFilm);
 
     const [state, setState] = useState({});
 

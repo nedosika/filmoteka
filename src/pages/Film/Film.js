@@ -1,8 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import Layout from "../../Layout";
-import {useRouter} from "../../hooks/useRouter";
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
-import useActions from "../../hooks/useActions";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -17,10 +14,15 @@ import Container from "@mui/material/Container";
 import Skeleton from "@mui/material/Skeleton";
 import {Stack} from "@mui/material";
 
+import Layout from "../../Layout";
+import ActionCreators from "../../actions";
+import {useRouter} from "../../hooks/useRouter";
+import useSmartAction from "../../hooks/useSmartAction";
+
 const Film = () => {
-    const {getFilm} = useActions();
+    const getFilm = useSmartAction(ActionCreators.getFilm);
     const mapState = (state) => ({
-        film: state.films.currentFilm,
+        film: state.films.current,
         isLoading: state.loading.isLoading
     });
     const {film} = useSelector(mapState)

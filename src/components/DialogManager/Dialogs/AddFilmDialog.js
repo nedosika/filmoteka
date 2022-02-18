@@ -6,9 +6,12 @@ import DialogActions from "@mui/material/DialogActions";
 
 import Dialog from "../Dialog";
 import useActions from "../../../hooks/useActions";
+import useSmartAction from "../../../hooks/useSmartAction";
+import ActionCreators from "../../../actions";
 
 const AddFilmDialog = () => {
-    const {addFilm, closeDialog} = useActions();
+    const {closeDialog} = useActions();
+    const addFilm = useSmartAction(ActionCreators.addFilm);
     const [state, setState] = React.useState({
         name: '',
         img: '',

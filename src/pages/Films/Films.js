@@ -8,11 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
+import ActionCreators from "../../actions";
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
 import Layout, {LayoutTitles} from "../../Layout";
+import useSmartAction from "../../hooks/useSmartAction";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+
+
 
 const Films = () => {
     const mapState = (state) => ({
@@ -28,7 +32,8 @@ const Films = () => {
         isAuth
     } = useSelector(mapState);
 
-    const {getFilms, addToFavorites, openDialog} = useActions();
+    const {addToFavorites, openDialog} = useActions();
+    const getFilms = useSmartAction(ActionCreators.getFilms);
 
     const handleChangePage = (event, page = 1) => {
         getFilms({page});

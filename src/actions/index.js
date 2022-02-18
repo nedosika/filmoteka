@@ -6,6 +6,7 @@ import snackStackActions from "./noticeActions";
 import noticeActionCreator from "./noticeActions";
 import searchActionCreators from "./serachActions";
 import favoritesActionCreator from "./favoritesActions";
+import loadingActions from "./loadingActions";
 
 export const ACTION_TYPES = {
     Loading: {
@@ -58,6 +59,7 @@ export const ActionCreators = {
     ...noticeActionCreator,
     ...searchActionCreators,
     ...favoritesActionCreator,
+    ...loadingActions
 }
 
 export default ActionCreators;
