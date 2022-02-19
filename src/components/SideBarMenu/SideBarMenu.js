@@ -57,16 +57,16 @@ const SideBarMenu = ({isOpen, onClose}) => {
             <Divider/>
             <Box sx={{width: 240}}>
                 <List>
-                    <ListItem
-                        button
-                        selected={location.pathname.split('/')[1] === 'home'}
-                        onClick={() => navigate('/')}
-                    >
-                        <ListItemIcon>
-                            <HomeIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary='Home'/>
-                    </ListItem>
+                    {/*<ListItem*/}
+                    {/*    button*/}
+                    {/*    selected={location.pathname.split('/')[1] === 'home'}*/}
+                    {/*    onClick={() => navigate('/')}*/}
+                    {/*>*/}
+                    {/*    <ListItemIcon>*/}
+                    {/*        <HomeIcon/>*/}
+                    {/*    </ListItemIcon>*/}
+                    {/*    <ListItemText primary='Home'/>*/}
+                    {/*</ListItem>*/}
                     <ListItem
                         button
                         selected={location.pathname.split('/')[1] === 'films'}

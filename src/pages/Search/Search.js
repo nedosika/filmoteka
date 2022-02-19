@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 import Box from "@mui/material/Box";
@@ -16,8 +16,10 @@ import Layout, {LayoutTitles} from "../../Layout";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import useActions from "../../hooks/useActions";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Search = () => {
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const params = Object.fromEntries([...searchParams]);
 
@@ -59,6 +61,10 @@ const Search = () => {
 
     const handleOpenDialog = (dialog, id) => () => {
         openDialog(dialog, {id})
+    }
+
+    const handleNavigate = (film) => () => {
+        navigate(`/film/${film.id}`);
     }
 
     return (
@@ -119,12 +125,17 @@ const Search = () => {
                             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                                 <FilmCard
                                     film={film}
-                                    onEdit={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}
+                                    onNavigate={handleNavigate(film)}
                                     actionsButtons={
                                         isAuth &&
-                                        <IconButton onClick={() => addToFavorites(film)}>
-                                            <FavoriteIcon/>
-                                        </IconButton>
+                                        <Box>
+                                            <IconButton onClick={() => addToFavorites(film)}>
+                                                <FavoriteIcon/>
+                                            </IconButton>
+                                            <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
+                                                <EditIcon/>
+                                            </IconButton>
+                                        </Box>
                                     }
                                 />
                             </Grid>

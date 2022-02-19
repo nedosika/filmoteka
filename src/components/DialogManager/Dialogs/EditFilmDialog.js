@@ -1,23 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 
-import DialogActions from "@mui/material/DialogActions";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-
-import useActions from "../../../hooks/useActions";
-import {DIALOG_TYPES} from "./";
-import Loader from "../../Loader";
-import Dialog from "../Dialog";
-import useSmartAction from "../../../hooks/useSmartAction";
-import ActionCreators from "../../../actions";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
+import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import CardMedia from "@mui/material/CardMedia";
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import DialogActions from "@mui/material/DialogActions";
+
+import Dialog from "../Dialog";
+import {DIALOG_TYPES} from "./";
+import Loader from "../../Loader";
+import ActionCreators from "../../../actions";
 import useExists from "../../../hooks/useExists";
+import useActions from "../../../hooks/useActions";
+import useSmartAction from "../../../hooks/useSmartAction";
+
+const emptyImageUrl =
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
 
 const EditFilmDialog = ({id}) => {
     const mapState = (state) => ({
@@ -135,11 +138,7 @@ const EditFilmDialog = ({id}) => {
             <CardMedia
                 component="img"
                 height="140"
-                image={
-                    isExists
-                        ? state.img
-                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU'
-                }
+                image={isExists ? state.img : emptyImageUrl}
                 alt="film image"
             />
             <TextField

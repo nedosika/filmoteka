@@ -21,7 +21,8 @@ const Router = () => {
                 {
                     isAuth
                         ? <Routes>
-                            <Route path="/" element={<Home/>}/>
+                            <Route path="/" element={<Film/>}/>
+                            <Route path="/home" element={<Home/>}/>
                             <Route path="film/:id" element={<Film/>}/>
                             <Route path="films" element={<Films/>}/>
                             <Route path="search" element={<Search/>}/>
@@ -29,7 +30,8 @@ const Router = () => {
                             <Route path="*" element={<Navigate to="/films"/>}/>
                         </Routes>
                         : <Routes>
-                            <Route path="/" element={<Home/>}/>
+                            <Route path="/" element={<Film/>}/>
+                            <Route path="/home" element={<Home/>}/>
                             <Route path="film/:id" element={<Film/>}/>
                             <Route path="films" element={<Films/>}/>
                             <Route path="search" element={<Search/>}/>

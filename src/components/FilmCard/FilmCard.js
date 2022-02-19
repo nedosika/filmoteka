@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import {CardActionArea, CardActions} from '@mui/material';
 
-const FilmCard = ({film, actionsButtons, onEdit}) => {
+const FilmCard = ({film, actionsButtons, onNavigate}) => {
     return (
         <Card sx={{
             height: '100%',
@@ -15,7 +15,7 @@ const FilmCard = ({film, actionsButtons, onEdit}) => {
             flexDirection: 'column',
             justifyContent: 'space-between'
         }}>
-            <CardActionArea onClick={onEdit}>
+            <CardActionArea onClick={onNavigate}>
                 <CardMedia
                     component="img"
                     height="140"

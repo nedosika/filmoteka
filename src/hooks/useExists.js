@@ -9,7 +9,9 @@ const useExists = (url) => {
     const [isExists, setIsExists] = useState(false);
 
     useEffect(() => {
-        exists(url).then(setIsExists)
+        exists(url)
+            .then(setIsExists)
+            .catch(() => setIsExists(false))
     }, [url])
 
     return isExists

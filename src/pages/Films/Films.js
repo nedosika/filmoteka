@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import EditIcon from '@mui/icons-material/Edit';
 import Pagination from "@mui/material/Pagination";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import ActionCreators from "../../actions";
 import AddFilmButton from "./AddFilmButton";
@@ -16,9 +17,8 @@ import useSmartAction from "../../hooks/useSmartAction";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
-
-
 const Films = () => {
+    const navigate = useNavigate();
     const mapState = (state) => ({
         films: state.films.data,
         page: state.films.page,
@@ -47,6 +47,10 @@ const Films = () => {
         openDialog(dialog, {id})
     }
 
+    const handleNavigate = (film) => () => {
+        navigate(`/film/${film.id}`);
+    }
+
     useEffect(handleChangePage, []);
 
     return <Layout title={LayoutTitles.FILMS}>
@@ -61,15 +65,15 @@ const Films = () => {
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                             <FilmCard
                                 film={film}
-                                onEdit={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}
+                                onNavigate={handleNavigate(film)}
                                 actionsButtons={
                                     isAuth &&
                                     <Box>
                                         <IconButton onClick={handleAddToFavorites(film)}>
                                             <FavoriteIcon/>
                                         </IconButton>
-                                        <IconButton onClick={handleOpenDialog(DIALOG_TYPES.DELETE_FILM, film.id)}>
-                                            <DeleteOutlineIcon/>
+                                        <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
+                                            <EditIcon/>
                                         </IconButton>
                                     </Box>
                                 }

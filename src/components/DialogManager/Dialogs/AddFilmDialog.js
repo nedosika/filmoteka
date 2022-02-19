@@ -16,6 +16,9 @@ import useExists from "../../../hooks/useExists";
 import useActions from "../../../hooks/useActions";
 import useSmartAction from "../../../hooks/useSmartAction";
 
+const emptyImageUrl =
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
+
 const AddFilmDialog = () => {
     const {closeDialog} = useActions();
     const addFilm = useSmartAction(ActionCreators.addFilm);
@@ -99,11 +102,7 @@ const AddFilmDialog = () => {
             <CardMedia
                 component="img"
                 height="140"
-                image={
-                    isExists
-                        ? state.img
-                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU'
-                }
+                image={isExists ? state.img : emptyImageUrl}
                 alt="film image"
                 onChange={handleChange}
             />
