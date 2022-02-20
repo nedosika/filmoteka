@@ -16,6 +16,8 @@ import Search from "../Search";
 import {useRouter} from "../../hooks/useRouter";
 import useActions from "../../hooks/useActions";
 import {DIALOG_TYPES} from "../DialogManager/Dialogs";
+import useSmartAction from "../../hooks/useSmartAction";
+import searchActions from "../../actions/searchActions";
 
 const Header = ({title, onOpenMenuBar}) => {
     const {navigate} = useRouter();
@@ -25,7 +27,8 @@ const Header = ({title, onOpenMenuBar}) => {
         options: state.search.options
     });
     const {isAuth, isLoading, options} = useSelector(mapState);
-    const {getSearchOptions: getOptions, openDialog} = useActions();
+    const {openDialog} = useActions();
+    const getOptions = useSmartAction(searchActions.getSearchOptions);
 
     const handleSearch = (query) => {
         navigate({

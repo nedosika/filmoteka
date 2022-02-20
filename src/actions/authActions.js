@@ -1,6 +1,6 @@
 import {ACTION_TYPES} from "./index";
 import {AuthService} from "../services";
-import {request, success, failure} from "./loadingActions";
+import {startLoading, successLoading, failureLoading} from "./loadingActions";
 
 const authSuccess = (payload) => ({
     type: ACTION_TYPES.Auth.AUTH_SUCCESS,
@@ -8,7 +8,7 @@ const authSuccess = (payload) => ({
 });
 
 const signIn = (email, password) => (dispatch) => {
-    dispatch(request());
+    dispatch(startLoading());
 
     return AuthService.signIn(email, password)
         .then(({data}) => {
@@ -19,12 +19,12 @@ const signIn = (email, password) => (dispatch) => {
             }));
             dispatch(authSuccess(data));
         })
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error.message)))
+        .then(() => dispatch(successLoading()))
+        .catch((error) => dispatch(failureLoading(error.message)))
 }
 
 const signUp = (email, password) => (dispatch) => {
-    dispatch(request());
+    dispatch(startLoading());
 
     AuthService.signUp(email, password)
         .then(({data}) => {
@@ -35,8 +35,8 @@ const signUp = (email, password) => (dispatch) => {
             }));
             dispatch(authSuccess(data.token))
         })
-        .then(() => dispatch(success()))
-        .catch((error) => dispatch(failure(error.message)))
+        .then(() => dispatch(successLoading()))
+        .catch((error) => dispatch(failureLoading(error.message)))
 }
 
 const signOut = () => {

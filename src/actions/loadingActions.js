@@ -1,18 +1,22 @@
-import {ACTION_TYPES} from "./index";
+export const LOADING = {
+    START_LOADING: 'START_LOADING',
+    SUCCESS_LOADING: 'SUCCESS_LOADING',
+    FAILURE_LOADING: 'FAILURE_LOADING'
+}
 
-export const request = () => ({
-    type: ACTION_TYPES.Loading.REQUEST
+export const startLoading = () => ({
+    type: LOADING.START_LOADING
 });
-export const success = () => ({
-    type: ACTION_TYPES.Loading.SUCCESS,
+export const successLoading = () => ({
+    type: LOADING.SUCCESS_LOADING,
 });
-export const failure = (error) => ({
-    type: ACTION_TYPES.Loading.FAILURE,
+export const failureLoading = (error) => ({
+    type: LOADING.FAILURE_LOADING,
     payload: error
 });
 
 export default {
-    request,
-    success,
-    failure
+    startLoading,
+    successLoading,
+    failureLoading
 }

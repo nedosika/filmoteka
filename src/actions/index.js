@@ -4,16 +4,11 @@ import userActionCreator from "./userActions";
 import filmsActionCreator from "./filmsActions";
 import snackStackActions from "./noticeActions";
 import noticeActionCreator from "./noticeActions";
-import searchActionCreators from "./serachActions";
+import searchActionCreators from "./searchActions";
 import favoritesActionCreator from "./favoritesActions";
 import loadingActions from "./loadingActions";
 
 export const ACTION_TYPES = {
-    Loading: {
-        REQUEST: 'REQUEST',
-        SUCCESS: 'SUCCESS',
-        FAILURE: 'FAILURE'
-    },
     Auth: {
         AUTH_SUCCESS: 'AUTH_SUCCESS',
         AUTH_SIGNOUT: 'AUTH_SIGNOUT'

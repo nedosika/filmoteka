@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate, useSearchParams} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -12,11 +12,13 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
+import useActions from "../../hooks/useActions";
+import EditIcon from "@mui/icons-material/Edit";
 import Layout, {LayoutTitles} from "../../Layout";
 import FilmCard from "../../components/FilmCard/FilmCard";
-import useActions from "../../hooks/useActions";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
-import EditIcon from "@mui/icons-material/Edit";
+import useSmartAction from "../../hooks/useSmartAction";
+import searchActions from "../../actions/searchActions";
 
 const Search = () => {
     const navigate = useNavigate();
@@ -29,7 +31,8 @@ const Search = () => {
         isLoading: state.loading.isLoading
     })
     const {films, isAuth} = useSelector(mapState);
-    const {searchFilms, addToFavorites, openDialog} = useActions();
+    const {addToFavorites, openDialog} = useActions();
+    const searchFilms = useSmartAction(searchActions.searchFilms);
     const [state, setState] = useState({
         filter: '',
         sort: 'name',

@@ -37,9 +37,10 @@ const Film = () => {
 
     const mapState = (state) => ({
         film: state.films.current,
-        isLoading: state.loading.isLoading
+        isLoading: state.loading.isLoading,
+        isAuth: state.auth.isAuth
     });
-    const {film} = useSelector(mapState)
+    const {film, isAuth} = useSelector(mapState)
     const {openDialog, addToFavorites} = useActions();
     const getFilm = useSmartAction(ActionCreators.getFilm);
 
@@ -77,14 +78,17 @@ const Film = () => {
                                     {film.description}
                                 </Typography>
                             </CardContent>
-                            <CardActions disableSpacing>
-                                <IconButton onClick={handleAddToFavorites(film)}>
-                                    <FavoriteIcon/>
-                                </IconButton>
-                                <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
-                                    <EditIcon/>
-                                </IconButton>
-                            </CardActions>
+                            {
+                                isAuth &&
+                                <CardActions disableSpacing>
+                                    <IconButton onClick={handleAddToFavorites(film)}>
+                                        <FavoriteIcon/>
+                                    </IconButton>
+                                    <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
+                                        <EditIcon/>
+                                    </IconButton>
+                                </CardActions>
+                            }
                         </Card>
                         :
                         <FilmSkeleton/>
