@@ -5,11 +5,10 @@ import Button from "@mui/material/Button";
 import {Typography} from "@mui/material";
 
 import Dialog from "../Dialog";
-import useActions from "../../../hooks/useActions";
+import useDialog from "../useDialog";
 
 const ConfirmDialog = ({title, onSubmit}) => {
-    const {closeDialog} = useActions();
-
+    const {closeDialog} = useDialog();
     const handleClose = () => {
         closeDialog();
     }

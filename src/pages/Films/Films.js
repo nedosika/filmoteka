@@ -16,6 +16,7 @@ import Layout, {LayoutTitles} from "../../Layout";
 import useSmartAction from "../../hooks/useSmartAction";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+import useDialog from "../../components/DialogManager/useDialog";
 
 const Films = () => {
     const navigate = useNavigate();
@@ -32,8 +33,9 @@ const Films = () => {
         isAuth
     } = useSelector(mapState);
 
-    const {addToFavorites, openDialog} = useActions();
+    const {addToFavorites} = useActions();
     const getFilms = useSmartAction(ActionCreators.getFilms);
+    const {openDialog} = useDialog();
 
     const handleChangePage = (event, page = 1) => {
         getFilms({page});

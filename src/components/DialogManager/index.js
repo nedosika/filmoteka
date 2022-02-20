@@ -1,1 +1,1 @@
-export {default} from "./DialogManager"
+export {default} from "./DialogManager";

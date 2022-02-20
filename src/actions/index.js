@@ -1,4 +1,3 @@
-import dialogsActions from "./dialogsActions";
 import authActionCreator from "./authActions";
 import userActionCreator from "./userActions";
 import filmsActionCreator from "./filmsActions";
@@ -38,15 +37,10 @@ export const ACTION_TYPES = {
         ADD_NOTICE: 'ADD_NOTICE',
         DISABLE_NOTICE: 'DISABLE_NOTICE',
         REMOVE_NOTICE: 'REMOVE_NOTICE'
-    },
-    Dialog: {
-        PUSH_DIALOG: 'PUSH_DIALOG',
-        POP_DIALOG: 'POP_DIALOG'
     }
 };
 
 export const ActionCreators = {
-    ...dialogsActions,
     ...snackStackActions,
     ...authActionCreator,
     ...userActionCreator,

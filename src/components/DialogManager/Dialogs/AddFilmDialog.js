@@ -13,14 +13,14 @@ import DialogActions from "@mui/material/DialogActions";
 import Dialog from "../Dialog";
 import ActionCreators from "../../../actions";
 import useExists from "../../../hooks/useExists";
-import useActions from "../../../hooks/useActions";
 import useSmartAction from "../../../hooks/useSmartAction";
+import useDialog from "../useDialog";
 
 const emptyImageUrl =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
 
 const AddFilmDialog = () => {
-    const {closeDialog} = useActions();
+    const {closeDialog} = useDialog();
     const addFilm = useSmartAction(ActionCreators.addFilm);
     const [state, setState] = useState({
         name: '',

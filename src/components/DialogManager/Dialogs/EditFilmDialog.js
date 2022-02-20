@@ -16,19 +16,19 @@ import {DIALOG_TYPES} from "./";
 import Loader from "../../Loader";
 import ActionCreators from "../../../actions";
 import useExists from "../../../hooks/useExists";
-import useActions from "../../../hooks/useActions";
 import useSmartAction from "../../../hooks/useSmartAction";
+import useDialog from "../useDialog";
 
 const emptyImageUrl =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
 
 const EditFilmDialog = ({id}) => {
+    const {openDialog, closeDialog} = useDialog();
     const mapState = (state) => ({
         isLoading: state.loading.isLoading,
         film: state.films.current
     })
     const {film, isLoading} = useSelector(mapState);
-    const {closeDialog, openDialog} = useActions();
     const updateFilm = useSmartAction(ActionCreators.updateFilm);
     const getFilm = useSmartAction(ActionCreators.getFilm);
 
