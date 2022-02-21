@@ -1,11 +1,13 @@
 import {ACTION_TYPES} from "../actions";
 
 const initialState = {
-    data: [],
+    films: {
+        byId: {},
+        allIds: {}
+    },
     current: {},
-    page: 1,
-    limit: 5,
-    size: 0
+    pages: 0,
+    page: 1
 };
 
 export default function filmsReducer(state = initialState, {type, payload}){

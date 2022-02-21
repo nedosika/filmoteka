@@ -30,8 +30,21 @@ const getAll = async (params) => {
     })
 
     if (response.status === 200) {
-        const data = await response.json();
-        return {...data}
+        const {data, page, limit, size} = await response.json();
+        const byId = Object.assign(
+            {},
+            ...data.map(({id, ...film}) => ({[id]: film}))
+        );
+        const allIds = data.map((film) => film.id);
+
+        return {
+            films: {
+                byId,
+                allIds
+            },
+            page: +page,
+            pages: Math.ceil(size / limit)
+        }
     }
 
     if (response.status === 404) {

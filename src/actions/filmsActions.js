@@ -5,9 +5,9 @@ import {SnackBarSeverities} from "../components/SnackStack";
 
 const FILMS_PER_PAGE = 5;
 
-const getFilmsSuccess = (films) => ({
+const getFilmsSuccess = (payload) => ({
     type: ACTION_TYPES.Films.FILMS_LOADED,
-    payload: films
+    payload
 });
 
 const getFilmSuccess = (film) => ({
@@ -23,12 +23,7 @@ const getFilm = (id) => (dispatch) =>
 const getFilms = (query) => (dispatch) =>
     FilmService
         .getAll({...query, limit: FILMS_PER_PAGE})
-        .then(({data, size, limit, page}) =>
-            dispatch(getFilmsSuccess({
-                data,
-                page,
-                pages: Math.ceil(size / limit)
-            })))
+        .then((result) => dispatch(getFilmsSuccess(result)))
 
 const addFilm = (film) => (dispatch, getState) => {
     const {films: {page}} = getState();
