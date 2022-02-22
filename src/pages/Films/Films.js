@@ -21,7 +21,10 @@ import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 const Films = () => {
     const navigate = useNavigate();
     const mapState = (state) => ({
-        films: state.films.films.byId,
+        films: state.films.allIds.map((id) => ({
+            id,
+            ...state.films.byId[id]
+        })),
         page: state.films.page,
         pages: state.films.pages,
         isAuth: state.auth.isAuth
@@ -63,10 +66,8 @@ const Films = () => {
                 columnSpacing={{xs: 1, sm: 2, md: 3}}
             >
                 {
-                    Object
-                        .entries(films)
-                        .map(([id, film]) =>
-                            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={id}>
+                    films.map((film) =>
+                            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                                 <FilmCard
                                     film={film}
                                     onNavigate={handleNavigate(film)}
@@ -76,7 +77,7 @@ const Films = () => {
                                             <IconButton onClick={handleAddToFavorites(film)}>
                                                 <FavoriteIcon/>
                                             </IconButton>
-                                            <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, id)}>
+                                            <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
                                                 <EditIcon/>
                                             </IconButton>
                                         </Box>

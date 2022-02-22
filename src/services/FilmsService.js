@@ -38,10 +38,8 @@ const getAll = async (params) => {
         const allIds = data.map((film) => film.id);
 
         return {
-            films: {
-                byId,
-                allIds
-            },
+            byId,
+            allIds,
             page: +page,
             pages: Math.ceil(size / limit)
         }

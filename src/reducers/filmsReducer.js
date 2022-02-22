@@ -1,10 +1,8 @@
 import {FILMS_LOADED, FILM_LOADED} from "../actions/filmsActions";
 
 const initialState = {
-    films: {
-        byId: {},
-        allIds: {}
-    },
+    byId: {},
+    allIds: [],
     current: {},
     pages: 0,
     page: 1
