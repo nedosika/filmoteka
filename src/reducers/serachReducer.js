@@ -14,6 +14,7 @@ export default function searchReducer(state = initialState, {type, payload}) {
                 ...payload
             }
         case ACTION_TYPES.Search.GET_SEARCH_OPTIONS_SUCCESS:
+            console.log(payload)
             return {
                 ...state,
                 options: payload

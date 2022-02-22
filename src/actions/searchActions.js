@@ -6,9 +6,9 @@ const searchFilmsSuccess = (films) => ({
     payload: films
 });
 
-const getOptionsSuccess = (films) => ({
+const getOptionsSuccess = (result) => ({
     type: ACTION_TYPES.Search.GET_SEARCH_OPTIONS_SUCCESS,
-    payload: [...films.map(({id, name}) => ({id, name}))]
+    payload: result.allIds.map((id) => ({id, name: result.byId[id].name}))
 });
 
 const searchFilms = (query) => (dispatch) =>
@@ -24,7 +24,7 @@ const searchFilms = (query) => (dispatch) =>
 const getSearchOptions = (query) => (dispatch) =>
     FilmService
         .getAll({field: 'name', value: query})
-        .then(({data}) => dispatch(getOptionsSuccess(data)))
+        .then((result) => dispatch(getOptionsSuccess(result)))
         .catch(() =>dispatch(getOptionsSuccess([])))
 
 export default {
