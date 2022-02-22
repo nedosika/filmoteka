@@ -7,7 +7,11 @@ import SnackBar from "./SnackBar";
 import useActions from "../../hooks/useActions";
 
 const SnackStack = () => {
-    const mapState = (state) => state.notice
+    const mapState = (state) => ({
+        notices: state.notices.allIds.map((id) =>
+            ({id, ...state.notices.byId[id]})
+        )
+    });
     const {notices} = useSelector(mapState);
     const {hideNotice, removeNotice} = useActions();
 
@@ -17,8 +21,8 @@ const SnackStack = () => {
         }
     }
 
-    const handleEnd = (key) => () => {
-        removeNotice(key);
+    const handleEnd = (id) => () => {
+        removeNotice(+id);
     }
 
     return (
@@ -32,20 +36,14 @@ const SnackStack = () => {
             }}
         >
             {
-                notices.map(({
-                                 key,
-                                 isOpen,
-                                 message,
-                                 severity
-                             }) =>
+                notices.map(({id, isOpen, message, severity}) =>
                     <SnackBar
-                        key={key}
+                        key={id}
                         open={isOpen}
                         message={message}
                         severity={severity}
-                        onEnd={handleEnd(key)}
-                        onClose={handleClose(key)}
-
+                        onEnd={handleEnd(id)}
+                        onClose={handleClose(id)}
                     />
                 )
             }

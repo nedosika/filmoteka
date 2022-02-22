@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 
 import useActions from "./useActions";
-import noticeActions from "../actions/noticeActions";
+import noticeActions from "../actions/noticesActions";
 import loadingActions from "../actions/loadingActions";
 import {SnackBarSeverities} from "../components/SnackStack";
 

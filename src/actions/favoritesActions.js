@@ -1,6 +1,6 @@
 import {ACTION_TYPES} from "./index";
 
-import {showNotice} from "./noticeActions";
+import {showNotice} from "./noticesActions";
 import {SnackBarSeverities} from "../components/SnackStack";
 import FavoritesService from "../services/FavoritesService";
 

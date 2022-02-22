@@ -4,7 +4,7 @@ import auth from "./authReducer";
 import user from "./userReducer";
 import films from "./filmsReducer";
 import search from "./serachReducer";
-import notice from "./noticeReducer";
+import notices from "./noticesReducer";
 import loading from "./loadingReducer";
 import favorites from "./favoritesReducer";
 
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     user,
     films,
     search,
-    notice,
+    notices,
     loading,
     favorites
 });

@@ -1,5 +1,5 @@
 import {FilmService} from "../services";
-import {showNotice} from "./noticeActions";
+import {showNotice} from "./noticesActions";
 import {SnackBarSeverities} from "../components/SnackStack";
 
 const FILMS_PER_PAGE = 5;
