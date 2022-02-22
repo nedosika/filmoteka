@@ -1,7 +1,7 @@
 const update = async (user) => {
     try {
         const auth = JSON.parse(localStorage.getItem('auth'));
-        console.log(auth.token)
+
         const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/users/${user.id}`, {
             method: 'PUT',
             headers: {

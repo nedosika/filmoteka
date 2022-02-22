@@ -40,14 +40,23 @@ const signUp = async (email, password) => {
     }
 }
 
-const checkAuth = async () => {
+const checkAuth = async (token) => {
     const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/refresh', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
+        body: JSON.stringify({token})
     });
-    console.log(response);
+    if (response.status === 200) {
+        const data = await response.json();
+        return {...data}
+    }
+
+    if (response.status === 400) {
+        const data = await response.json();
+        throw new Error(data.message);
+    }
 }
 
 export const AuthService = {

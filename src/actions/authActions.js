@@ -7,6 +7,10 @@ const authSuccess = (payload) => ({
     payload
 });
 
+const authFailure = () => ({
+    type: ACTION_TYPES.Auth.AUTH_SIGNOUT
+})
+
 const signIn = (email, password) => (dispatch) => {
     dispatch(startLoading());
 
@@ -39,13 +43,36 @@ const signUp = (email, password) => (dispatch) => {
         .catch((error) => dispatch(failureLoading(error.message)))
 }
 
-const signOut = () => {
+const signOut = () => (dispatch) => {
     localStorage.removeItem('auth');
-    return {type: ACTION_TYPES.Auth.AUTH_SIGNOUT}
+    dispatch(authFailure());
+}
+
+const checkAuth = () => (dispatch) => {
+    const auth = localStorage.getItem('auth');
+
+    if (auth) {
+        const {token} = JSON.parse(auth);
+        return AuthService
+            .checkAuth(token)
+            .then(({data}) => {
+                localStorage.setItem('auth', JSON.stringify({
+                    token: data.token,
+                    user: data.user,
+                    id: data.user.id
+                }));
+                dispatch(authSuccess(data))
+            })
+            .catch((err) => {
+                localStorage.removeItem('auth');
+                dispatch(authFailure());
+            })
+    }
 }
 
 export default {
     signIn,
     signOut,
-    signUp
+    signUp,
+    checkAuth
 }
