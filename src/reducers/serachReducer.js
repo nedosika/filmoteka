@@ -1,16 +1,17 @@
 import {ACTION_TYPES} from "../actions";
 
 const initialState = {
-    results: [],
+    byId: {},
+    allIds: [],
     options: []
 };
 
-export default function searchReducer(state = initialState, {type, payload}){
-    switch (type){
+export default function searchReducer(state = initialState, {type, payload}) {
+    switch (type) {
         case ACTION_TYPES.Search.SEARCH_SUCCESS:
             return {
                 ...state,
-                results: payload
+                ...payload
             }
         case ACTION_TYPES.Search.GET_SEARCH_OPTIONS_SUCCESS:
             return {

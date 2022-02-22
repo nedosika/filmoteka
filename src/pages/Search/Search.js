@@ -26,9 +26,8 @@ const Search = () => {
     const params = Object.fromEntries([...searchParams]);
 
     const mapState = (state) => ({
-        films: state.search.results,
+        films: state.search.allIds.map((id) => ({id, ...state.search.byId[id]})),
         isAuth: state.auth.isAuth,
-        isLoading: state.loading.isLoading
     })
     const {films, isAuth} = useSelector(mapState);
     const {addToFavorites, openDialog} = useActions();

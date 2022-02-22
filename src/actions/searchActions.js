@@ -3,7 +3,7 @@ import {FilmService} from "../services";
 
 const searchFilmsSuccess = (films) => ({
     type: ACTION_TYPES.Search.SEARCH_SUCCESS,
-    payload: [...films]
+    payload: films
 });
 
 const getOptionsSuccess = (films) => ({
@@ -14,7 +14,7 @@ const getOptionsSuccess = (films) => ({
 const searchFilms = (query) => (dispatch) =>
     FilmService
         .getAll({field: 'name', value: query})
-        .then((films) => dispatch(searchFilmsSuccess(films.data)))
+        .then((result) => dispatch(searchFilmsSuccess(result)))
         .catch((error) => {
             dispatch(searchFilmsSuccess([]));
             throw new Error(error.message)
