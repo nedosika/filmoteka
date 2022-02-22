@@ -7,10 +7,10 @@ import IconButton from "@mui/material/IconButton";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import ActionCreators from "../../actions";
-import useActions from "../../hooks/useActions";
 import Layout, {LayoutTitles} from "../../Layout";
 import useSmartAction from "../../hooks/useSmartAction";
 import FilmCard from "../../components/FilmCard/FilmCard";
+import useDialog from "../../components/DialogManager/useDialog";
 import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 
 const Favorites = () => {
@@ -23,8 +23,8 @@ const Favorites = () => {
         films,
         isAuth
     } = useSelector(mapState);
-    const {openDialog} = useActions();
     const getFavorites = useSmartAction(ActionCreators.getFavorites);
+    const {openDialog} = useDialog();
 
     React.useEffect(() => {
         getFavorites();

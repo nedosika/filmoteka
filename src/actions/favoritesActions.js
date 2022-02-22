@@ -4,9 +4,9 @@ import {showNotice} from "./noticeActions";
 import {SnackBarSeverities} from "../components/SnackStack";
 import FavoritesService from "../services/FavoritesService";
 
-const loadFavoritesSuccess = (data) => ({
+const loadFavoritesSuccess = (films) => ({
     type: ACTION_TYPES.Favorites.FAVORITES_LOADED,
-    payload: data
+    payload: films
 });
 
 const addToFavoritesSuccess = (film) => ({

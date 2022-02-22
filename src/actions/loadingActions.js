@@ -1,17 +1,15 @@
-export const LOADING = {
-    START_LOADING: 'START_LOADING',
-    SUCCESS_LOADING: 'SUCCESS_LOADING',
-    FAILURE_LOADING: 'FAILURE_LOADING'
-}
+export const START_LOADING = 'START_LOADING';
+export const SUCCESS_LOADING = 'SUCCESS_LOADING';
+export const FAILURE_LOADING = 'FAILURE_LOADING';
 
 export const startLoading = () => ({
-    type: LOADING.START_LOADING
+    type: START_LOADING
 });
 export const successLoading = () => ({
-    type: LOADING.SUCCESS_LOADING,
+    type: SUCCESS_LOADING,
 });
 export const failureLoading = (error) => ({
-    type: LOADING.FAILURE_LOADING,
+    type: FAILURE_LOADING,
     payload: error
 });
 

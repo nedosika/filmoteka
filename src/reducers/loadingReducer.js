@@ -1,4 +1,4 @@
-import {LOADING} from "../actions/loadingActions";
+import {START_LOADING, SUCCESS_LOADING, FAILURE_LOADING} from "../actions/loadingActions";
 
 const initialState = {
     isLoading: false,
@@ -7,17 +7,17 @@ const initialState = {
 
 export default function loadingReducer(state = initialState, {type, payload}){
     switch (type){
-        case LOADING.START_LOADING:
+        case START_LOADING:
             return {
                 isLoading: true,
                 error: null
             }
-        case LOADING.SUCCESS_LOADING:
+        case SUCCESS_LOADING:
             return {
                 isLoading: false,
                 error: null
             }
-        case LOADING.FAILURE_LOADING:
+        case FAILURE_LOADING:
             return {
                 isLoading: false,
                 error: payload

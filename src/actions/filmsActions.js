@@ -1,17 +1,19 @@
-import {ACTION_TYPES} from "./index";
 import {FilmService} from "../services";
 import {showNotice} from "./noticeActions";
 import {SnackBarSeverities} from "../components/SnackStack";
 
 const FILMS_PER_PAGE = 5;
 
+export const FILMS_LOADED = 'FILMS_LOADED';
+export const FILM_LOADED = 'FILM_LOADED';
+
 const getFilmsSuccess = (payload) => ({
-    type: ACTION_TYPES.Films.FILMS_LOADED,
+    type: FILMS_LOADED,
     payload
 });
 
 const getFilmSuccess = (film) => ({
-    type: ACTION_TYPES.Films.FILM_LOADED,
+    type: FILM_LOADED,
     payload: film
 });
 
