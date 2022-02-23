@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import EditIcon from "@mui/icons-material/Edit";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,12 +14,12 @@ import FormControl from "@mui/material/FormControl";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import useActions from "../../hooks/useActions";
-import EditIcon from "@mui/icons-material/Edit";
 import Layout, {LayoutTitles} from "../../Layout";
-import FilmCard from "../../components/FilmCard/FilmCard";
-import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
 import useSmartAction from "../../hooks/useSmartAction";
 import searchActions from "../../actions/searchActions";
+import FilmCard from "../../components/FilmCard/FilmCard";
+import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+import useDialog from "../../components/DialogManager/useDialog";
 
 const Search = () => {
     const navigate = useNavigate();
@@ -28,10 +29,11 @@ const Search = () => {
     const mapState = (state) => ({
         films: state.search.allIds.map((id) => ({id, ...state.search.byId[id]})),
         isAuth: state.auth.isAuth,
-    })
+    });
     const {films, isAuth} = useSelector(mapState);
-    const {addToFavorites, openDialog} = useActions();
+    const {addToFavorites} = useActions();
     const searchFilms = useSmartAction(searchActions.searchFilms);
+    const {openDialog} = useDialog();
     const [state, setState] = useState({
         filter: '',
         sort: 'name',
