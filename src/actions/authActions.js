@@ -48,13 +48,12 @@ const signOut = () => (dispatch) => {
     dispatch(authFailure());
 }
 
-const checkAuth = () => (dispatch) => {
+export const checkAuth = () => (dispatch) => {
     const auth = localStorage.getItem('auth');
 
     if (auth) {
-        const {token} = JSON.parse(auth);
         return AuthService
-            .checkAuth(token)
+            .checkAuth()
             .then(({data}) => {
                 localStorage.setItem('auth', JSON.stringify({
                     token: data.token,
