@@ -17,7 +17,7 @@ const StepFirst = () => {
                 <TextField
                     label="Name"
                     name="name"
-                    value={state.name}
+                    value={state.name || ''}
                     fullWidth
                     margin="normal"
                     onChange={handleChange}
@@ -25,7 +25,7 @@ const StepFirst = () => {
                 <TextField
                     label="Image link"
                     name="img"
-                    value={state.img}
+                    value={state.img || ''}
                     fullWidth
                     margin="normal"
                     onChange={handleChange}
@@ -33,7 +33,7 @@ const StepFirst = () => {
                 <CardMedia
                     component="img"
                     height="140"
-                    image={state.img}
+                    image={state.img || ''}
                     alt="film image"
                     onChange={handleChange}
                 />

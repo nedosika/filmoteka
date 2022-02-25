@@ -4,12 +4,7 @@ import useDialog from "./useDialog";
 const StepperContext = createContext({});
 
 export const StepperProvider = ({children}) => {
-    const [state, setState] = useState({
-        name: '',
-        img: '',
-        description: '',
-        genre: ''
-    });
+    const [state, setState] = useState({});
     const [activeStep, setActiveStep] = useState(0);
     const {closeDialog} = useDialog();
 

@@ -14,7 +14,7 @@ const StepTwo = () => {
                 <TextField
                     label="Name"
                     name="name"
-                    value={state.name}
+                    value={state.name || ''}
                     fullWidth
                     margin="normal"
                     onChange={handleChange}
@@ -22,7 +22,7 @@ const StepTwo = () => {
                 <TextField
                     label="Description"
                     name="description"
-                    value={state.description}
+                    value={state.description || ''}
                     multiline
                     rows={4}
                     fullWidth
