@@ -1,15 +1,17 @@
 import React from 'react';
 
-import MUIDialog from "@mui/material/Dialog";
-import useDialog from "../useDialog";
-import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import useStepper from "../../Stepper/useStepper";
+import MUIDialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+
+import useDialog from "../useDialog";
+import useStepper from "../useStepper";
+import StepFirst from "./StepFirst";
+import StepTwo from "./StepTwo";
 
 const steps = [
-    <div>one</div>,
-    <div>two</div>,
-    <div>three</div>
+    <StepFirst/>,
+    <StepTwo/>
 ]
 
 const StepperDialog = () => {
@@ -21,16 +23,18 @@ const StepperDialog = () => {
             onNext();
     }
 
+    const Component = () => steps[activeStep]
+
     return (
         <MUIDialog
             component="form"
             open
             onClose={() => closeDialog()}
         >
-            {steps[activeStep]}
+            <Component/>
             <DialogActions sx={{padding: '20px 24px'}}>
-                <Button variant="outlined" onClick={onPrev}>Prev</Button>
-                <Button variant="outlined" onClick={handleNext}>Next</Button>
+                <Button variant="outlined" disabled={activeStep === 0} onClick={onPrev}>Prev</Button>
+                <Button variant="outlined" disabled={activeStep >= steps.length - 1} onClick={handleNext}>Next</Button>
             </DialogActions>
         </MUIDialog>
     );

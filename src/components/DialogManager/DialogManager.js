@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Dialogs} from "./Dialogs";
-import {StepperProvider} from "../Stepper/useStepper";
+import {StepperProvider} from "./useStepper";
 
 const DialogManager = ({dialogs}) =>
     dialogs.map(({type, props = {}}, index) => {
