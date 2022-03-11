@@ -1,17 +1,20 @@
-import {ACTION_TYPES} from "./index";
 import UserService from "../services/UserService";
 
+export const USER_REQUEST = 'USER_REQUEST';
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_FAILURE = 'USER_FAILURE';
+
 const request = () => ({
-  type: ACTION_TYPES.User.USER_REQUEST
+  type: USER_REQUEST
 });
 
 const success = (payload) => ({
-    type: ACTION_TYPES.User.USER_SUCCESS,
+    type: USER_SUCCESS,
     payload
 });
 
 const failure = (payload) => ({
-    type: ACTION_TYPES.User.USER_FAILURE,
+    type: USER_FAILURE,
     payload
 });
 

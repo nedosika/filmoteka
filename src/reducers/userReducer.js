@@ -1,4 +1,4 @@
-import {ACTION_TYPES} from "../actions";
+import {USER_REQUEST, USER_SUCCESS, USER_FAILURE} from "../actions/userActions";
 
 const initialState = {
     isLoading: false,
@@ -8,18 +8,18 @@ const initialState = {
 
 export default function userReducer(state = initialState, {type, payload}){
     switch (type){
-        case ACTION_TYPES.User.USER_REQUEST:
+        case USER_REQUEST:
             return {
                 isLoading: true,
                 error: null
             }
-        case ACTION_TYPES.User.USER_SUCCESS:
+        case USER_SUCCESS:
             return {
                 isLoading: false,
                 user: payload,
                 error: null
             }
-        case ACTION_TYPES.User.USER_FAILURE:
+        case USER_FAILURE:
             return {
                 ...state,
                 isLoading: false,

@@ -1,14 +1,16 @@
-import {ACTION_TYPES} from "./index";
 import {AuthService} from "../services";
 import {startLoading, successLoading, failureLoading} from "./loadingActions";
 
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
+
 const authSuccess = (payload) => ({
-    type: ACTION_TYPES.Auth.AUTH_SUCCESS,
+    type: AUTH_SUCCESS,
     payload
 });
 
 const authFailure = () => ({
-    type: ACTION_TYPES.Auth.AUTH_SIGNOUT
+    type: AUTH_SIGNOUT
 })
 
 const signIn = (email, password) => (dispatch) => {
