@@ -10,18 +10,18 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import DialogActions from "@mui/material/DialogActions";
 
-import Dialog from "../Dialog";
-import ActionCreators from "../../../actions";
-import useExists from "../../../hooks/useExists";
-import useSmartAction from "../../../hooks/useSmartAction";
-import useDialog from "../useDialog";
+import Dialog from "./Dialog";
+import {addFilm as addFilmAction} from "../../actions";
+import useExists from "../../hooks/useExists";
+import useSmartAction from "../../hooks/useSmartAction";
+import useDialog from "../DialogManager/useDialog";
 
 const emptyImageUrl =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
 
 const AddFilmDialog = () => {
     const {closeDialog} = useDialog();
-    const addFilm = useSmartAction(ActionCreators.addFilm);
+    const addFilm = useSmartAction(addFilmAction);
     const [state, setState] = useState({
         name: '',
         img: '',

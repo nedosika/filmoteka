@@ -2,7 +2,7 @@ import React from 'react';
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
-import useStepper from "../../useStepper";
+import useStepper from "./useStepper";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 

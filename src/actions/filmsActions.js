@@ -17,17 +17,17 @@ const getFilmSuccess = (film) => ({
     payload: film
 });
 
-const getFilm = (id) => (dispatch) =>
+export const getFilm = (id) => (dispatch) =>
     FilmService
         .getOne(id)
         .then(({data}) => dispatch(getFilmSuccess(data)))
 
-const getFilms = (query) => (dispatch) =>
+export const getFilms = (query) => (dispatch) =>
     FilmService
         .getAll({...query, limit: FILMS_PER_PAGE})
         .then((result) => dispatch(getFilmsSuccess(result)))
 
-const addFilm = (film) => (dispatch, getState) => {
+export const addFilm = (film) => (dispatch, getState) => {
     const {films: {page}} = getState();
     return FilmService
         .addFilm(film)
@@ -35,7 +35,7 @@ const addFilm = (film) => (dispatch, getState) => {
         .then(() => dispatch(getFilms({page})))
 }
 
-const updateFilm = (film) => (dispatch, getState) => {
+export const updateFilm = (film) => (dispatch, getState) => {
     const {films: {page}} = getState();
     return FilmService
         .updateFilm(film)
@@ -43,18 +43,10 @@ const updateFilm = (film) => (dispatch, getState) => {
         .then(() => dispatch(getFilms({page})))
 }
 
-const removeFilm = (id) => (dispatch, getState) => {
+export const removeFilm = (id) => (dispatch, getState) => {
     const {films: {page}} = getState();
     return FilmService
         .removeFilm(id)
         .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
         .then(() => dispatch(getFilms({page})))
-}
-
-export default {
-    getFilm,
-    getFilms,
-    addFilm,
-    removeFilm,
-    updateFilm
 }

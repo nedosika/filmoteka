@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Dialogs} from "./Dialogs";
+import {Dialogs} from "../Dialogs";
 
 const DialogManager = ({dialogs}) =>
     dialogs.map(({type, props = {}}, index) => {

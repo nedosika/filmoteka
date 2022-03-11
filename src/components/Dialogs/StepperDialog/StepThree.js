@@ -4,7 +4,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
 import DialogContent from "@mui/material/DialogContent";
-import useStepper from "../../useStepper";
+import useStepper from "./useStepper";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 

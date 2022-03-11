@@ -11,13 +11,16 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import DialogActions from "@mui/material/DialogActions";
 
-import Dialog from "../Dialog";
-import {DIALOG_TYPES} from "./";
-import Loader from "../../Loader";
-import ActionCreators from "../../../actions";
-import useExists from "../../../hooks/useExists";
-import useSmartAction from "../../../hooks/useSmartAction";
-import useDialog from "../useDialog";
+import Dialog from "./Dialog";
+import {DIALOG_TYPES} from "./index";
+import Loader from "../Loader";
+import {
+    updateFilm as updateFilmAction,
+    getFilm as getFilmAction
+} from "../../actions";
+import useExists from "../../hooks/useExists";
+import useSmartAction from "../../hooks/useSmartAction";
+import useDialog from "../DialogManager/useDialog";
 
 const emptyImageUrl =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
@@ -29,8 +32,8 @@ const EditFilmDialog = ({id}) => {
         film: state.films.current
     })
     const {film, isLoading} = useSelector(mapState);
-    const updateFilm = useSmartAction(ActionCreators.updateFilm);
-    const getFilm = useSmartAction(ActionCreators.getFilm);
+    const updateFilm = useSmartAction(updateFilmAction);
+    const getFilm = useSmartAction(getFilmAction);
 
     const [state, setState] = useState({
         name: '',

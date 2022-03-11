@@ -15,7 +15,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Search from "../Search";
 import {useRouter} from "../../hooks/useRouter";
 import useActions from "../../hooks/useActions";
-import {DIALOG_TYPES} from "../DialogManager/Dialogs";
+import {DIALOG_TYPES} from "../Dialogs";
 import useSmartAction from "../../hooks/useSmartAction";
 import searchActions from "../../actions/searchActions";
 import useDialog from "../DialogManager/useDialog";

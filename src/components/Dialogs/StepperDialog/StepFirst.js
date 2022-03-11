@@ -7,7 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 
-import useStepper from "../../useStepper";
+import useStepper from "./useStepper";
 
 const StepFirst = () => {
     const {onNext, state, onChange} = useStepper();

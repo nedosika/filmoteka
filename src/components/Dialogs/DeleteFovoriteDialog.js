@@ -1,13 +1,13 @@
 import React from 'react';
 
 import ConfirmDialog from "./ConfirmDialog";
-import ActionCreators from "../../../actions";
-import useSmartAction from "../../../hooks/useSmartAction";
-import useDialog from "../useDialog";
+import {removeFromFavorites as removeFromFavoritesAction} from "../../actions";
+import useSmartAction from "../../hooks/useSmartAction";
+import useDialog from "../DialogManager/useDialog";
 
 const DeleteFavoriteDialog = ({id}) => {
     const {closeDialog} = useDialog();
-    const removeFromFavorites = useSmartAction(ActionCreators.removeFromFavorites);
+    const removeFromFavorites = useSmartAction(removeFromFavoritesAction);
 
     const handleRemove = () => {
         removeFromFavorites(id);

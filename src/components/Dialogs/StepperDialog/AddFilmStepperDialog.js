@@ -1,5 +1,5 @@
 import React from 'react';
-import {StepperProvider} from "../../useStepper";
+import {StepperProvider} from "./useStepper";
 import StepperDialog from "./StepperDialog";
 import StepFirst from "./StepFirst";
 import StepTwo from "./StepTwo";

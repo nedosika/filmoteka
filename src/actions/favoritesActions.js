@@ -9,28 +9,22 @@ const loadFavoritesSuccess = (films) => ({
     payload: films
 });
 
-const getFavorites = () => (dispatch) => {
+export const getFavorites = () => (dispatch) => {
     return FavoritesService
         .getFavorites()
         .then((films) => dispatch(loadFavoritesSuccess(films.data)))
 }
 
-const addToFavorites = (film) => (dispatch) => {
+export const addToFavorites = (film) => (dispatch) => {
     return FavoritesService
         .addToFavorites(film)
         .then(() => dispatch(showNotice('Film added to favorites', SnackBarSeverities.success)))
         .then(() => dispatch(getFavorites()))
 }
 
-const removeFromFavorites = (id) => (dispatch) => {
+export const removeFromFavorites = (id) => (dispatch) => {
     return FavoritesService
         .removeFromFavorites(id)
         .then(() => dispatch(showNotice('Film removed from favorites', SnackBarSeverities.success)))
         .then(() => dispatch(getFavorites()))
-}
-
-export default {
-    getFavorites,
-    addToFavorites,
-    removeFromFavorites
 }

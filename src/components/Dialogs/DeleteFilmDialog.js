@@ -1,13 +1,13 @@
 import React from 'react';
 
 import ConfirmDialog from "./ConfirmDialog";
-import ActionCreators from "../../../actions";
-import useSmartAction from "../../../hooks/useSmartAction";
-import useDialog from "../useDialog";
+import {removeFilm as removeFilmAction} from "../../actions";
+import useSmartAction from "../../hooks/useSmartAction";
+import useDialog from "../DialogManager/useDialog";
 
 const DeleteFilmDialog = ({id}) => {
     const {closeDialog} = useDialog();
-    const removeFilm = useSmartAction(ActionCreators.removeFilm);
+    const removeFilm = useSmartAction(removeFilmAction);
 
     const handleRemove = () => {
         removeFilm(id);

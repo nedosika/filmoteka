@@ -18,7 +18,7 @@ import Layout, {LayoutTitles} from "../../Layout";
 import useSmartAction from "../../hooks/useSmartAction";
 import searchActions from "../../actions/searchActions";
 import FilmCard from "../../components/FilmCard/FilmCard";
-import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+import {DIALOG_TYPES} from "../../components/Dialogs";
 import useDialog from "../../components/DialogManager/useDialog";
 
 const Search = () => {

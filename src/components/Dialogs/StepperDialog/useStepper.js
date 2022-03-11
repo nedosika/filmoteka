@@ -1,9 +1,9 @@
 import React, {createContext, useContext, useState} from 'react';
 import {useSelector} from "react-redux";
 
-import useDialog from "./useDialog";
-import useSmartAction from "../../hooks/useSmartAction";
-import filmsActionCreators from "../../actions/filmsActions";
+import useDialog from "../../DialogManager/useDialog";
+import useSmartAction from "../../../hooks/useSmartAction";
+import {addFilm as addFilmAction} from "../../../actions";
 
 const StepperContext = createContext({});
 
@@ -11,7 +11,7 @@ export const StepperProvider = ({children}) => {
     const [state, setState] = useState({});
     const [activeStep, setActiveStep] = useState(0);
     const {closeDialog} = useDialog();
-    const addFilm = useSmartAction(filmsActionCreators.addFilm);
+    const addFilm = useSmartAction(addFilmAction);
     const {isLoading, error} = useSelector(state => state.loading)
 
     const handleChange = (event) => {

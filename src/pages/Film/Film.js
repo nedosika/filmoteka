@@ -15,14 +15,15 @@ import CardActions from "@mui/material/CardActions";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import Layout from "../../Layout";
-import ActionCreators from "../../actions";
+
 import {useRouter} from "../../hooks/useRouter";
+import {getFilm as getFilmAction} from "../../actions";
 import useSmartAction from "../../hooks/useSmartAction";
 import useActions from "../../hooks/useActions";
-import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+import {DIALOG_TYPES} from "../../components/Dialogs";
+import useDialog from "../../components/DialogManager/useDialog";
 
-
-const FilmSkeleton = () =>
+const FilmSkeleton = () => (
     <Stack spacing={1}>
         <Skeleton variant="text"/>
         <Skeleton variant="text"/>
@@ -31,18 +32,19 @@ const FilmSkeleton = () =>
         <Skeleton variant="text"/>
         <Skeleton variant="circular" width={40} height={40}/>
     </Stack>
+)
 
 const Film = () => {
     const {params} = useRouter();
-
     const mapState = (state) => ({
         film: state.films.current,
         isLoading: state.loading.isLoading,
         isAuth: state.auth.isAuth
     });
     const {film, isAuth} = useSelector(mapState)
-    const {openDialog, addToFavorites} = useActions();
-    const getFilm = useSmartAction(ActionCreators.getFilm);
+    const {addToFavorites} = useActions();
+    const getFilm = useSmartAction(getFilmAction);
+    const {openDialog} = useDialog();
 
     const handleOpenDialog = (dialog, id) => () => {
         openDialog(dialog, {id})

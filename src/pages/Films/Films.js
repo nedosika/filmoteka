@@ -13,14 +13,14 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import ActionCreators from "../../actions";
+import {getFilms as getFilmsAction} from "../../actions";
 import AddFilmButton from "./AddFilmButton";
 import useActions from "../../hooks/useActions";
 import Layout, {LayoutTitles} from "../../Layout";
 import useSmartAction from "../../hooks/useSmartAction";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import useDialog from "../../components/DialogManager/useDialog";
-import {DIALOG_TYPES} from "../../components/DialogManager/Dialogs";
+import {DIALOG_TYPES} from "../../components/Dialogs";
 
 const Films = () => {
     const [state, setState] = useState({
@@ -46,7 +46,7 @@ const Films = () => {
     } = useSelector(mapState);
 
     const {addToFavorites} = useActions();
-    const getFilms = useSmartAction(ActionCreators.getFilms);
+    const getFilms = useSmartAction(getFilmsAction);
     const {openDialog} = useDialog();
 
     const handleChangePage = (event, page = 1) => {
