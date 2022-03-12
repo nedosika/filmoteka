@@ -12,6 +12,14 @@ import useStepper from "./useStepper";
 const StepFirst = () => {
     const {onNext, state, onChange} = useStepper();
 
+    const handleChangeName = (event) => {
+        onChange({name: event.target.value})
+    }
+
+    const handleChangeImage = (event) => {
+        onChange({img: event.target.value})
+    }
+
     return (
         <>
             <DialogTitle>Step 1</DialogTitle>
@@ -22,7 +30,7 @@ const StepFirst = () => {
                     value={state.name || ''}
                     fullWidth
                     margin="normal"
-                    onChange={onChange}
+                    onChange={handleChangeName}
                 />
                 <TextField
                     label="Image link"
@@ -30,14 +38,13 @@ const StepFirst = () => {
                     value={state.img || ''}
                     fullWidth
                     margin="normal"
-                    onChange={onChange}
+                    onChange={handleChangeImage}
                 />
                 <CardMedia
                     component="img"
                     height="140"
                     image={state.img || ''}
                     alt="film image"
-                    onChange={onChange}
                 />
             </DialogContent>
             <DialogActions sx={{padding: '20px 24px'}}>

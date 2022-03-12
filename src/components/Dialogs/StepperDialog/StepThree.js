@@ -1,25 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useSelector} from "react-redux";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-
 import DialogContent from "@mui/material/DialogContent";
-import useStepper from "./useStepper";
-import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const StepThree = () => {
-    const {isLoading, error, closeDialog} = useStepper();
+import useDialog from "../../DialogManager/useDialog";
 
-    const Content = () => {
-        if(isLoading)
-            return <Box sx={{ display: 'flex' }}>
-                <CircularProgress />
-            </Box>
-        if(error)
-            return <div>Error: {error}</div>
-        return <div>Added ok</div>
-    }
+const StepThree = () => {
+    const {closeDialog} = useDialog();
+    const {isLoading, error} = useSelector(state => state.loading);
 
     const disabled = isLoading || error;
 
@@ -27,10 +20,20 @@ const StepThree = () => {
         <>
             <DialogTitle>Step 3 Saving</DialogTitle>
             <DialogContent>
-                <Content/>
+                {
+                    isLoading
+                        ?
+                        <Box sx={{display: 'flex'}}>
+                            <CircularProgress/>
+                        </Box>
+                        :
+                        error
+                            ? <div>Error: {error}</div>
+                            : <div>Added ok</div>
+                }
             </DialogContent>
             <DialogActions sx={{padding: '20px 24px'}}>
-                <Button variant="outlined" disabled={disabled} onClick={() => closeDialog()}>Ok</Button>
+                <Button variant="outlined" disabled={disabled} onClick={closeDialog}>Ok</Button>
             </DialogActions>
         </>
     );
