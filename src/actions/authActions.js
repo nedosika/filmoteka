@@ -13,7 +13,7 @@ const authFailure = () => ({
     type: AUTH_SIGNOUT
 })
 
-const signIn = (email, password) => (dispatch) => {
+export const signIn = (email, password) => (dispatch) => {
     dispatch(startLoading());
 
     return AuthService.signIn(email, password)
@@ -29,7 +29,7 @@ const signIn = (email, password) => (dispatch) => {
         .catch((error) => dispatch(failureLoading(error.message)))
 }
 
-const signUp = (email, password) => (dispatch) => {
+export const signUp = (email, password) => (dispatch) => {
     dispatch(startLoading());
 
     AuthService.signUp(email, password)
@@ -45,7 +45,7 @@ const signUp = (email, password) => (dispatch) => {
         .catch((error) => dispatch(failureLoading(error.message)))
 }
 
-const signOut = () => (dispatch) => {
+export const signOut = () => (dispatch) => {
     localStorage.removeItem('auth');
     dispatch(authFailure());
 }
@@ -69,11 +69,4 @@ export const checkAuth = () => (dispatch) => {
                 dispatch(authFailure());
             })
     }
-}
-
-export default {
-    signIn,
-    signOut,
-    signUp,
-    checkAuth
 }
