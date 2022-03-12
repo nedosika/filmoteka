@@ -42,7 +42,7 @@ const failure = (payload) => ({
 //         .catch((error) => dispatch(failure(error.message)))
 // }
 
-const getUser = () => (dispatch) => {
+export const getUser = () => (dispatch) => {
     const auth = JSON.parse(localStorage.getItem('auth'));
 
     dispatch(request());

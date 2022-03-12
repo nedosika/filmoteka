@@ -3,17 +3,17 @@ import {FilmService} from "../services";
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const GET_SEARCH_OPTIONS_SUCCESS = 'GET_SEARCH_OPTIONS_SUCCESS';
 
-const searchFilmsSuccess = (films) => ({
+export const searchFilmsSuccess = (films) => ({
     type: SEARCH_SUCCESS,
     payload: films
 });
 
-const getOptionsSuccess = (result) => ({
+export const getOptionsSuccess = (result) => ({
     type: GET_SEARCH_OPTIONS_SUCCESS,
     payload: result.allIds.map((id) => ({id, name: result.byId[id].name}))
 });
 
-const searchFilms = (query) => (dispatch) =>
+export const searchFilms = (query) => (dispatch) =>
     FilmService
         .getAll({field: 'name', value: query})
         .then((result) => dispatch(searchFilmsSuccess(result)))
@@ -23,7 +23,7 @@ const searchFilms = (query) => (dispatch) =>
         })
 
 
-const getSearchOptions = (query) => (dispatch) =>
+export const getSearchOptions = (query) => (dispatch) =>
     FilmService
         .getAll({field: 'name', value: query})
         .then((result) => dispatch(getOptionsSuccess(result)))
