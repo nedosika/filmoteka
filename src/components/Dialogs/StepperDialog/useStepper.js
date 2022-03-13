@@ -22,8 +22,9 @@ export const StepperProvider = ({children}) => {
     }
 
     const handlePrev = () => {
-        if (activeStep !== 0)
+        if (activeStep !== 0){
             setActiveStep((prevState) => prevState - 1);
+        }
     }
 
     return (
