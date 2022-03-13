@@ -1,5 +1,4 @@
 import { isArray, isEmpty } from 'lodash';
-
 import useValidator from '../hooks/useValidator';
 
 const validate = (fields, type) => {

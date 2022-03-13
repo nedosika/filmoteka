@@ -1,25 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
 import { Assignment } from '@mui/icons-material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeIcon from '@mui/icons-material/Home';
-import Drawer from '@mui/material/Drawer/Drawer';
 import LoginIcon from '@mui/icons-material/Login';
-import IconButton from '@mui/material/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import TheatersIcon from '@mui/icons-material/Theaters';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
-
-import { useRouter } from '../../hooks/useRouter';
 import useActions from '../../hooks/useActions';
+import { useRouter } from '../../hooks/useRouter';
 
 const SideBarMenu = ({ isOpen, onClose }) => {
   const { navigate, location } = useRouter();

@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
-import TextField from '@mui/material/TextField';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
-import useActions from '../../hooks/useActions';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import Layout, { LayoutTitles } from '../../Layout';
-import useSmartAction from '../../hooks/useSmartAction';
 import searchActions from '../../actions/searchActions';
-import FilmCard from '../../components/FilmCard/FilmCard';
-import { DIALOG_TYPES } from '../../components/Dialogs';
 import useDialog from '../../components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '../../components/Dialogs';
+import FilmCard from '../../components/FilmCard/FilmCard';
+import useActions from '../../hooks/useActions';
+import useSmartAction from '../../hooks/useSmartAction';
 
 const Search = () => {
   const navigate = useNavigate();

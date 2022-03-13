@@ -1,24 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { createSearchParams } from 'react-router-dom';
-
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import Toolbar from '@mui/material/Toolbar';
-import MenuIcon from '@mui/icons-material/Menu';
-import Typography from '@mui/material/Typography';
 import { AccountCircle } from '@mui/icons-material';
-import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-
-import Search from '../Search';
-import { useRouter } from '../../hooks/useRouter';
-import useActions from '../../hooks/useActions';
-import { DIALOG_TYPES } from '../Dialogs';
-import useSmartAction from '../../hooks/useSmartAction';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import searchActions from '../../actions/searchActions';
+import useActions from '../../hooks/useActions';
+import { useRouter } from '../../hooks/useRouter';
+import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
+import { DIALOG_TYPES } from '../Dialogs';
+import Search from '../Search';
 
 const Header = ({ title, onOpenMenuBar }) => {
   const { navigate } = useRouter();

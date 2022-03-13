@@ -1,7 +1,6 @@
 import React from 'react';
-
-import Input from './Input';
 import { isEmpty } from 'lodash';
+import Input from './Input';
 
 const ACTIONS = {
   add: 'add',

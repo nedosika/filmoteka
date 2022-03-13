@@ -1,13 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import DialogTitle from '@mui/material/DialogTitle';
+import CircularProgress from '@mui/material/CircularProgress';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import CircularProgress from '@mui/material/CircularProgress';
-
+import DialogTitle from '@mui/material/DialogTitle';
 import useDialog from '../../DialogManager/useDialog';
 
 const StepThree = () => {

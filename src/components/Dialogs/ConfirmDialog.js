@@ -1,11 +1,9 @@
 import React from 'react';
-
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
-
-import Dialog from './Dialog';
+import Button from '@mui/material/Button';
+import DialogActions from '@mui/material/DialogActions';
 import useDialog from '../DialogManager/useDialog';
+import Dialog from './Dialog';
 
 const ConfirmDialog = ({ title, onSubmit }) => {
   const { closeDialog } = useDialog();

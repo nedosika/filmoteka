@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { isEmpty, omit } from 'lodash';
-
 import Field from './components/Field';
-import validate from './lib/validate';
 import { VALIDATION_TYPES } from './index';
+import validate from './lib/validate';
 
 const FormBuilder = (props) => {
   const {

@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import * as ActionCreators from '../actions';
 
 export default function useActions(actions = ActionCreators, deps = []) {

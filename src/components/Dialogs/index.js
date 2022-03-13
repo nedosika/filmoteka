@@ -1,8 +1,8 @@
 import AddFilmDialog from './AddFilmDialog';
 import ConfirmDialog from './ConfirmDialog';
-import EditFilmDialog from './EditFilmDialog';
 import DeleteFilmDialog from './DeleteFilmDialog';
 import DeleteFavoriteDialog from './DeleteFovoriteDialog';
+import EditFilmDialog from './EditFilmDialog';
 import AddFilmStepperDialog from './StepperDialog/AddFilmStepperDialog';
 
 export const DIALOG_TYPES = {

@@ -1,20 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, NavLink } from 'react-router-dom';
-
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import { NavLink, Navigate } from 'react-router-dom';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import useActions from '../../hooks/useActions';
 
 function Copyright(props) {

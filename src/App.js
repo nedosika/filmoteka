@@ -1,8 +1,7 @@
 import React from 'react';
-
-import Router from './router';
-import SnackStack from './components/SnackStack';
 import { DialogProvider } from './components/DialogManager/useDialog';
+import SnackStack from './components/SnackStack';
+import Router from './router';
 
 function App() {
   return (

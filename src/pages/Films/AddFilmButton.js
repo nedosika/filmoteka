@@ -1,9 +1,8 @@
 import React from 'react';
-
-import Card from '@mui/material/Card';
-import { CardActionArea } from '@mui/material';
-import CardContent from '@mui/material/CardContent';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { CardActionArea } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 const AddFilmButton = ({ onClick }) => {
   return (

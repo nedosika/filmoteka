@@ -1,14 +1,12 @@
 import React from 'react';
-
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-
-import useStepper from './useStepper';
-import useSmartAction from '../../../hooks/useSmartAction';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 import { addFilm as addFilmAction } from '../../../actions';
+import useSmartAction from '../../../hooks/useSmartAction';
+import useStepper from './useStepper';
 
 const StepTwo = () => {
   const { state, onChange, onPrev, onNext } = useStepper();

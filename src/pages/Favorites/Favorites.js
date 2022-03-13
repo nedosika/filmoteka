@@ -1,17 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
-import { getFavorites as getFavoritesAction } from '../../actions';
 import Layout, { LayoutTitles } from '../../Layout';
-import useSmartAction from '../../hooks/useSmartAction';
-import FilmCard from '../../components/FilmCard/FilmCard';
+import { getFavorites as getFavoritesAction } from '../../actions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
+import FilmCard from '../../components/FilmCard/FilmCard';
+import useSmartAction from '../../hooks/useSmartAction';
 
 const Favorites = () => {
   const mapState = (state) => ({

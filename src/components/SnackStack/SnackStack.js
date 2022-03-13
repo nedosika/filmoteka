@@ -1,10 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
 import { Stack } from '@mui/material';
-
-import SnackBar from './SnackBar';
 import useActions from '../../hooks/useActions';
+import SnackBar from './SnackBar';
 
 const SnackStack = () => {
   const mapState = (state) => ({

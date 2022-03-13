@@ -1,5 +1,4 @@
 import React from 'react';
-
 import * as Fields from './index';
 
 const Field = (props) => {

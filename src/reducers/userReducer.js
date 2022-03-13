@@ -1,4 +1,4 @@
-import { USER_REQUEST, USER_SUCCESS, USER_FAILURE } from '../actions/userActions';
+import { USER_FAILURE, USER_REQUEST, USER_SUCCESS } from '../actions/userActions';
 
 const initialState = {
   isLoading: false,

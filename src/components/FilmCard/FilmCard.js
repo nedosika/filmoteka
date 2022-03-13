@@ -1,11 +1,10 @@
 import React from 'react';
-
-import Card from '@mui/material/Card';
-import Rating from '@mui/material/Rating';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
 import { CardActionArea, CardActions } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 const FilmCard = ({ film, actionsButtons, onNavigate }) => {
   return (

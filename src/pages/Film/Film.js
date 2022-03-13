@@ -1,27 +1,24 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
+import EditIcon from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Stack } from '@mui/material';
 import Card from '@mui/material/Card';
-import Skeleton from '@mui/material/Skeleton';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Container from '@mui/material/Container';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
+import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
 import Layout from '../../Layout';
-
-import { useRouter } from '../../hooks/useRouter';
 import { getFilm as getFilmAction } from '../../actions';
-import useSmartAction from '../../hooks/useSmartAction';
-import useActions from '../../hooks/useActions';
-import { DIALOG_TYPES } from '../../components/Dialogs';
 import useDialog from '../../components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '../../components/Dialogs';
+import useActions from '../../hooks/useActions';
+import { useRouter } from '../../hooks/useRouter';
+import useSmartAction from '../../hooks/useSmartAction';
 
 const FilmSkeleton = () => (
   <Stack spacing={1}>

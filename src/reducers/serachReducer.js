@@ -1,4 +1,4 @@
-import { SEARCH_SUCCESS, GET_SEARCH_OPTIONS_SUCCESS } from '../actions/searchActions';
+import { GET_SEARCH_OPTIONS_SUCCESS, SEARCH_SUCCESS } from '../actions/searchActions';
 
 const initialState = {
   byId: {},

@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
-import Pagination from '@mui/material/Pagination';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
-import { getFilms as getFilmsAction } from '../../actions';
-import AddFilmButton from './AddFilmButton';
-import useActions from '../../hooks/useActions';
+import MenuItem from '@mui/material/MenuItem';
+import Pagination from '@mui/material/Pagination';
+import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
-import useSmartAction from '../../hooks/useSmartAction';
-import FilmCard from '../../components/FilmCard/FilmCard';
+import { getFilms as getFilmsAction } from '../../actions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
+import FilmCard from '../../components/FilmCard/FilmCard';
+import useActions from '../../hooks/useActions';
+import useSmartAction from '../../hooks/useSmartAction';
+import AddFilmButton from './AddFilmButton';
 
 const Films = () => {
   const [state, setState] = useState({

@@ -1,9 +1,8 @@
 import { useDispatch } from 'react-redux';
-
-import useActions from './useActions';
-import noticeActions from '../actions/noticesActions';
 import loadingActions from '../actions/loadingActions';
+import noticeActions from '../actions/noticesActions';
 import { SnackBarSeverities } from '../components/SnackStack';
+import useActions from './useActions';
 
 const useSmartAction = (actionCreator) => {
   const dispatch = useDispatch();

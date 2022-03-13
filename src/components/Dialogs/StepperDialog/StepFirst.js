@@ -1,12 +1,10 @@
 import React from 'react';
-
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import CardMedia from '@mui/material/CardMedia';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 import useStepper from './useStepper';
 
 const StepFirst = () => {

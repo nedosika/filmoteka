@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
-
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import CardMedia from '@mui/material/CardMedia';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
 import DialogActions from '@mui/material/DialogActions';
-
-import Dialog from './Dialog';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import { addFilm as addFilmAction } from '../../actions';
 import useExists from '../../hooks/useExists';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
+import Dialog from './Dialog';
 
 const emptyImageUrl =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';

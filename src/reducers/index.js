@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
-
 import auth from './authReducer';
-import user from './userReducer';
-import films from './filmsReducer';
-import search from './serachReducer';
-import notices from './noticesReducer';
-import loading from './loadingReducer';
 import favorites from './favoritesReducer';
+import films from './filmsReducer';
+import loading from './loadingReducer';
+import notices from './noticesReducer';
+import search from './serachReducer';
+import user from './userReducer';
 
 const rootReducer = combineReducers({
   auth,

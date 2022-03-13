@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import CardMedia from '@mui/material/CardMedia';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
 import DialogActions from '@mui/material/DialogActions';
-
-import Dialog from './Dialog';
-import { DIALOG_TYPES } from './index';
-import Loader from '../Loader';
-import { updateFilm as updateFilmAction, getFilm as getFilmAction } from '../../actions';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import { getFilm as getFilmAction, updateFilm as updateFilmAction } from '../../actions';
 import useExists from '../../hooks/useExists';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
+import Loader from '../Loader';
+import Dialog from './Dialog';
+import { DIALOG_TYPES } from './index';
 
 const emptyImageUrl =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';

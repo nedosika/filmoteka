@@ -1,5 +1,5 @@
 import { AuthService } from '../services';
-import { startLoading, successLoading, failureLoading } from './loadingActions';
+import { failureLoading, startLoading, successLoading } from './loadingActions';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';

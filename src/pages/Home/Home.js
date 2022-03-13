@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Layout, { LayoutTitles } from '../../Layout';
 
 const Home = () => {
