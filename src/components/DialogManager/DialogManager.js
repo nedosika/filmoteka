@@ -1,17 +1,12 @@
 import React from 'react';
 
-import {Dialogs} from "../Dialogs";
+import { Dialogs } from '../Dialogs';
 
-const DialogManager = ({dialogs}) =>
-    dialogs.map(({type, props = {}}, index) => {
-        const Component = Dialogs[type];
+const DialogManager = ({ dialogs }) =>
+  dialogs.map(({ type, props = {} }, index) => {
+    const Component = Dialogs[type];
 
-        return (
-            <Component
-                {...props}
-                key={type + index}
-            />
-        )
-    })
+    return <Component {...props} key={type + index} />;
+  });
 
 export default DialogManager;

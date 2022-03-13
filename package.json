@@ -14,6 +14,7 @@
     "husky": "^7.0.4",
     "lodash": "^4.17.21",
     "prettier": "^2.5.1",
+    "prettier-plugin-import-sort": "^0.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier-write": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -50,7 +52,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx prettier --write ."
+      "pre-commit": "npx prettier-write"
     }
   }
 }

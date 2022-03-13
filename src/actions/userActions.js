@@ -1,21 +1,21 @@
-import UserService from "../services/UserService";
+import UserService from '../services/UserService';
 
 export const USER_REQUEST = 'USER_REQUEST';
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 
 const request = () => ({
-  type: USER_REQUEST
+  type: USER_REQUEST,
 });
 
 const success = (payload) => ({
-    type: USER_SUCCESS,
-    payload
+  type: USER_SUCCESS,
+  payload,
 });
 
 const failure = (payload) => ({
-    type: USER_FAILURE,
-    payload
+  type: USER_FAILURE,
+  payload,
 });
 
 // const updateUser = (user) => (dispatch) => {
@@ -43,19 +43,17 @@ const failure = (payload) => ({
 // }
 
 export const getUser = () => (dispatch) => {
-    const auth = JSON.parse(localStorage.getItem('auth'));
+  const auth = JSON.parse(localStorage.getItem('auth'));
 
-    dispatch(request());
+  dispatch(request());
 
-    UserService
-        .get(auth.id)
-        .then(({data}) => {
-            dispatch(success(data));
-        })
-        .catch((error) => dispatch(failure(error.message)))
-}
+  UserService.get(auth.id)
+    .then(({ data }) => {
+      dispatch(success(data));
+    })
+    .catch((error) => dispatch(failure(error.message)));
+};
 
 export default {
-    getUser
-}
-
+  getUser,
+};

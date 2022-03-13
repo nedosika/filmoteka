@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import Layout, {LayoutTitles} from "../../Layout";
+import Layout, { LayoutTitles } from '../../Layout';
 
 const Home = () => {
-    return <Layout title={LayoutTitles.HOME}/>
-}
+  return <Layout title={LayoutTitles.HOME} />;
+};
 
 export default Home;

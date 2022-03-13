@@ -1,44 +1,30 @@
 import React from 'react';
 
-import MUISnackbar from "@mui/material/Snackbar";
+import MUISnackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import Slide from "@mui/material/Slide";
+import Slide from '@mui/material/Slide';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props}/>;
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const SlideTransition = ({onEnd, ...props}) => <Slide
-    {...props}
-    onExited={onEnd}
-    direction={'right'}
-/>
+const SlideTransition = ({ onEnd, ...props }) => <Slide {...props} onExited={onEnd} direction={'right'} />;
 
-const SnackBar = ({
-                      severity,
-                      onClose,
-                      onEnd,
-                      message = '',
-                      direction = 'right',
-                      ...props
-                  }) => {
-
-    return <MUISnackbar
-        {...props}
-        onClose={onClose}
-        sx={{position: 'static'}}
-        autoHideDuration={6000}
-        TransitionComponent={SlideTransition}
-        TransitionProps={{onEnd}}
+const SnackBar = ({ severity, onClose, onEnd, message = '', direction = 'right', ...props }) => {
+  return (
+    <MUISnackbar
+      {...props}
+      onClose={onClose}
+      sx={{ position: 'static' }}
+      autoHideDuration={6000}
+      TransitionComponent={SlideTransition}
+      TransitionProps={{ onEnd }}
     >
-        <Alert
-            onClose={onClose}
-            severity={severity}
-            sx={{width: '100%'}}
-        >
-            {message}
-        </Alert>
+      <Alert onClose={onClose} severity={severity} sx={{ width: '100%' }}>
+        {message}
+      </Alert>
     </MUISnackbar>
-}
+  );
+};
 
 export default SnackBar;

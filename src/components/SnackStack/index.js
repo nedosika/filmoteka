@@ -1,8 +1,7 @@
-export {default} from "./SnackStack";
+export { default } from './SnackStack';
 export const SnackBarSeverities = {
-    error: 'error',
-    warning: 'warning',
-    info: 'info',
-    success: 'success'
-}
-
+  error: 'error',
+  warning: 'warning',
+  info: 'info',
+  success: 'success',
+};

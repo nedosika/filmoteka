@@ -1,6 +1,6 @@
 import React from 'react';
-import Input from "./Input";
+import Input from './Input';
 
-const Password = (props) => <Input {...props}/>;
+const Password = (props) => <Input {...props} />;
 
 export default Password;

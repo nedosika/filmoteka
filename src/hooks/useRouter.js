@@ -1,22 +1,18 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import {
-    useParams,
-    useLocation,
-    useNavigate
-} from "react-router-dom";
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 export function useRouter() {
-    const params = useParams();
-    const location = useLocation();
-    const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    return useMemo(() => {
-        return {
-            pathname: location.pathname,
-            location,
-            navigate,
-            params
-        };
-    }, [params, location, navigate]);
+  return useMemo(() => {
+    return {
+      pathname: location.pathname,
+      location,
+      navigate,
+      params,
+    };
+  }, [params, location, navigate]);
 }
