@@ -1,10 +1,4 @@
 import React, { useState } from 'react';
-import Dialog from './Dialog';
-import useExists from '../../hooks/useExists';
-import useSmartAction from '../../hooks/useSmartAction';
-import useDialog from '../DialogManager/useDialog';
-
-
 import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,7 +9,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { addFilm as addFilmAction } from '../../actions';
-
+import useExists from '../../hooks/useExists';
+import useSmartAction from '../../hooks/useSmartAction';
+import useDialog from '../DialogManager/useDialog';
+import Dialog from './Dialog';
 
 const emptyImageUrl =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
