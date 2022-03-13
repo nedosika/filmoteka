@@ -1,14 +1,11 @@
 import React from 'react';
-
-import Input from "./Input";
-import {FIELDS} from "../../index";
+import { FIELDS } from '../../index';
+import Input from './Input';
 
 const Number = (props) => {
-    const {restriction} = props;
+  const { restriction } = props;
 
-    return (
-        <Input {...props} restriction={{...restriction, [FIELDS.number.restrictions.number]: true}}/>
-    );
+  return <Input {...props} restriction={{ ...restriction, [FIELDS.number.restrictions.number]: true }} />;
 };
 
 export default Number;

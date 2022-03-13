@@ -1,11 +1,10 @@
-export * from "./loadingActions";
-export * from "./filmsActions";
-export * from "./authActions";
-export * from "./favoritesActions";
-export * from "./noticesActions";
-export * from "./searchActions";
-export * from "./userActions";
-
+export * from './loadingActions';
+export * from './filmsActions';
+export * from './authActions';
+export * from './favoritesActions';
+export * from './noticesActions';
+export * from './searchActions';
+export * from './userActions';
 
 // import authActionCreator from "./authActions";
 // import userActionCreator from "./userActions";

@@ -1,67 +1,67 @@
 const signIn = async (email, password) => {
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signin', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({email, password})
-    })
+  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({ email, password }),
+  });
 
-    if (response.status === 200) {
-        const data = await response.json();
-        return {...data}
-    }
+  if (response.status === 200) {
+    const data = await response.json();
+    return { ...data };
+  }
 
-    if (response.status === 400) {
-        const data = await response.json();
-        throw new Error(data.message);
-    }
+  if (response.status === 400) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
 };
 
 const signUp = async (email, password) => {
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({email, password})
-    })
-    if (response.status === 201) {
-        const data = await response.json();
-        return {...data}
-    }
-    if (response.status === 409) {
-        const data = await response.json();
-        throw new Error(data.message);
-    }
-    if (response.status === 400) {
-        const data = await response.json();
-        throw new Error(data.message);
-    }
-}
+  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({ email, password }),
+  });
+  if (response.status === 201) {
+    const data = await response.json();
+    return { ...data };
+  }
+  if (response.status === 409) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+  if (response.status === 400) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+};
 
 const checkAuth = async () => {
-    const auth = JSON.parse(localStorage.getItem('auth'));
-    const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/refresh', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            'Authorization': 'Bearer ' + auth.token,
-        }
-    });
-    if (response.status === 200) {
-        const data = await response.json();
-        return {...data}
-    }
+  const auth = JSON.parse(localStorage.getItem('auth'));
+  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/refresh', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: 'Bearer ' + auth.token,
+    },
+  });
+  if (response.status === 200) {
+    const data = await response.json();
+    return { ...data };
+  }
 
-    if (response.status === 400) {
-        const data = await response.json();
-        throw new Error(data.message);
-    }
-}
+  if (response.status === 400) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+};
 
 export const AuthService = {
-    signIn,
-    signUp,
-    checkAuth
-}
+  signIn,
+  signUp,
+  checkAuth,
+};

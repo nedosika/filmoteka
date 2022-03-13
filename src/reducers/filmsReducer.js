@@ -1,23 +1,23 @@
-import {FILMS_LOADED, FILM_LOADED} from "../actions/filmsActions";
+import { FILMS_LOADED, FILM_LOADED } from '../actions/filmsActions';
 
 const initialState = {
-    byId: {},
-    allIds: [],
-    current: {},
-    pages: 0,
-    page: 1
+  byId: {},
+  allIds: [],
+  current: {},
+  pages: 0,
+  page: 1,
 };
 
-export default function filmsReducer(state = initialState, {type, payload}){
-    switch (type){
-        case FILMS_LOADED:
-            return payload
-        case FILM_LOADED:
-            return {
-                ...state,
-                current: payload
-            }
-        default:
-            return state
-    }
+export default function filmsReducer(state = initialState, { type, payload }) {
+  switch (type) {
+    case FILMS_LOADED:
+      return payload;
+    case FILM_LOADED:
+      return {
+        ...state,
+        current: payload,
+      };
+    default:
+      return state;
+  }
 }
