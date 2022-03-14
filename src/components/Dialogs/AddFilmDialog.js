@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack } from '@mui/material';
+import {Skeleton, Stack} from '@mui/material';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import DialogActions from '@mui/material/DialogActions';
@@ -9,10 +9,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { addFilm as addFilmAction } from '../../actions';
-import useExists from '../../hooks/useExists';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
 import Dialog from './Dialog';
+import useImageExists from "../../hooks/useImageExists";
 
 const emptyImageUrl =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
@@ -20,27 +20,23 @@ const emptyImageUrl =
 const AddFilmDialog = () => {
   const { closeDialog } = useDialog();
   const addFilm = useSmartAction(addFilmAction);
-  const [state, setState] = useState({
+  const [film, setFilm] = useState({
     name: '',
     img: '',
     description: '',
     genre: '',
   });
 
-  const isExists = useExists(state.img);
-
-  const handleClose = () => {
-    closeDialog();
-  };
+  const isImageExists = useImageExists(film.img);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addFilm({ ...state });
-    handleClose();
+    addFilm({ ...film });
+    closeDialog();
   };
 
   const handleChange = (event) => {
-    setState((prevState) => ({
+    setFilm((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value,
     }));
@@ -50,10 +46,10 @@ const AddFilmDialog = () => {
     <Dialog
       title="Adding film"
       open
-      onClose={handleClose}
+      onClose={closeDialog}
       dialogActions={
         <DialogActions sx={{ padding: '20px 24px' }}>
-          <Button variant="outlined" onClick={handleClose}>
+          <Button variant="outlined" onClick={closeDialog}>
             Cancel
           </Button>
           <Button variant="outlined" color="secondary" onClick={handleSubmit}>
@@ -78,13 +74,18 @@ const AddFilmDialog = () => {
         <TextField type="number" label="Year" name="year" fullWidth onChange={handleChange} />
       </Stack>
       <TextField label="Image link" name="img" fullWidth margin="normal" onChange={handleChange} />
-      <CardMedia
-        component="img"
-        height="140"
-        image={isExists ? state.img : emptyImageUrl}
-        alt="film image"
-        onChange={handleChange}
-      />
+      {
+        isImageExists === null
+            ?
+            <Skeleton variant="rectangular" width="100%" height={140}/>
+            :
+            <CardMedia
+                component="img"
+                height="140"
+                image={isImageExists ? film.img : emptyImageUrl}
+                alt="film image"
+            />
+      }
       <TextField
         label="Description"
         name="description"
