@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Skeleton } from '@mui/material';
 import Button from '@mui/material/Button';
 import CardMedia from '@mui/material/CardMedia';
 import DialogActions from '@mui/material/DialogActions';
@@ -10,7 +11,7 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { getFilm as getFilmAction, updateFilm as updateFilmAction } from '../../actions';
-import useExists from '../../hooks/useExists';
+import useImageExists from '../../hooks/useImageExists';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
 import Loader from '../Loader';
@@ -24,32 +25,29 @@ const EditFilmDialog = ({ id }) => {
   const { openDialog, closeDialog } = useDialog();
   const mapState = (state) => ({
     isLoading: state.loading.isLoading,
-    film: state.films.current,
+    currentFilm: state.films.current,
   });
-  const { film, isLoading } = useSelector(mapState);
+  const { currentFilm, isLoading } = useSelector(mapState);
   const updateFilm = useSmartAction(updateFilmAction);
   const getFilm = useSmartAction(getFilmAction);
 
-  const [state, setState] = useState({
+  const [film, setFilm] = useState({
     name: '',
+    genre: '',
+    year: '',
     img: '',
     description: '',
-    genre: '',
   });
 
-  const isExists = useExists(state.img);
+  const isImageExists = useImageExists(film.img);
 
   useEffect(() => {
     getFilm(id);
   }, [id]);
 
   useEffect(() => {
-    setState({ ...film });
-  }, [film]);
-
-  const handleClose = () => {
-    closeDialog();
-  };
+    setFilm({ ...currentFilm });
+  }, [currentFilm]);
 
   const handleRemove = () => {
     openDialog(DIALOG_TYPES.DELETE_FILM, { id });
@@ -57,12 +55,12 @@ const EditFilmDialog = ({ id }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateFilm({ ...state });
-    handleClose();
+    updateFilm({ ...film });
+    closeDialog();
   };
 
   const handleChange = (event) => {
-    setState((prevState) => ({
+    setFilm((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value,
     }));
@@ -74,14 +72,14 @@ const EditFilmDialog = ({ id }) => {
     <Dialog
       title="Editing film"
       open
-      onClose={handleClose}
+      onClose={closeDialog}
       dialogActions={
         <DialogActions sx={{ justifyContent: 'space-between', padding: '20px 24px' }}>
           <Button variant="outlined" color="warning" onClick={handleRemove}>
             Remove
           </Button>
           <Stack direction="row" spacing={2}>
-            <Button variant="outlined" onClick={handleClose}>
+            <Button variant="outlined" onClick={closeDialog}>
               Cancel
             </Button>
             <Button variant="outlined" color="secondary" onClick={handleSubmit}>
@@ -91,11 +89,11 @@ const EditFilmDialog = ({ id }) => {
         </DialogActions>
       }
     >
-      <TextField label="Name" name="name" fullWidth margin="normal" onChange={handleChange} value={state.name} />
+      <TextField label="Name" name="name" fullWidth margin="normal" onChange={handleChange} value={film.name} />
       <Stack direction="row" spacing={2} sx={{ width: '100%', marginTop: '10px' }}>
         <FormControl fullWidth>
           <InputLabel>Genre</InputLabel>
-          <Select name="genre" label="Genre" onChange={handleChange} value={state.genre || ''}>
+          <Select name="genre" label="Genre" onChange={handleChange} value={film.genre}>
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
@@ -107,24 +105,28 @@ const EditFilmDialog = ({ id }) => {
             <MenuItem value="Horror">Horror</MenuItem>
           </Select>
         </FormControl>
-        <TextField type="number" label="Year" name="year" value={state.year} fullWidth onChange={handleChange} />
+        <TextField type="number" label="Year" name="year" value={film.year} fullWidth onChange={handleChange} />
       </Stack>
       <TextField
         label="Image link"
         name="img"
-        value={state.img}
+        value={film.img}
         fullWidth
         margin="normal"
         onChange={handleChange}
         alt="film image"
       />
-      <CardMedia component="img" height="140" image={isExists ? state.img : emptyImageUrl} alt="film image" />
+      {isImageExists === null ? (
+        <Skeleton variant="rectangular" width="100%" height={140} />
+      ) : (
+        <CardMedia component="img" height="140" image={isImageExists ? film.img : emptyImageUrl} alt="film image" />
+      )}
       <TextField
         label="Description"
         name="description"
         multiline
         rows={4}
-        value={state.description}
+        value={film.description}
         fullWidth
         margin="normal"
         onChange={handleChange}

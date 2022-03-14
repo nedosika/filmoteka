@@ -9,7 +9,7 @@ import useSmartAction from '../../../hooks/useSmartAction';
 import useStepper from './useStepper';
 
 const StepTwo = () => {
-  const { state, onChange, onPrev, onNext } = useStepper();
+  const { state: film, onChange, onPrev, onNext } = useStepper();
   const addFilm = useSmartAction(addFilmAction);
 
   const handleChangeName = (event) => {
@@ -24,7 +24,7 @@ const StepTwo = () => {
 
   const handleSubmit = () => {
     onNext();
-    addFilm(state);
+    addFilm(film);
   };
 
   return (
@@ -34,7 +34,7 @@ const StepTwo = () => {
         <TextField
           label="Name"
           name="name"
-          value={state.name || ''}
+          value={film.name || ''}
           fullWidth
           margin="normal"
           onChange={handleChangeName}
@@ -42,7 +42,7 @@ const StepTwo = () => {
         <TextField
           label="Description"
           name="description"
-          value={state.description || ''}
+          value={film.description || ''}
           multiline
           rows={4}
           fullWidth
