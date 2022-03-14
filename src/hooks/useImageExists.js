@@ -1,18 +1,18 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 
 const useImageExists = (url) => {
-    const [isExists, setIsExists] = useState(null);
+  const [isExists, setIsExists] = useState(null);
 
-    useEffect(() => {
-        setIsExists(null);
+  useEffect(() => {
+    setIsExists(null);
 
-        const img = new Image();
-        img.src = url;
-        img.onload = () => setIsExists(true);
-        img.onerror = () => setIsExists(false);
-    }, [url]);
+    const img = new Image();
+    img.src = url;
+    img.onload = () => setIsExists(true);
+    img.onerror = () => setIsExists(false);
+  }, [url]);
 
-    return isExists
-}
+  return isExists;
+};
 
 export default useImageExists;
