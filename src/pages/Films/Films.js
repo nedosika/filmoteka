@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
-import { getFilms as getFilmsAction } from '../../actions';
+import { FILMS_PER_PAGE, getFilms as getFilmsAction } from '../../actions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
@@ -35,8 +37,12 @@ const Films = () => {
     page: state.films.page,
     pages: state.films.pages,
     isAuth: state.auth.isAuth,
+    isLoading: state.loading.isLoading,
   });
-  const { films, page, pages, isAuth } = useSelector(mapState);
+  const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
+  const skeletons = [];
+  for (let i = 0; i < FILMS_PER_PAGE; i++) skeletons.push(i);
+  console.log(skeletons);
 
   const { addToFavorites } = useActions();
   const getFilms = useSmartAction(getFilmsAction);
@@ -108,26 +114,45 @@ const Films = () => {
           </FormControl>
         </Box>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {filteredFilms.map((film) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-              <FilmCard
-                film={film}
-                onNavigate={handleNavigate(film)}
-                actionsButtons={
-                  isAuth && (
-                    <Box>
-                      <IconButton onClick={handleAddToFavorites(film)}>
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
-                        <EditIcon />
-                      </IconButton>
-                    </Box>
-                  )
-                }
-              />
-            </Grid>
-          ))}
+          {isLoading
+            ? skeletons.map((element) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={element}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Skeleton variant="rectangular" width="100%" height={140} />
+                    <Skeleton height={30} width="70%" sx={{ margin: '15px 15px 0 15px' }} />
+                    <Skeleton height={10} width="50%" sx={{ margin: '15px' }} />
+                    <Skeleton height={10} width="50%" sx={{ margin: '0 15px' }} />
+                    <Skeleton height={30} sx={{ margin: '35px 10px 13px 10px' }} />
+                  </Card>
+                </Grid>
+              ))
+            : filteredFilms.map((film) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
+                  <FilmCard
+                    film={film}
+                    onNavigate={handleNavigate(film)}
+                    actionsButtons={
+                      isAuth && (
+                        <Box>
+                          <IconButton onClick={handleAddToFavorites(film)}>
+                            <FavoriteIcon />
+                          </IconButton>
+                          <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
+                            <EditIcon />
+                          </IconButton>
+                        </Box>
+                      )
+                    }
+                  />
+                </Grid>
+              ))}
           {isAuth && (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
               <AddFilmButton onClick={handleOpenDialog(DIALOG_TYPES.ADD_FILM_STEPPER_DIALOG)} />
