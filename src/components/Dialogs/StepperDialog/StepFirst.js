@@ -4,8 +4,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import Image from '../../Image';
 import useStepper from './useStepper';
-import Image from "../../Image";
 
 const StepFirst = () => {
   const { onNext, state: film, onChange } = useStepper();
@@ -38,7 +38,7 @@ const StepFirst = () => {
           margin="normal"
           onChange={handleChangeImage}
         />
-          <Image height="140" image={film.img} alt="film image" />
+        <Image height="140" image={film.img} alt="film image" />
       </DialogContent>
       <DialogActions sx={{ padding: '20px 24px' }}>
         <Button variant="outlined" onClick={onNext}>

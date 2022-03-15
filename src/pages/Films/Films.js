@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
@@ -27,7 +27,7 @@ const generateSkeletonsArray = (count) => {
   for (let i = 0; i < count; i++) skeletons.push(i);
 
   return skeletons;
-}
+};
 
 const Films = () => {
   const [state, setState] = useState({
@@ -85,7 +85,7 @@ const Films = () => {
 
   useCallback(() => {
     setSkeletons(generateSkeletonsArray(FILMS_PER_PAGE));
-  }, [page])
+  }, [page]);
 
   return (
     <Layout title={LayoutTitles.FILMS}>

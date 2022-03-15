@@ -13,10 +13,10 @@ import TextField from '@mui/material/TextField';
 import { getFilm as getFilmAction, updateFilm as updateFilmAction } from '../../actions';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
+import Image from '../Image';
 import Loader from '../Loader';
 import Dialog from './Dialog';
 import { DIALOG_TYPES } from './index';
-import Image from "../Image";
 
 const EditFilmDialog = ({ id }) => {
   const { openDialog, closeDialog } = useDialog();
@@ -111,11 +111,7 @@ const EditFilmDialog = ({ id }) => {
         onChange={handleChange}
         alt="film image"
       />
-      <Image
-          image={film.img}
-          height={140}
-          alt='film image'
-      />
+      <Image image={film.img} height={140} alt="film image" />
       <TextField
         label="Description"
         name="description"
