@@ -11,15 +11,12 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { getFilm as getFilmAction, updateFilm as updateFilmAction } from '../../actions';
-import useImageExists from '../../hooks/useImageExists';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
 import Loader from '../Loader';
 import Dialog from './Dialog';
 import { DIALOG_TYPES } from './index';
-
-const emptyImageUrl =
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2PQLJct8f706qIUu-8prSvosyYjCkRRJLxESsxodRUs7YTwCzwj5cXybNk5vMcJGWs5w&usqp=CAU';
+import Image from "../Image";
 
 const EditFilmDialog = ({ id }) => {
   const { openDialog, closeDialog } = useDialog();
@@ -38,8 +35,6 @@ const EditFilmDialog = ({ id }) => {
     img: '',
     description: '',
   });
-
-  const isImageExists = useImageExists(film.img);
 
   useEffect(() => {
     getFilm(id);
@@ -116,11 +111,11 @@ const EditFilmDialog = ({ id }) => {
         onChange={handleChange}
         alt="film image"
       />
-      {isImageExists === null ? (
-        <Skeleton variant="rectangular" width="100%" height={140} />
-      ) : (
-        <CardMedia component="img" height="140" image={isImageExists ? film.img : emptyImageUrl} alt="film image" />
-      )}
+      <Image
+          image={film.img}
+          height={140}
+          alt='film image'
+      />
       <TextField
         label="Description"
         name="description"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
@@ -22,6 +22,13 @@ import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import AddFilmButton from './AddFilmButton';
 
+const generateSkeletonsArray = (count) => {
+  const skeletons = [];
+  for (let i = 0; i < count; i++) skeletons.push(i);
+
+  return skeletons;
+}
+
 const Films = () => {
   const [state, setState] = useState({
     filter: '',
@@ -40,9 +47,7 @@ const Films = () => {
     isLoading: state.loading.isLoading,
   });
   const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
-  const skeletons = [];
-  for (let i = 0; i < FILMS_PER_PAGE; i++) skeletons.push(i);
-  console.log(skeletons);
+  const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
   const { addToFavorites } = useActions();
   const getFilms = useSmartAction(getFilmsAction);
@@ -77,6 +82,10 @@ const Films = () => {
   });
 
   useEffect(handleChangePage, []);
+
+  useCallback(() => {
+    setSkeletons(generateSkeletonsArray(FILMS_PER_PAGE));
+  }, [page])
 
   return (
     <Layout title={LayoutTitles.FILMS}>
