@@ -2,7 +2,7 @@ import { SnackBarSeverities } from '../components/SnackStack';
 import { FilmService } from '../services';
 import { showNotice } from './noticesActions';
 
-const FILMS_PER_PAGE = 5;
+export const FILMS_PER_PAGE = 5;
 
 export const FILMS_LOADED = 'FILMS_LOADED';
 export const FILM_LOADED = 'FILM_LOADED';
