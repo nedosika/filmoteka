@@ -3,7 +3,6 @@ import ConfirmDialog from './ConfirmDialog';
 import DeleteFilmDialog from './DeleteFilmDialog';
 import DeleteFavoriteDialog from './DeleteFovoriteDialog';
 import EditFilmDialog from './EditFilmDialog';
-import AddFilmStepperDialog from './StepperDialog/AddFilmStepperDialog';
 
 export const DIALOG_TYPES = {
   ADD_FILM: 'AddFilmDialog',
@@ -11,7 +10,6 @@ export const DIALOG_TYPES = {
   DELETE_FILM: 'DeleteFilmDialog',
   CONFIRM_DIALOG: 'ConfirmDialog',
   DELETE_FILM_FROM_FAV: 'DeleteFavoriteDialog',
-  ADD_FILM_STEPPER_DIALOG: 'AddFilmStepperDialog',
 };
 
 export const Dialogs = {
@@ -19,6 +17,5 @@ export const Dialogs = {
   ConfirmDialog,
   EditFilmDialog,
   DeleteFilmDialog,
-  DeleteFavoriteDialog,
-  AddFilmStepperDialog,
+  DeleteFavoriteDialog
 };

@@ -15,7 +15,7 @@ import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
 import Image from '../Image';
 import Loader from '../Loader';
-import Dialog from './Dialog';
+import Dialog from '../Dialog/Dialog';
 import { DIALOG_TYPES } from './index';
 
 const EditFilmDialog = ({ id }) => {

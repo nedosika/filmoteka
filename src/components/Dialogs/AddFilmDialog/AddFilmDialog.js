@@ -2,19 +2,19 @@ import React from 'react';
 import StepFirst from './StepFirst';
 import StepThree from './StepThree';
 import StepTwo from './StepTwo';
-import StepperDialog from './StepperDialog';
-import { StepperProvider } from './useStepper';
+import Stepper from '../../Stepper/Stepper';
+import { StepperProvider } from '../../Stepper/useStepper';
 
-const AddFilmStepperDialog = () => {
+const AddFilmDialog = () => {
   return (
     <StepperProvider>
-      <StepperDialog>
+      <Stepper>
         <StepFirst />
         <StepTwo />
         <StepThree />
-      </StepperDialog>
+      </Stepper>
     </StepperProvider>
   );
 };
 
-export default AddFilmStepperDialog;
+export default AddFilmDialog;
