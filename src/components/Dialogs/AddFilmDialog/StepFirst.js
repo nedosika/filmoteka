@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import Image from '../../Image';
-import useStepper from './useStepper';
+import { useStepper } from '../../Stepper';
 
 const StepFirst = () => {
   const { onNext, state: film, onChange } = useStepper();

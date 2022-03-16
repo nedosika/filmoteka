@@ -38,6 +38,6 @@ export const StepperProvider = ({ children }) => {
   );
 };
 
-const UseStepper = () => useContext(StepperContext);
+export const useStepper = () => useContext(StepperContext);
 
-export default UseStepper;
+export default useStepper;

@@ -164,7 +164,7 @@ const Films = () => {
               ))}
           {isAuth && (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-              <AddFilmButton onClick={handleOpenDialog(DIALOG_TYPES.ADD_FILM_STEPPER_DIALOG)} />
+              <AddFilmButton onClick={handleOpenDialog(DIALOG_TYPES.ADD_FILM)} />
             </Grid>
           )}
         </Grid>
