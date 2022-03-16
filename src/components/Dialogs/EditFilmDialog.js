@@ -12,10 +12,10 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { getFilm as getFilmAction, updateFilm as updateFilmAction } from '../../actions';
 import useSmartAction from '../../hooks/useSmartAction';
+import Dialog from '../Dialog/Dialog';
 import useDialog from '../DialogManager/useDialog';
 import Image from '../Image';
 import Loader from '../Loader';
-import Dialog from '../Dialog/Dialog';
 import { DIALOG_TYPES } from './index';
 
 const EditFilmDialog = ({ id }) => {

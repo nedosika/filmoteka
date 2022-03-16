@@ -1,9 +1,9 @@
 import React from 'react';
+import Stepper from '../../Stepper/Stepper';
+import { StepperProvider } from '../../Stepper/useStepper';
 import StepFirst from './StepFirst';
 import StepThree from './StepThree';
 import StepTwo from './StepTwo';
-import Stepper from '../../Stepper/Stepper';
-import { StepperProvider } from '../../Stepper/useStepper';
 
 const AddFilmDialog = () => {
   return (

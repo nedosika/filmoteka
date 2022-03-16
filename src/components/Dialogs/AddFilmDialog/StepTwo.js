@@ -3,15 +3,15 @@ import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { addFilm as addFilmAction } from '../../../actions';
 import useSmartAction from '../../../hooks/useSmartAction';
-import {useStepper} from '../../Stepper';
-import Stack from "@mui/material/Stack";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
   const { state: film, onChange, onPrev, onNext } = useStepper();
@@ -19,7 +19,7 @@ const StepTwo = () => {
 
   const handleChangeName = (event) => {
     onChange({
-      name: event.target.value
+      name: event.target.value,
     });
   };
 
@@ -33,13 +33,13 @@ const StepTwo = () => {
     onChange({
       genre: event.target.value,
     });
-  }
+  };
 
   const handleYearChange = (event) => {
     onChange({
       year: event.target.value,
     });
-  }
+  };
 
   const handleSubmit = () => {
     onNext();

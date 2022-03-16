@@ -1,7 +1,7 @@
 import React from 'react';
 import MUIDialog from '@mui/material/Dialog';
 import useDialog from '../DialogManager/useDialog';
-import {useStepper} from './';
+import { useStepper } from './';
 
 const Stepper = ({ children }) => {
   const { activeStep } = useStepper();

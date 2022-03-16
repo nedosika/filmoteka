@@ -17,5 +17,5 @@ export const Dialogs = {
   ConfirmDialog,
   EditFilmDialog,
   DeleteFilmDialog,
-  DeleteFavoriteDialog
+  DeleteFavoriteDialog,
 };
