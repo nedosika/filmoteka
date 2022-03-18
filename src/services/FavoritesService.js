@@ -14,9 +14,9 @@ const addToFavorites = async (film) => {
     return await response.json();
   }
 
-  if(response.status === 401){
+  if (response.status === 401) {
     const data = await response.json();
-    throw new Error(data.message)
+    throw new Error(data.message);
   }
 
   if (response.status === 404) {

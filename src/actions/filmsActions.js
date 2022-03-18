@@ -1,9 +1,11 @@
 import { SnackBarSeverities } from '../components/SnackStack';
 import { FilmService } from '../services';
 import { showNotice } from './noticesActions';
+import {getFavorites} from "./favoritesActions";
+import {Favorite} from "@mui/icons-material";
+import FavoritesService from "../services/FavoritesService";
 
 export const FILMS_PER_PAGE = 5;
-
 export const FILMS_LOADED = 'FILMS_LOADED';
 export const FILM_LOADED = 'FILM_LOADED';
 
@@ -17,15 +19,19 @@ const getFilmSuccess = (film) => ({
   payload: film,
 });
 
-export const getFilm = (id) => (dispatch) => FilmService.getOne(id).then(({ data }) => dispatch(getFilmSuccess(data)));
+export const getFilm = (id) => (dispatch) =>
+    FilmService
+        .getOne(id)
+        .then(({ data }) => dispatch(getFilmSuccess(data)));
 
 export const getFilms = (query) => (dispatch) =>
-  FilmService.getAll({ ...query, limit: FILMS_PER_PAGE }).then((result) => dispatch(getFilmsSuccess(result)));
+    FilmService
+      .getAll({ ...query, limit: FILMS_PER_PAGE })
+      .then((result) => dispatch(getFilmsSuccess(result)));
+
 
 export const addFilm = (film) => (dispatch, getState) => {
-  const {
-    films: { page },
-  } = getState();
+  const {films: { page }} = getState();
   return FilmService.addFilm(film)
     .then(() => dispatch(showNotice('Film added', SnackBarSeverities.success)))
     .then(() => dispatch(getFilms({ page })));
