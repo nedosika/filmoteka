@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -11,16 +12,16 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
 import { FILMS_PER_PAGE, getFilms as getFilmsAction } from '../../actions';
 import useDialog from '../../components/DialogManager/useDialog';
-import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import AddFilmButton from './AddFilmButton';
+import {DIALOG_TYPES} from "../../components/Dialogs";
+import Pagination from "@mui/material/Pagination";
 
 const generateSkeletonsArray = (count) => {
   const skeletons = [];
@@ -41,24 +42,21 @@ const Films = () => {
       id,
       ...state.films.byId[id],
     })),
+    favorites: state.favorites,
     page: state.films.page,
     pages: state.films.pages,
     isAuth: state.auth.isAuth,
     isLoading: state.loading.isLoading,
   });
-  const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
+  const { films, favorites, page, pages, isAuth, isLoading } = useSelector(mapState);
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
-  const { addToFavorites } = useActions();
+  const { addToFavorites, removeFromFavorites } = useActions();
   const getFilms = useSmartAction(getFilmsAction);
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {
     getFilms({ page });
-  };
-
-  const handleAddToFavorites = (film) => () => {
-    addToFavorites(film);
   };
 
   const handleOpenDialog = (dialog, id) => () => {
@@ -75,6 +73,12 @@ const Films = () => {
       [name]: value,
     }));
   };
+
+  const handleSwitchFavorite = (film) => () => {
+    film.favorite
+        ? removeFromFavorites(film.id)
+        : addToFavorites(film)
+  }
 
   const filteredFilms = films.sort((a, b) => {
     if (state.order === 'ASC') return a[state.sort] > b[state.sort] ? 1 : -1;
@@ -150,8 +154,8 @@ const Films = () => {
                     actionsButtons={
                       isAuth && (
                         <Box>
-                          <IconButton onClick={handleAddToFavorites(film)}>
-                            <FavoriteIcon />
+                          <IconButton onClick={handleSwitchFavorite(film)}>
+                            {film.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon/>}
                           </IconButton>
                           <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
                             <EditIcon />

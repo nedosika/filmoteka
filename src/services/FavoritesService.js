@@ -23,6 +23,12 @@ const addToFavorites = async (film) => {
     const data = await response.json();
     throw new Error(data.message);
   }
+
+  if (response.status === 400) {
+    const data = await response.json();
+    console.log(data)
+    throw new Error(data.message);
+  }
 };
 
 const getFavorites = async () => {
@@ -51,8 +57,7 @@ const getFavorites = async () => {
   }
 
   if (response.status === 404) {
-    const data = await response.json();
-    throw new Error(data.message);
+    return await response.json();
   }
 };
 
