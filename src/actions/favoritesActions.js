@@ -17,11 +17,13 @@ export const getFavorites = () => (dispatch) => {
 };
 
 export const addToFavorites = (film) => (dispatch) => {
-  return FavoritesService.addToFavorites(film)
-    .catch(({ message }) => dispatch(showNotice(message, SnackBarSeverities.error)));
+  return FavoritesService.addToFavorites(film).catch(({ message }) =>
+    dispatch(showNotice(message, SnackBarSeverities.error)),
+  );
 };
 
 export const removeFromFavorites = (id) => (dispatch) => {
-  return FavoritesService.removeFromFavorites(id)
-    .catch(({ message }) => dispatch(showNotice(message, SnackBarSeverities.error)));
+  return FavoritesService.removeFromFavorites(id).catch(({ message }) =>
+    dispatch(showNotice(message, SnackBarSeverities.error)),
+  );
 };

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -9,7 +9,7 @@ import useSmartAction from '../../hooks/useSmartAction';
 
 const Favorites = () => {
   const mapState = (state) => ({
-    films: state.favorites
+    films: state.favorites,
   });
   const { films } = useSelector(mapState);
   const getFavorites = useSmartAction(getFavoritesAction);
@@ -24,7 +24,7 @@ const Favorites = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {films?.map((film) => (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-              <FilmCard film={{...film, favorite: true}}/>
+              <FilmCard film={{ ...film, favorite: true }} />
             </Grid>
           ))}
         </Grid>
