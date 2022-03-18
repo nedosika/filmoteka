@@ -12,16 +12,16 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
 import { FILMS_PER_PAGE, getFilms as getFilmsAction } from '../../actions';
 import useDialog from '../../components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import AddFilmButton from './AddFilmButton';
-import {DIALOG_TYPES} from "../../components/Dialogs";
-import Pagination from "@mui/material/Pagination";
 
 const generateSkeletonsArray = (count) => {
   const skeletons = [];
@@ -75,10 +75,8 @@ const Films = () => {
   };
 
   const handleSwitchFavorite = (film) => () => {
-    film.favorite
-        ? removeFromFavorites(film.id)
-        : addToFavorites(film)
-  }
+    film.favorite ? removeFromFavorites(film.id) : addToFavorites(film);
+  };
 
   const filteredFilms = films.sort((a, b) => {
     if (state.order === 'ASC') return a[state.sort] > b[state.sort] ? 1 : -1;
@@ -155,7 +153,7 @@ const Films = () => {
                       isAuth && (
                         <Box>
                           <IconButton onClick={handleSwitchFavorite(film)}>
-                            {film.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon/>}
+                            {film.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                           </IconButton>
                           <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
                             <EditIcon />
