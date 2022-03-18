@@ -18,12 +18,10 @@ export const getFavorites = () => (dispatch) => {
 
 export const addToFavorites = (film) => (dispatch) => {
   return FavoritesService.addToFavorites(film)
-    .then(() => dispatch(getFavorites()))
     .catch(({ message }) => dispatch(showNotice(message, SnackBarSeverities.error)));
 };
 
 export const removeFromFavorites = (id) => (dispatch) => {
   return FavoritesService.removeFromFavorites(id)
-    .then(() => dispatch(getFavorites()))
     .catch(({ message }) => dispatch(showNotice(message, SnackBarSeverities.error)));
 };
