@@ -31,7 +31,14 @@ const getAll = async (params) => {
 
   if (response.status === 200) {
     const { data, page, limit, size } = await response.json();
-    const byId = Object.assign({}, ...data.map(({ id, ...film }) => ({ [id]: film })));
+    const byId = Object.assign(
+      {},
+      ...data.map(({ id, ...film }) => {
+        return {
+          [id]: { ...film, favorite: params.favorites.includes(id) },
+        };
+      }),
+    );
     const allIds = data.map((film) => film.id);
 
     return {

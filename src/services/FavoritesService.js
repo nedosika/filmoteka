@@ -14,7 +14,17 @@ const addToFavorites = async (film) => {
     return await response.json();
   }
 
+  if (response.status === 401) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+
   if (response.status === 404) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
+
+  if (response.status === 400) {
     const data = await response.json();
     throw new Error(data.message);
   }
@@ -46,8 +56,7 @@ const getFavorites = async () => {
   }
 
   if (response.status === 404) {
-    const data = await response.json();
-    throw new Error(data.message);
+    return await response.json();
   }
 };
 
@@ -65,6 +74,11 @@ const removeFromFavorites = async (filmId) => {
 
   if (response.status === 200) {
     return await response.json();
+  }
+
+  if (response.status === 403) {
+    const data = await response.json();
+    throw new Error(data.message);
   }
 
   if (response.status === 404) {

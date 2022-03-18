@@ -1,14 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import EditIcon from '@mui/icons-material/Edit';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
@@ -18,7 +14,6 @@ import { FILMS_PER_PAGE, getFilms as getFilmsAction } from '../../actions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
-import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import AddFilmButton from './AddFilmButton';
 
@@ -35,7 +30,6 @@ const Films = () => {
     sort: 'name',
     order: 'ASC',
   });
-  const navigate = useNavigate();
   const mapState = (state) => ({
     films: state.films.allIds.map((id) => ({
       id,
@@ -49,7 +43,6 @@ const Films = () => {
   const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
-  const { addToFavorites } = useActions();
   const getFilms = useSmartAction(getFilmsAction);
   const { openDialog } = useDialog();
 
@@ -57,16 +50,8 @@ const Films = () => {
     getFilms({ page });
   };
 
-  const handleAddToFavorites = (film) => () => {
-    addToFavorites(film);
-  };
-
   const handleOpenDialog = (dialog, id) => () => {
     openDialog(dialog, { id });
-  };
-
-  const handleNavigate = (film) => () => {
-    navigate(`/film/${film.id}`);
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -144,22 +129,7 @@ const Films = () => {
               ))
             : filteredFilms.map((film) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
-                  <FilmCard
-                    film={film}
-                    onNavigate={handleNavigate(film)}
-                    actionsButtons={
-                      isAuth && (
-                        <Box>
-                          <IconButton onClick={handleAddToFavorites(film)}>
-                            <FavoriteIcon />
-                          </IconButton>
-                          <IconButton onClick={handleOpenDialog(DIALOG_TYPES.EDIT_FILM, film.id)}>
-                            <EditIcon />
-                          </IconButton>
-                        </Box>
-                      )
-                    }
-                  />
+                  <FilmCard film={film} />
                 </Grid>
               ))}
           {isAuth && (

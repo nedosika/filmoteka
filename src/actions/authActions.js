@@ -1,4 +1,5 @@
 import { AuthService } from '../services';
+import { getFavorites } from './favoritesActions';
 import { failureLoading, startLoading, successLoading } from './loadingActions';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
