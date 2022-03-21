@@ -1,5 +1,7 @@
+import { API_URL } from './config';
+
 const signIn = async (email, password) => {
-  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signin', {
+  const response = await fetch(`${API_URL}/api/auth/signin`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -19,7 +21,7 @@ const signIn = async (email, password) => {
 };
 
 const signUp = async (email, password) => {
-  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/signup', {
+  const response = await fetch(`${API_URL}/api/auth/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -42,7 +44,7 @@ const signUp = async (email, password) => {
 
 const checkAuth = async () => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/auth/refresh', {
+  const response = await fetch(`${API_URL}/api/auth/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

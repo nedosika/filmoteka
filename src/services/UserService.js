@@ -1,8 +1,10 @@
+import { API_URL } from './config';
+
 const update = async (user) => {
   try {
     const auth = JSON.parse(localStorage.getItem('auth'));
 
-    const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/users/${user.id}`, {
+    const response = await fetch(`${API_URL}/api/users/${user.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -29,7 +31,7 @@ const getOne = async (id) => {
   try {
     const auth = JSON.parse(localStorage.getItem('auth'));
 
-    const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/users/${id}`, {
+    const response = await fetch(`${API_URL}/api/users/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

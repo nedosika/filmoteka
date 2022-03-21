@@ -1,3 +1,5 @@
+import { API_URL } from './config';
+
 const getOne = async (id) => {
   const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/films/${id}`, {
     method: 'GET',
@@ -18,7 +20,7 @@ const getOne = async (id) => {
 };
 
 const getAll = async (params) => {
-  const url = new URL('https://rj2zi.sse.codesandbox.io/api/films');
+  const url = new URL(`${API_URL}/api/films`);
 
   params && Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
 
@@ -57,7 +59,7 @@ const getAll = async (params) => {
 
 const addFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch('https://rj2zi.sse.codesandbox.io/api/films', {
+  const response = await fetch(`${API_URL}/api/films`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -79,7 +81,7 @@ const addFilm = async (film) => {
 
 const removeFilm = async (id) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/films/${id}`, {
+  const response = await fetch(`${API_URL}/api/films/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -100,7 +102,7 @@ const removeFilm = async (id) => {
 
 const updateFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/films/${film.id}`, {
+  const response = await fetch(`${API_URL}/api/films/${film.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

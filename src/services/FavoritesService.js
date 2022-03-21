@@ -1,7 +1,9 @@
+import { API_URL } from './config';
+
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/favorites/${auth.id}`, {
+  const response = await fetch(`${API_URL}/api/favorites/${auth.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -33,7 +35,7 @@ const addToFavorites = async (film) => {
 const getFavorites = async () => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/favorites/${auth.id}`, {
+  const response = await fetch(`${API_URL}/api/favorites/${auth.id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -63,7 +65,7 @@ const getFavorites = async () => {
 const removeFromFavorites = async (filmId) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/favorites/${auth.id}`, {
+  const response = await fetch(`${API_URL}/api/favorites/${auth.id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
