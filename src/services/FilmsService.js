@@ -37,11 +37,11 @@ const getAll = async (params) => {
       {},
       ...data.map(({ id, ...film }) => {
         return {
-          [id]: { ...film, favorite: params.favorites.includes(id) },
+          [id]: { ...film, favorite: params.favorites?.includes(id) },
         };
       }),
     );
-    const allIds = data.map((film) => film.id);
+    const allIds = data?.map((film) => film.id);
 
     return {
       byId,

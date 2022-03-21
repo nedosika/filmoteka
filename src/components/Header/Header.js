@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import searchActions from '../../actions/searchActions';
-import useActions from '../../hooks/useActions';
 import { useRouter } from '../../hooks/useRouter';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
