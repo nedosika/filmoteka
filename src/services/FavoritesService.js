@@ -35,10 +35,10 @@ const addToFavorites = async (film) => {
 const getFavorites = async () => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  if(!auth)
+  if (!auth)
     return {
-      status: 'not auth'
-    }
+      status: 'not auth',
+    };
 
   const response = await fetch(`${API_URL}/api/favorites/${auth?.id}`, {
     method: 'GET',
