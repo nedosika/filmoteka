@@ -1,4 +1,4 @@
-import {API_URL} from "./config";
+import { API_URL } from './config';
 
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));

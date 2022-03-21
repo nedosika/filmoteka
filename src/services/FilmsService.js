@@ -1,4 +1,4 @@
-import {API_URL} from "./config";
+import { API_URL } from './config';
 
 const getOne = async (id) => {
   const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/films/${id}`, {
