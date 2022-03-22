@@ -19,9 +19,7 @@ const getFilmSuccess = (film) => ({
 export const getFilm = (id) => (dispatch) => FilmService.getOne(id).then(({ data }) => dispatch(getFilmSuccess(data)));
 
 export const getFilms = (query) => async (dispatch) =>
-  FilmService
-      .getAll({ ...query, limit: FILMS_PER_PAGE })
-      .then((result) => dispatch(getFilmsSuccess(result)));
+  FilmService.getAll({ ...query, limit: FILMS_PER_PAGE }).then((result) => dispatch(getFilmsSuccess(result)));
 
 export const addFilm = (film) => (dispatch, getState) => {
   const {

@@ -46,7 +46,7 @@ const Films = () => {
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {
-    getFilms({ page, field: state.field, order: state.order});
+    getFilms({ page, field: state.field, order: state.order });
   };
 
   const handleOpenDialog = (dialog, id) => () => {
