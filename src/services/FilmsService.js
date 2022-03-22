@@ -1,7 +1,8 @@
+import FavoritesService from './FavoritesService';
 import { API_URL } from './config';
 
 const getOne = async (id) => {
-  const response = await fetch(`https://rj2zi.sse.codesandbox.io/api/films/${id}`, {
+  const response = await fetch(`${API_URL}/api/films/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -32,12 +33,17 @@ const getAll = async (params) => {
   });
 
   if (response.status === 200) {
+    const result = await FavoritesService.getFavorites();
+
+    const favorites = result.status === 'ok' ? result.data.map((film) => film.id) : [];
+
     const { data, page, limit, size } = await response.json();
+
     const byId = Object.assign(
       {},
       ...data.map(({ id, ...film }) => {
         return {
-          [id]: { ...film, favorite: params.favorites?.includes(id) },
+          [id]: { ...film, favorite: favorites?.includes(id) },
         };
       }),
     );

@@ -26,8 +26,7 @@ const generateSkeletonsArray = (count) => {
 
 const Films = () => {
   const [state, setState] = useState({
-    filter: '',
-    sort: 'name',
+    field: 'name',
     order: 'ASC',
   });
   const mapState = (state) => ({
@@ -47,7 +46,7 @@ const Films = () => {
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {
-    getFilms({ page });
+    getFilms({ page, field: state.field, order: state.order });
   };
 
   const handleOpenDialog = (dialog, id) => () => {
@@ -61,12 +60,7 @@ const Films = () => {
     }));
   };
 
-  const filteredFilms = films.sort((a, b) => {
-    if (state.order === 'ASC') return a[state.sort] > b[state.sort] ? 1 : -1;
-    if (state.order === 'DESC') return a[state.sort] < b[state.sort] ? 1 : -1;
-  });
-
-  useEffect(handleChangePage, []);
+  useEffect(handleChangePage, [state]);
 
   useCallback(() => {
     setSkeletons(generateSkeletonsArray(FILMS_PER_PAGE));
@@ -93,7 +87,7 @@ const Films = () => {
         >
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Sort by</InputLabel>
-            <Select name="sort" label="Sort by" onChange={handleChange} defaultValue="name">
+            <Select name="field" label="Sort by" onChange={handleChange} defaultValue="name">
               <MenuItem value="name">Name</MenuItem>
               <MenuItem value="year">Year</MenuItem>
               <MenuItem value="genre">Genre</MenuItem>
@@ -127,7 +121,7 @@ const Films = () => {
                   </Card>
                 </Grid>
               ))
-            : filteredFilms.map((film) => (
+            : films.map((film) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
                   <FilmCard film={film} />
                 </Grid>
