@@ -1,6 +1,5 @@
 import { SnackBarSeverities } from '../components/SnackStack';
 import { FilmService } from '../services';
-import FavoritesService from '../services/FavoritesService';
 import { showNotice } from './noticesActions';
 
 export const FILMS_PER_PAGE = 5;
