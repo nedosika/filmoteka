@@ -1,5 +1,5 @@
+import FavoritesService from './FavoritesService';
 import { API_URL } from './config';
-import FavoritesService from "./FavoritesService";
 
 const getOne = async (id) => {
   const response = await fetch(`${API_URL}/api/films/${id}`, {
