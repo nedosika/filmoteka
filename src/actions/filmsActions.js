@@ -1,6 +1,5 @@
 import { SnackBarSeverities } from '../components/SnackStack';
 import { FilmService } from '../services';
-import FavoritesService from '../services/FavoritesService';
 import { showNotice } from './noticesActions';
 
 export const FILMS_PER_PAGE = 5;
@@ -20,7 +19,9 @@ const getFilmSuccess = (film) => ({
 export const getFilm = (id) => (dispatch) => FilmService.getOne(id).then(({ data }) => dispatch(getFilmSuccess(data)));
 
 export const getFilms = (query) => async (dispatch) =>
-  FilmService.getAll({ ...query, limit: FILMS_PER_PAGE }).then((result) => dispatch(getFilmsSuccess(result)));
+  FilmService
+      .getAll({ ...query, limit: FILMS_PER_PAGE })
+      .then((result) => dispatch(getFilmsSuccess(result)));
 
 export const addFilm = (film) => (dispatch, getState) => {
   const {

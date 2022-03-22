@@ -14,7 +14,7 @@ export const getOptionsSuccess = (result) => ({
 });
 
 export const searchFilms = (query) => (dispatch) =>
-  FilmService.getAll({ field: 'name', value: query })
+  FilmService.getAll({ search: query })
     .then((result) => dispatch(searchFilmsSuccess(result)))
     .catch((error) => {
       dispatch(searchFilmsSuccess([]));
@@ -22,7 +22,7 @@ export const searchFilms = (query) => (dispatch) =>
     });
 
 export const getSearchOptions = (query) => (dispatch) =>
-  FilmService.getAll({ field: 'name', value: query })
+  FilmService.getAll({ search: query })
     .then((result) => dispatch(getOptionsSuccess(result)))
     .catch(() => dispatch(getOptionsSuccess([])));
 
