@@ -28,7 +28,7 @@ const SideBarMenu = ({ isOpen, onClose }) => {
     searchedFilms: state.search.results,
   });
   const { isAuth } = useSelector(mapState);
-  const { signOut } = useActions(authActions.signOut);
+  const { signOut } = useActions(authActions);
 
   const handleSignOut = () => {
     signOut();

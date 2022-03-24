@@ -17,8 +17,6 @@ const Router = () => {
   const isAuth = useSelector(({ auth }) => auth.isAuth);
   const { refreshToken } = useActions(authActions);
 
-  console.log(refreshToken);
-
   useEffect(() => {
     refreshToken();
   }, []);
