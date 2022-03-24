@@ -12,10 +12,10 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import favoritesActions from '../../actions/favoritesActions';
 import useActions from '../../hooks/useActions';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
-import favoritesActions from "../../actions/favoritesActions";
 
 const FilmCard = ({ film }) => {
   const navigate = useNavigate();

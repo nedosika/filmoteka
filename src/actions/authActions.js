@@ -80,8 +80,8 @@ export const refreshToken = () => (dispatch) => {
 };
 
 export default {
-    signIn,
-    signOut,
-    signUp,
-    refreshToken
-}
+  signIn,
+  signOut,
+  signUp,
+  refreshToken,
+};

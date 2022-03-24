@@ -31,5 +31,5 @@ export const removeFromFavorites = (id) => (dispatch) => {
 export default {
   removeFromFavorites,
   addToFavorites,
-  getFavorites
-}
+  getFavorites,
+};

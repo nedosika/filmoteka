@@ -14,9 +14,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
+import authActions from '../../actions/authActions';
 import useActions from '../../hooks/useActions';
 import { useRouter } from '../../hooks/useRouter';
-import authActions from "../../actions/authActions";
 
 const SideBarMenu = ({ isOpen, onClose }) => {
   const { navigate, location } = useRouter();

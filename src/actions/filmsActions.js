@@ -53,5 +53,5 @@ export default {
   addFilm,
   updateFilm,
   getFilm,
-  getFilms
-}
+  getFilms,
+};

@@ -13,13 +13,13 @@ import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import Layout from '../../Layout';
+import favoritesActions from '../../actions/favoritesActions';
 import filmsActions from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import useActions from '../../hooks/useActions';
 import { useRouter } from '../../hooks/useRouter';
 import useSmartAction from '../../hooks/useSmartAction';
-import favoritesActions from "../../actions/favoritesActions"
 
 const FilmSkeleton = () => (
   <Stack spacing={1}>

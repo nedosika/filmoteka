@@ -48,7 +48,7 @@ const checkAuth = async (token) => {
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
-    body: JSON.stringify({token}),
+    body: JSON.stringify({ token }),
   });
   if (response.status === 200) {
     const data = await response.json();
