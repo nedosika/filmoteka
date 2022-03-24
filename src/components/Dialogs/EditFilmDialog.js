@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
 import Button from '@mui/material/Button';
-import CardMedia from '@mui/material/CardMedia';
 import DialogActions from '@mui/material/DialogActions';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import { getFilm as getFilmAction, updateFilm as updateFilmAction } from '../../actions';
+import filmsActions from '../../actions/filmsActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import Dialog from '../Dialog/Dialog';
 import useDialog from '../DialogManager/useDialog';
@@ -25,8 +23,8 @@ const EditFilmDialog = ({ id }) => {
     currentFilm: state.films.current,
   });
   const { currentFilm, isLoading } = useSelector(mapState);
-  const updateFilm = useSmartAction(updateFilmAction);
-  const getFilm = useSmartAction(getFilmAction);
+  const updateFilm = useSmartAction(filmsActions.updateFilm);
+  const getFilm = useSmartAction(filmsActions.getFilm);
 
   const [film, setFilm] = useState({
     name: '',

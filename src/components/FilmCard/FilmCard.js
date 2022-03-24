@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import useActions from '../../hooks/useActions';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
+import favoritesActions from "../../actions/favoritesActions";
 
 const FilmCard = ({ film }) => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const FilmCard = ({ film }) => {
   const { isAuth } = useSelector(mapState);
   const [isFavorite, setIsFavorite] = useState(film.favorite);
 
-  const { addToFavorites, removeFromFavorites } = useActions();
+  const { addToFavorites, removeFromFavorites } = useActions(favoritesActions);
 
   const handleSwitchFavorite = () => {
     if (isFavorite) {

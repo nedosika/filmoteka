@@ -1,12 +1,12 @@
 import React from 'react';
-import { removeFromFavorites as removeFromFavoritesAction } from '../../actions';
+import favoritesActions from '../../actions/favoritesActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
 import ConfirmDialog from './ConfirmDialog';
 
 const DeleteFavoriteDialog = ({ id }) => {
   const { closeDialog } = useDialog();
-  const removeFromFavorites = useSmartAction(removeFromFavoritesAction);
+  const removeFromFavorites = useSmartAction(favoritesActions.removeFromFavorites);
 
   const handleRemove = () => {
     removeFromFavorites(id);

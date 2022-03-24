@@ -1,5 +1,4 @@
 import { AuthService } from '../services';
-import { getFavorites } from './favoritesActions';
 import { failureLoading, startLoading, successLoading } from './loadingActions';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -57,11 +56,11 @@ export const signOut = () => (dispatch) => {
   dispatch(authFailure());
 };
 
-export const checkAuth = () => (dispatch) => {
-  const auth = localStorage.getItem('auth');
+export const refreshToken = () => (dispatch) => {
+  const auth = JSON.parse(localStorage.getItem('auth'));
 
-  if (auth) {
-    return AuthService.checkAuth()
+  if (auth?.token) {
+    return AuthService.checkAuth(auth.token)
       .then(({ data }) => {
         localStorage.setItem(
           'auth',
@@ -79,3 +78,10 @@ export const checkAuth = () => (dispatch) => {
       });
   }
 };
+
+export default {
+    signIn,
+    signOut,
+    signUp,
+    refreshToken
+}

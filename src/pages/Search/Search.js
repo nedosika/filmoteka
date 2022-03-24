@@ -18,6 +18,7 @@ import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
+import favoritesActions from "../../actions/favoritesActions"
 
 const Search = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Search = () => {
     isAuth: state.auth.isAuth,
   });
   const { films, isAuth } = useSelector(mapState);
-  const { addToFavorites } = useActions();
+  const { addToFavorites } = useActions(favoritesActions);
   const searchFilms = useSmartAction(searchActions.searchFilms);
   const { openDialog } = useDialog();
   const [state, setState] = useState({

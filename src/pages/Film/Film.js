@@ -13,12 +13,13 @@ import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import Layout from '../../Layout';
-import { getFilm as getFilmAction } from '../../actions';
+import filmsActions from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import useActions from '../../hooks/useActions';
 import { useRouter } from '../../hooks/useRouter';
 import useSmartAction from '../../hooks/useSmartAction';
+import favoritesActions from "../../actions/favoritesActions"
 
 const FilmSkeleton = () => (
   <Stack spacing={1}>
@@ -39,8 +40,8 @@ const Film = () => {
     isAuth: state.auth.isAuth,
   });
   const { film, isAuth } = useSelector(mapState);
-  const { addToFavorites } = useActions();
-  const getFilm = useSmartAction(getFilmAction);
+  const { addToFavorites } = useActions(favoritesActions);
+  const getFilm = useSmartAction(filmsActions.getFilm);
   const { openDialog } = useDialog();
 
   const handleOpenDialog = (dialog, id) => () => {

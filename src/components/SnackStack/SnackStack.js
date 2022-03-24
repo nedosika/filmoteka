@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
 import useActions from '../../hooks/useActions';
 import SnackBar from './SnackBar';
+import noticesActions from "../../actions/noticesActions"
 
 const SnackStack = () => {
   const mapState = (state) => ({
     notices: state.notices.allIds.map((id) => ({ id, ...state.notices.byId[id] })),
   });
   const { notices } = useSelector(mapState);
-  const { hideNotice, removeNotice } = useActions();
+  const { hideNotice, removeNotice } = useActions(noticesActions);
 
   const handleClose = (key) => (event, reason) => {
     if (reason !== 'clickaway') {

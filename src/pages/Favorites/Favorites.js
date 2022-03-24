@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Layout, { LayoutTitles } from '../../Layout';
-import { getFavorites as getFavoritesAction } from '../../actions';
+import favoritesActions from '../../actions/favoritesActions';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useSmartAction from '../../hooks/useSmartAction';
 
@@ -12,7 +12,7 @@ const Favorites = () => {
     films: state.favorites,
   });
   const { films } = useSelector(mapState);
-  const getFavorites = useSmartAction(getFavoritesAction);
+  const getFavorites = useSmartAction(favoritesActions.getFavorites);
 
   useEffect(() => {
     getFavorites();

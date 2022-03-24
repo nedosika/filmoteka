@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Assignment } from '@mui/icons-material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,6 +16,7 @@ import ListItemIcon from '@mui/material/ListItemIcon/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText/ListItemText';
 import useActions from '../../hooks/useActions';
 import { useRouter } from '../../hooks/useRouter';
+import authActions from "../../actions/authActions";
 
 const SideBarMenu = ({ isOpen, onClose }) => {
   const { navigate, location } = useRouter();
@@ -29,7 +28,7 @@ const SideBarMenu = ({ isOpen, onClose }) => {
     searchedFilms: state.search.results,
   });
   const { isAuth } = useSelector(mapState);
-  const { signOut } = useActions();
+  const { signOut } = useActions(authActions.signOut);
 
   const handleSignOut = () => {
     signOut();

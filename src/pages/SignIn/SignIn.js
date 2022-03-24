@@ -14,6 +14,7 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import useActions from '../../hooks/useActions';
+import authActions from "../../actions/authActions"
 
 function Copyright(props) {
   return (
@@ -34,7 +35,7 @@ export default function SignIn() {
     error: state.loading.error,
   });
   const { isSigning, error } = useSelector(mapState);
-  const { signIn } = useActions();
+  const { signIn } = useActions(authActions);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
