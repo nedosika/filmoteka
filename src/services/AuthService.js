@@ -42,14 +42,13 @@ const signUp = async (email, password) => {
   }
 };
 
-const checkAuth = async () => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
+const checkAuth = async (token) => {
   const response = await fetch(`${API_URL}/api/auth/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
     },
+    body: JSON.stringify({ token }),
   });
   if (response.status === 200) {
     const data = await response.json();

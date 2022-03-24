@@ -47,3 +47,11 @@ export const removeFilm = (id) => (dispatch, getState) => {
     .then(() => dispatch(showNotice('Film removed', SnackBarSeverities.success)))
     .then(() => dispatch(getFilms({ page })));
 };
+
+export default {
+  removeFilm,
+  addFilm,
+  updateFilm,
+  getFilm,
+  getFilms,
+};

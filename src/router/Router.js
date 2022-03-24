@@ -1,7 +1,9 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import authActions from '../actions/authActions';
 import Loader from '../components/Loader';
+import useActions from '../hooks/useActions';
 
 const Film = React.lazy(() => import('../pages/Film'));
 const Home = React.lazy(() => import('../pages/Home'));
@@ -13,6 +15,11 @@ const Favorites = React.lazy(() => import('../pages/Favorites'));
 
 const Router = () => {
   const isAuth = useSelector(({ auth }) => auth.isAuth);
+  const { refreshToken } = useActions(authActions);
+
+  useEffect(() => {
+    refreshToken();
+  }, []);
 
   return (
     <Suspense fallback={<Loader />}>

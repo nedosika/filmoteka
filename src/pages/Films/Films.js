@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
-import { FILMS_PER_PAGE, getFilms as getFilmsAction } from '../../actions';
+import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
@@ -42,7 +42,7 @@ const Films = () => {
   const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
-  const getFilms = useSmartAction(getFilmsAction);
+  const getFilms = useSmartAction(filmsActions.getFilms);
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {

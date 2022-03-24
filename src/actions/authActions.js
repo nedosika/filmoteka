@@ -1,5 +1,4 @@
 import { AuthService } from '../services';
-import { getFavorites } from './favoritesActions';
 import { failureLoading, startLoading, successLoading } from './loadingActions';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -57,25 +56,30 @@ export const signOut = () => (dispatch) => {
   dispatch(authFailure());
 };
 
-export const checkAuth = () => (dispatch) => {
-  const auth = localStorage.getItem('auth');
+export const refreshToken = () => (dispatch) => {
+  const auth = JSON.parse(localStorage.getItem('auth'));
 
-  if (auth) {
-    return AuthService.checkAuth()
-      .then(({ data }) => {
-        localStorage.setItem(
-          'auth',
-          JSON.stringify({
-            token: data.token,
-            user: data.user,
-            id: data.user.id,
-          }),
-        );
-        dispatch(authSuccess(data));
-      })
-      .catch((err) => {
-        localStorage.removeItem('auth');
-        dispatch(authFailure());
-      });
-  }
+  return AuthService.checkAuth(auth?.token)
+    .then(({ data }) => {
+      localStorage.setItem(
+        'auth',
+        JSON.stringify({
+          token: data.token,
+          user: data.user,
+          id: data.user.id,
+        }),
+      );
+      dispatch(authSuccess(data));
+    })
+    .catch((err) => {
+      localStorage.removeItem('auth');
+      dispatch(authFailure());
+    });
+};
+
+export default {
+  signIn,
+  signOut,
+  signUp,
+  refreshToken,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Stack } from '@mui/material';
+import noticesActions from '../../actions/noticesActions';
 import useActions from '../../hooks/useActions';
 import SnackBar from './SnackBar';
 
@@ -9,7 +10,7 @@ const SnackStack = () => {
     notices: state.notices.allIds.map((id) => ({ id, ...state.notices.byId[id] })),
   });
   const { notices } = useSelector(mapState);
-  const { hideNotice, removeNotice } = useActions();
+  const { hideNotice, removeNotice } = useActions(noticesActions);
 
   const handleClose = (key) => (event, reason) => {
     if (reason !== 'clickaway') {
