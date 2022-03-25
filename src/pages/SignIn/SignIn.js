@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import authActions from '../../actions/authActions';
 import useActions from '../../hooks/useActions';
 
 function Copyright(props) {
@@ -34,7 +35,7 @@ export default function SignIn() {
     error: state.loading.error,
   });
   const { isSigning, error } = useSelector(mapState);
-  const { signIn } = useActions();
+  const { signIn } = useActions(authActions);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

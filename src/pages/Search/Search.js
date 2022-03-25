@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Layout, { LayoutTitles } from '../../Layout';
+import favoritesActions from '../../actions/favoritesActions';
 import searchActions from '../../actions/searchActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
@@ -29,7 +30,7 @@ const Search = () => {
     isAuth: state.auth.isAuth,
   });
   const { films, isAuth } = useSelector(mapState);
-  const { addToFavorites } = useActions();
+  const { addToFavorites } = useActions(favoritesActions);
   const searchFilms = useSmartAction(searchActions.searchFilms);
   const { openDialog } = useDialog();
   const [state, setState] = useState({

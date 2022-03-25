@@ -1,14 +1,18 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { DialogProvider } from './components/DialogManager/useDialog';
 import SnackStack from './components/SnackStack';
 import Router from './router';
+import store from './store';
 
 function App() {
   return (
-    <DialogProvider>
-      <Router />
-      <SnackStack />
-    </DialogProvider>
+    <Provider store={store}>
+      <DialogProvider>
+        <Router />
+        <SnackStack />
+      </DialogProvider>
+    </Provider>
   );
 }
 

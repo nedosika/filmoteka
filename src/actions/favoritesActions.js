@@ -27,3 +27,9 @@ export const removeFromFavorites = (id) => (dispatch) => {
     dispatch(showNotice(message, SnackBarSeverities.error)),
   );
 };
+
+export default {
+  removeFromFavorites,
+  addToFavorites,
+  getFavorites,
+};
