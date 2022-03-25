@@ -11,8 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import searchActions from '../../actions/searchActions';
+import useActions from '../../hooks/useActions';
 import { useRouter } from '../../hooks/useRouter';
-import useSmartAction from '../../hooks/useSmartAction';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
 import Search from '../Search';
@@ -26,7 +26,7 @@ const Header = ({ title, onOpenMenuBar }) => {
   });
   const { isAuth, isLoading, options } = useSelector(mapState);
   const { openDialog } = useDialog();
-  const getOptions = useSmartAction(searchActions.getSearchOptions);
+  const { getSearchOptions } = useActions(searchActions);
 
   const handleSearch = (query) => {
     navigate({
@@ -60,7 +60,7 @@ const Header = ({ title, onOpenMenuBar }) => {
               Add film
             </Button>
           )}
-          <Search search={getOptions} options={options} onSearch={handleSearch} onSubmit={handleSubmit} />
+          <Search search={getSearchOptions} options={options} onSearch={handleSearch} onSubmit={handleSubmit} />
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton size="large" edge="end" color="inherit">
               {isLoading ? <CircularProgress color="inherit" size={24} /> : isAuth && <AccountCircle />}

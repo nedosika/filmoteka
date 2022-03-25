@@ -35,7 +35,7 @@ const getAll = async (params) => {
   if (response.status === 200) {
     const result = await FavoritesService.getFavorites();
 
-    const favorites = result.status === 'ok' ? result.data.map((film) => film.id) : [];
+    const favorites = result.status === 'ok' ? result.data?.map((film) => film.id) : [];
 
     const { data, page, limit, size } = await response.json();
 
