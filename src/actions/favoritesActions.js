@@ -11,9 +11,7 @@ const loadFavoritesSuccess = (films) => ({
 });
 
 export const getFavorites = () => (dispatch) => {
-  return FavoritesService.getFavorites()
-    .then((films) => dispatch(loadFavoritesSuccess(films.data)))
-    .catch(({ message }) => dispatch(showNotice(message, SnackBarSeverities.error)));
+  return FavoritesService.getFavorites().then((films) => dispatch(loadFavoritesSuccess(films.data)));
 };
 
 export const addToFavorites = (film) => (dispatch) => {

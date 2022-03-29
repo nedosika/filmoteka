@@ -17,8 +17,7 @@ export const signIn = (email, password) => (dispatch) => {
   dispatch(startLoading());
 
   return AuthService.signIn(email, password)
-    .then(({ data }) => {
-      localStorage.setItem('auth', JSON.stringify(data));
+    .then((data) => {
       dispatch(authSuccess(data));
     })
     .then(() => dispatch(successLoading()))
@@ -29,8 +28,7 @@ export const signUp = (email, password) => (dispatch) => {
   dispatch(startLoading());
 
   AuthService.signUp(email, password)
-    .then(({ data }) => {
-      localStorage.setItem('auth', JSON.stringify(data));
+    .then((data) => {
       dispatch(authSuccess(data));
     })
     .then(() => dispatch(successLoading()))
@@ -38,32 +36,17 @@ export const signUp = (email, password) => (dispatch) => {
 };
 
 export const signOut = () => (dispatch) => {
+  console.log('signout');
   localStorage.removeItem('auth');
   dispatch(authFailure());
 };
 
-export const refreshToken = () => (dispatch) => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
-
-  return AuthService.checkAuth(auth?.token)
-    .then(({ data }) => {
-      localStorage.setItem(
-        'auth',
-        JSON.stringify({
-          token: data.accessToken,
-          user: data.user,
-          id: data.user.id,
-        }),
-      );
-      dispatch(
-        authSuccess({
-          token: data.accessToken,
-          user: data.user,
-        }),
-      );
+export const checkAuth = () => (dispatch) => {
+  return AuthService.checkAuth()
+    .then((data) => {
+      dispatch(authSuccess(data));
     })
     .catch((err) => {
-      localStorage.removeItem('auth');
       dispatch(authFailure());
     });
 };
@@ -72,5 +55,5 @@ export default {
   signIn,
   signOut,
   signUp,
-  refreshToken,
+  checkAuth,
 };
