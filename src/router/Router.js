@@ -17,9 +17,9 @@ const Router = () => {
   const isAuth = useSelector(({ auth }) => auth.isAuth);
   const { refreshToken } = useActions(authActions);
 
-  useEffect(() => {
-    refreshToken();
-  }, []);
+  // useEffect(() => {
+  //   refreshToken();
+  // }, []);
 
   return (
     <Suspense fallback={<Loader />}>

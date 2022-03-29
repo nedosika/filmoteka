@@ -4,6 +4,7 @@ import { API_URL } from './config';
 const getOne = async (id) => {
   const response = await fetch(`${API_URL}/api/films/${id}`, {
     method: 'GET',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -27,6 +28,7 @@ const getAll = async (params) => {
 
   const response = await fetch(url, {
     method: 'GET',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -67,6 +69,7 @@ const addFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
   const response = await fetch(`${API_URL}/api/films`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,
@@ -89,6 +92,7 @@ const removeFilm = async (id) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
   const response = await fetch(`${API_URL}/api/films/${id}`, {
     method: 'DELETE',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,
@@ -110,6 +114,7 @@ const updateFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
   const response = await fetch(`${API_URL}/api/films/${film.id}`, {
     method: 'PUT',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,

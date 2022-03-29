@@ -6,6 +6,7 @@ const update = async (user) => {
 
     const response = await fetch(`${API_URL}/api/users/${user.id}`, {
       method: 'PUT',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: 'Bearer ' + auth.token,
@@ -33,6 +34,7 @@ const getOne = async (id) => {
 
     const response = await fetch(`${API_URL}/api/users/${id}`, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
         Authorization: 'Bearer ' + auth.token,

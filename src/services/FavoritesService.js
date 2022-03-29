@@ -3,8 +3,9 @@ import { API_URL } from './config';
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`${API_URL}/api/favorites/${auth.id}`, {
+  const response = await fetch(`${API_URL}/api/favorites/${auth?.user?.id}`, {
     method: 'PUT',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,
@@ -40,13 +41,16 @@ const getFavorites = async () => {
       status: 'not auth',
     };
 
-  const response = await fetch(`${API_URL}/api/favorites/${auth?.id}`, {
+  const response = await fetch(`${API_URL}/api/favorites/${auth?.user?.id}`, {
     method: 'GET',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,
     },
   });
+
+  console.log(response);
 
   if (response.status === 200) {
     return await response.json();
@@ -70,8 +74,9 @@ const getFavorites = async () => {
 const removeFromFavorites = async (filmId) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`${API_URL}/api/favorites/${auth.id}`, {
+  const response = await fetch(`${API_URL}/api/favorites/${auth?.user?.id}`, {
     method: 'DELETE',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,

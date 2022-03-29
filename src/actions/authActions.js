@@ -18,14 +18,7 @@ export const signIn = (email, password) => (dispatch) => {
 
   return AuthService.signIn(email, password)
     .then(({ data }) => {
-      localStorage.setItem(
-        'auth',
-        JSON.stringify({
-          token: data.token,
-          user: data.user,
-          id: data.user.id,
-        }),
-      );
+      localStorage.setItem('auth', JSON.stringify(data));
       dispatch(authSuccess(data));
     })
     .then(() => dispatch(successLoading()))
@@ -37,15 +30,8 @@ export const signUp = (email, password) => (dispatch) => {
 
   AuthService.signUp(email, password)
     .then(({ data }) => {
-      localStorage.setItem(
-        'auth',
-        JSON.stringify({
-          token: data.token,
-          user: data.user,
-          id: data.user.id,
-        }),
-      );
-      dispatch(authSuccess(data.token));
+      localStorage.setItem('auth', JSON.stringify(data));
+      dispatch(authSuccess(data));
     })
     .then(() => dispatch(successLoading()))
     .catch((error) => dispatch(failureLoading(error.message)));
@@ -64,12 +50,17 @@ export const refreshToken = () => (dispatch) => {
       localStorage.setItem(
         'auth',
         JSON.stringify({
-          token: data.token,
+          token: data.accessToken,
           user: data.user,
           id: data.user.id,
         }),
       );
-      dispatch(authSuccess(data));
+      dispatch(
+        authSuccess({
+          token: data.accessToken,
+          user: data.user,
+        }),
+      );
     })
     .catch((err) => {
       localStorage.removeItem('auth');

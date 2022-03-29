@@ -3,6 +3,7 @@ import { API_URL } from './config';
 const signIn = async (email, password) => {
   const response = await fetch(`${API_URL}/api/auth/signin`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -23,6 +24,7 @@ const signIn = async (email, password) => {
 const signUp = async (email, password) => {
   const response = await fetch(`${API_URL}/api/auth/signup`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -45,6 +47,7 @@ const signUp = async (email, password) => {
 const checkAuth = async (token) => {
   const response = await fetch(`${API_URL}/api/auth/refresh`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
