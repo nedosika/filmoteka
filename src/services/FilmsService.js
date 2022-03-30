@@ -1,8 +1,9 @@
 import FavoritesService from './FavoritesService';
-import { API_URL } from './config';
+import api from './api';
+import { API_URL } from './config.js';
 
 const getOne = async (id) => {
-  const response = await fetch(`${API_URL}/api/films/${id}`, {
+  const response = await api(`api/films/${id}}`, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -67,7 +68,7 @@ const getAll = async (params) => {
 
 const addFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch(`${API_URL}/api/films`, {
+  const response = await api(`api/films`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -90,7 +91,8 @@ const addFilm = async (film) => {
 
 const removeFilm = async (id) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch(`${API_URL}/api/films/${id}`, {
+
+  const response = await api(`api/films/${id}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
@@ -112,7 +114,7 @@ const removeFilm = async (id) => {
 
 const updateFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await fetch(`${API_URL}/api/films/${film.id}`, {
+  const response = await api(`api/films/${film.id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {

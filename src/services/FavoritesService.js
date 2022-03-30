@@ -1,10 +1,9 @@
 import api from './api.js';
-import { API_URL } from './config';
 
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`${API_URL}/api/favorites/${auth?.user?.id}`, {
+  const response = await api(`api/favorites/${auth.user?.id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -18,19 +17,8 @@ const addToFavorites = async (film) => {
     return await response.json();
   }
 
-  if (response.status === 401) {
-    const data = await response.json();
-    throw new Error(data.message);
-  }
-
   if (response.status === 404) {
-    const data = await response.json();
-    throw new Error(data.message);
-  }
-
-  if (response.status === 400) {
-    const data = await response.json();
-    throw new Error(data.message);
+    return await response.json();
   }
 };
 
@@ -63,7 +51,7 @@ const getFavorites = async () => {
 const removeFromFavorites = async (filmId) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await fetch(`${API_URL}/api/favorites/${auth?.user?.id}`, {
+  const response = await api(`api/favorites/${auth.user?.id}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
@@ -75,11 +63,6 @@ const removeFromFavorites = async (filmId) => {
 
   if (response.status === 200) {
     return await response.json();
-  }
-
-  if (response.status === 403) {
-    const data = await response.json();
-    throw new Error(data.message);
   }
 
   if (response.status === 404) {

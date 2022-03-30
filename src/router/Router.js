@@ -17,8 +17,6 @@ const Router = () => {
   const isAuth = useSelector(({ auth }) => auth.isAuth);
   const { checkAuth } = useActions(authActions);
 
-  console.log(isAuth);
-
   useEffect(() => {
     if (localStorage.getItem('auth')) checkAuth();
   }, []);
