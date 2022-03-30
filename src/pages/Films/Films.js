@@ -25,7 +25,7 @@ const generateSkeletonsArray = (count) => {
 };
 
 const Films = () => {
-  const [state, setState] = useState({
+  const [sort, setSort] = useState({
     field: 'name',
     order: 'ASC',
   });
@@ -46,21 +46,37 @@ const Films = () => {
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {
-    getFilms({ page, field: state.field, order: state.order });
+    getFilms({ page, field: sort.field, order: sort.order });
   };
 
   const handleOpenDialog = (dialog, id) => () => {
     openDialog(dialog, { id });
   };
 
-  const handleChange = ({ target: { name, value } }) => {
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleChange = (event) => {
+    switch (event.target.value) {
+      case 'Name asc':
+        setSort({ field: 'name', order: 'ASC' });
+        break;
+      case 'Name desc':
+        setSort({ field: 'name', order: 'DESC' });
+        break;
+      case 'Year asc':
+        setSort({ field: 'year', order: 'ASC' });
+        break;
+      case 'Year desc':
+        setSort({ field: 'year', order: 'DESC' });
+        break;
+      case 'Genre asc':
+        setSort({ field: 'genre', order: 'ASC' });
+        break;
+      case 'Genre desc':
+        setSort({ field: 'genre', order: 'DESC' });
+        break;
+    }
   };
 
-  useEffect(handleChangePage, [state]);
+  useEffect(handleChangePage, [sort]);
 
   useCallback(() => {
     setSkeletons(generateSkeletonsArray(FILMS_PER_PAGE));
@@ -87,17 +103,13 @@ const Films = () => {
         >
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Sort by</InputLabel>
-            <Select name="field" label="Sort by" onChange={handleChange} defaultValue="name">
-              <MenuItem value="name">Name</MenuItem>
-              <MenuItem value="year">Year</MenuItem>
-              <MenuItem value="genre">Genre</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{ minWidth: 120 }}>
-            <InputLabel>Order by</InputLabel>
-            <Select name="order" label="Order by" onChange={handleChange} defaultValue="ASC">
-              <MenuItem value="ASC">ASC</MenuItem>
-              <MenuItem value="DESC">DESC</MenuItem>
+            <Select name="sort" label="Sort by" onChange={handleChange} defaultValue="Name asc">
+              <MenuItem value="Name asc">Name asc</MenuItem>
+              <MenuItem value="Name desc">Name desc</MenuItem>
+              <MenuItem value="Year asc">Year asc</MenuItem>
+              <MenuItem value="Year desc">Year desc</MenuItem>
+              <MenuItem value="Genre asc">Genre asc</MenuItem>
+              <MenuItem value="Genre desc">Genre desc</MenuItem>
             </Select>
           </FormControl>
         </Box>

@@ -33,28 +33,48 @@ const Search = () => {
   const { addToFavorites } = useActions(favoritesActions);
   const searchFilms = useSmartAction(searchActions.searchFilms);
   const { openDialog } = useDialog();
-  const [state, setState] = useState({
-    filter: '',
-    sort: 'name',
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState({
+    field: 'name',
     order: 'ASC',
   });
 
   const filteredFilms = films
-    .filter((film) => film.name.toLowerCase().includes(state.filter.toLowerCase()))
+    .filter((film) => film.name.toLowerCase().includes(filter.toLowerCase()))
     .sort((a, b) => {
-      if (state.order === 'ASC') return a[state.sort] > b[state.sort] ? 1 : -1;
-      if (state.order === 'DESC') return a[state.sort] < b[state.sort] ? 1 : -1;
+      if (sort.order === 'ASC') return a[sort.field] > b[sort.field] ? 1 : -1;
+      if (sort.order === 'DESC') return a[sort.field] < b[sort.field] ? 1 : -1;
     });
 
   useEffect(() => {
     searchFilms(params.query);
   }, [searchParams]);
 
-  const handleChange = ({ target: { name, value } }) => {
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleChangeFilter = ({ target: { value } }) => {
+    setFilter(value);
+  };
+
+  const handleChangeSort = (event) => {
+    switch (event.target.value) {
+      case 'Name asc':
+        setSort({ field: 'name', order: 'ASC' });
+        break;
+      case 'Name desc':
+        setSort({ field: 'name', order: 'DESC' });
+        break;
+      case 'Year asc':
+        setSort({ field: 'year', order: 'ASC' });
+        break;
+      case 'Year desc':
+        setSort({ field: 'year', order: 'DESC' });
+        break;
+      case 'Genre asc':
+        setSort({ field: 'genre', order: 'ASC' });
+        break;
+      case 'Genre desc':
+        setSort({ field: 'genre', order: 'DESC' });
+        break;
+    }
   };
 
   const handleOpenDialog = (dialog, id) => () => {
@@ -84,20 +104,16 @@ const Search = () => {
             gap: '1rem',
           }}
         >
-          <TextField name="filter" label="Filter" variant="outlined" value={state.filter} onChange={handleChange} />
+          <TextField name="filter" label="Filter" variant="outlined" value={filter} onChange={handleChangeFilter} />
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Sort by</InputLabel>
-            <Select name="sort" label="Sort by" onChange={handleChange} defaultValue="name">
-              <MenuItem value="name">Name</MenuItem>
-              <MenuItem value="year">Year</MenuItem>
-              <MenuItem value="genre">Genre</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{ minWidth: 120 }}>
-            <InputLabel>Order by</InputLabel>
-            <Select name="order" label="Order by" onChange={handleChange} defaultValue="ASC">
-              <MenuItem value="ASC">ASC</MenuItem>
-              <MenuItem value="DESC">DESC</MenuItem>
+            <Select name="sort" label="Sort by" onChange={handleChangeSort} defaultValue="Name asc">
+              <MenuItem value="Name asc">Name asc</MenuItem>
+              <MenuItem value="Name desc">Name desc</MenuItem>
+              <MenuItem value="Year asc">Year asc</MenuItem>
+              <MenuItem value="Year desc">Year desc</MenuItem>
+              <MenuItem value="Genre asc">Genre asc</MenuItem>
+              <MenuItem value="Genre desc">Genre desc</MenuItem>
             </Select>
           </FormControl>
         </Box>
