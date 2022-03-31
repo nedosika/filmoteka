@@ -4,7 +4,7 @@ const api = async (input, init, params) => {
   const response = await fetch(`${API_URL}/${input}`, init);
 
   if (response.status === 401) {
-    const response = await fetch(`${API_URL}/api/auth/refresh`, {
+    const response = await fetch(`${API_URL}/auth/refresh`, {
       method: 'POST',
       credentials: 'include',
       headers: {

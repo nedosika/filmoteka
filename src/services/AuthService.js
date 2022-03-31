@@ -1,7 +1,7 @@
 import { API_URL } from './config';
 
 const signIn = async (email, password) => {
-  const response = await fetch(`${API_URL}/api/auth/signin`, {
+  const response = await fetch(`${API_URL}/auth/signin`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -23,7 +23,7 @@ const signIn = async (email, password) => {
 };
 
 const signUp = async (email, password) => {
-  const response = await fetch(`${API_URL}/api/auth/signup`, {
+  const response = await fetch(`${API_URL}/auth/signup`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -47,7 +47,7 @@ const signUp = async (email, password) => {
 };
 
 const checkAuth = async () => {
-  const response = await fetch(`${API_URL}/api/auth/refresh`, {
+  const response = await fetch(`${API_URL}/auth/refresh`, {
     method: 'POST',
     credentials: 'include',
     headers: {

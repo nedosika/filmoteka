@@ -14,6 +14,7 @@ import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
+import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import AddFilmButton from './AddFilmButton';
 
@@ -37,16 +38,16 @@ const Films = () => {
     page: state.films.page,
     pages: state.films.pages,
     isAuth: state.auth.isAuth,
-    isLoading: state.loading.isLoading,
+    isLoading: state.films.loading,
   });
   const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
-  const getFilms = useSmartAction(filmsActions.getFilms);
+  const { getFilms } = useActions(filmsActions);
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {
-    getFilms({ page, field: sort.field, order: sort.order });
+    getFilms({ page, field: sort.field, order: sort.order, limit: FILMS_PER_PAGE });
   };
 
   const handleOpenDialog = (dialog, id) => () => {

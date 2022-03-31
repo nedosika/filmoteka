@@ -3,7 +3,7 @@ import api from './api.js';
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await api(`api/favorites/${auth.user?.id}`, {
+  const response = await api(`favorites/${auth.user?.id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -30,7 +30,7 @@ const getFavorites = async () => {
       status: 'not auth',
     };
 
-  const response = await api(`api/favorites/${auth.user?.id}`, {
+  const response = await api(`favorites/${auth.user?.id}`, {
     method: 'GET',
     credentials: 'include',
     headers: {

@@ -1,9 +1,10 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import FavoritesService from './FavoritesService';
 import api from './api';
 import { API_URL } from './config.js';
 
 const getOne = async (id) => {
-  const response = await api(`films/${id}`, {
+  const response = await api(`films/${id}}`, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -12,13 +13,13 @@ const getOne = async (id) => {
   });
 
   if (response.status === 200) {
-    const result = await response.json();
-    return result.data;
+    const data = await response.json();
+    return { ...data };
   }
 
   if (response.status === 404) {
-    const result = await response.json();
-    throw new Error(result.message);
+    const data = await response.json();
+    throw new Error(data.message);
   }
 };
 
@@ -142,3 +143,11 @@ export const FilmService = {
   removeFilm,
   updateFilm,
 };
+
+export const filmsAPI = createApi({
+  reducerPath: 'userAPI',
+  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+  endpoints: (build) => ({
+    fetchAllFilms: build.query({ query: (params) => ({ url: '/films', params }) }),
+  }),
+});

@@ -10,12 +10,12 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import filmsActions from '../../../actions/filmsActions';
-import useSmartAction from '../../../hooks/useSmartAction';
+import useActions from '../../../hooks/useActions';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
   const { state: film, onChange, onPrev, onNext } = useStepper();
-  const addFilm = useSmartAction(filmsActions.addFilm);
+  const { addFilm } = useActions(filmsActions);
 
   const handleChangeName = (event) => {
     onChange({
