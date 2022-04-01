@@ -48,7 +48,7 @@ const EditFilmDialog = ({ id }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    updateFilm({ ...film });
+    updateFilm(film);
     closeDialog();
   };
 

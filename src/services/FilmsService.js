@@ -42,19 +42,10 @@ const getAll = async (params) => {
 
     const { data, page, limit, size } = await response.json();
 
-    const byId = Object.assign(
-      {},
-      ...data.map(({ id, ...film }) => {
-        return {
-          [id]: { ...film, favorite: favorites?.includes(id) },
-        };
-      }),
-    );
-    const allIds = data?.map((film) => film.id);
+    const films = data.map((film) => ({ ...film, favorite: favorites?.includes(film.id) }));
 
     return {
-      byId,
-      allIds,
+      films,
       page: +page,
       pages: Math.ceil(size / limit),
     };
@@ -79,8 +70,8 @@ const addFilm = async (film) => {
   });
 
   if (response.status === 201) {
-    const data = await response.json();
-    return { ...data };
+    const result = await response.json();
+    return result.data;
   }
 
   if (response.status === 404) {
@@ -102,8 +93,7 @@ const removeFilm = async (id) => {
   });
 
   if (response.status === 200) {
-    const data = await response.json();
-    return { ...data };
+    return id;
   }
 
   if (response.status === 404) {
@@ -125,8 +115,8 @@ const updateFilm = async (film) => {
   });
 
   if (response.status === 200) {
-    const data = await response.json();
-    return { ...data };
+    const result = await response.json();
+    return result.data;
   }
 
   if (response.status === 404) {

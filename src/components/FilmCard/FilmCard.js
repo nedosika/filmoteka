@@ -12,8 +12,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import favoritesActions from '../../actions/favoritesActions';
-import useActions from '../../hooks/useActions';
+import { favoritesAPI } from '../../services/FavoritesService';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
 
@@ -22,17 +21,19 @@ const FilmCard = ({ film }) => {
   const { openDialog } = useDialog();
   const mapState = (state) => ({
     isAuth: state.auth.isAuth,
+    userId: state.auth.user?.id,
   });
-  const { isAuth } = useSelector(mapState);
+  const { isAuth, userId } = useSelector(mapState);
   const [isFavorite, setIsFavorite] = useState(film.favorite);
 
-  const { addToFavorites, removeFromFavorites } = useActions(favoritesActions);
+  const [addToFavorites, {}] = favoritesAPI.useAddToFavoritesMutation();
+  const [removeFromFavorites, {}] = favoritesAPI.useRemoveFromFavoritesMutation();
 
   const handleSwitchFavorite = () => {
     if (isFavorite) {
-      removeFromFavorites(film.id);
+      removeFromFavorites({ userId, filmId: film.id });
     } else {
-      addToFavorites(film);
+      addToFavorites({ userId, film });
     }
     setIsFavorite((prevState) => !prevState);
   };

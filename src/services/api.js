@@ -1,6 +1,6 @@
 import { API_URL } from './config.js';
 
-const api = async (input, init, params) => {
+const api = async (input, init) => {
   const response = await fetch(`${API_URL}/${input}`, init);
 
   if (response.status === 401) {

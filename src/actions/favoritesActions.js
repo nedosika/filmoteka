@@ -1,6 +1,5 @@
 import { SnackBarSeverities } from '../components/SnackStack';
 import FavoritesService from '../services/FavoritesService';
-import { getFilm, getFilms } from './filmsActions';
 import { showNotice } from './noticesActions';
 
 export const FAVORITES_LOADED = 'FAVORITES_LOADED';

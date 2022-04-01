@@ -19,6 +19,7 @@ import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
+import { searchSelector } from '../../reducers/searchSlice';
 
 const Search = () => {
   const navigate = useNavigate();
@@ -26,12 +27,13 @@ const Search = () => {
   const params = Object.fromEntries([...searchParams]);
 
   const mapState = (state) => ({
-    films: state.search.allIds.map((id) => ({ id, ...state.search.byId[id] })),
     isAuth: state.auth.isAuth,
   });
-  const { films, isAuth } = useSelector(mapState);
+  const { isAuth } = useSelector(mapState);
+  const films = useSelector(searchSelector.selectAll);
   const { addToFavorites } = useActions(favoritesActions);
   const searchFilms = useSmartAction(searchActions.searchFilms);
+
   const { openDialog } = useDialog();
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState({

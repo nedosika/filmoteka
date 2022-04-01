@@ -1,39 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { getFilm, getFilms, updateFilm } from '../actions/filmsActions';
 
-const initialState = {
-  byId: {},
-  allIds: [],
-  current: {},
-  pages: 0,
-  page: 1,
-};
+const filmsAdapter = createEntityAdapter({
+  selectId: (film) => film.id,
+});
 
 export const slice = createSlice({
   name: 'films',
-  initialState,
-  reducers: {
-    filmsFetching(state) {
+  initialState: filmsAdapter.getInitialState({
+    loading: false,
+    current: {},
+    pages: 0,
+    page: 1,
+  }),
+  reducers: {},
+  extraReducers: {
+    [getFilms.pending.type]: (state) => {
       state.loading = true;
     },
-    filmsFetchingSuccess(state, action) {
+    [getFilms.fulfilled.type]: (state, { payload }) => {
       state.loading = false;
-      state.error = '';
-      state.byId = action.payload.byId;
-      state.allIds = action.payload.allIds;
-      state.pages = action.payload.pages;
-      state.page = action.payload.page;
+      state.pages = payload.pages;
+      state.page = payload.page;
+      filmsAdapter.setAll(state, payload.films);
     },
-    filmFetchingSuccess(state, action) {
+    [getFilms.rejected.type]: (state, action) => {
       state.loading = false;
-      state.current = action.payload;
-      state.error = '';
     },
-    filmsFetchingError(state, action) {
-      state.lodaing = false;
-      state.error = action.payload;
+    [getFilm.fulfilled.type]: (state, { payload: film }) => {
+      state.current = film;
+    },
+    [updateFilm.fulfilled.type]: (state, { payload: film }) => {
+      filmsAdapter.updateOne(state, {
+        id: film.id,
+        changes: film,
+      });
     },
   },
 });
+
+export const filmsSelectors = filmsAdapter.getSelectors((state) => state.films);
 
 const reducer = slice.reducer;
 
