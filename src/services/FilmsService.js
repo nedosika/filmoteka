@@ -3,7 +3,7 @@ import api from './api';
 import { API_URL } from './config.js';
 
 const getOne = async (id) => {
-  const response = await api(`api/films/${id}}`, {
+  const response = await api(`films/${id}`, {
     method: 'GET',
     credentials: 'include',
     headers: {
@@ -12,18 +12,18 @@ const getOne = async (id) => {
   });
 
   if (response.status === 200) {
-    const data = await response.json();
-    return { ...data };
+    const result = await response.json();
+    return result.data;
   }
 
   if (response.status === 404) {
-    const data = await response.json();
-    throw new Error(data.message);
+    const result = await response.json();
+    throw new Error(result.message);
   }
 };
 
 const getAll = async (params) => {
-  const url = new URL(`${API_URL}/api/films`);
+  const url = new URL(`${API_URL}/films`);
 
   params && Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
 
@@ -42,19 +42,10 @@ const getAll = async (params) => {
 
     const { data, page, limit, size } = await response.json();
 
-    const byId = Object.assign(
-      {},
-      ...data.map(({ id, ...film }) => {
-        return {
-          [id]: { ...film, favorite: favorites?.includes(id) },
-        };
-      }),
-    );
-    const allIds = data?.map((film) => film.id);
+    const films = data.map((film) => ({ ...film, favorite: favorites?.includes(film.id) }));
 
     return {
-      byId,
-      allIds,
+      films,
       page: +page,
       pages: Math.ceil(size / limit),
     };
@@ -68,7 +59,7 @@ const getAll = async (params) => {
 
 const addFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await api(`api/films`, {
+  const response = await api(`films`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -79,8 +70,8 @@ const addFilm = async (film) => {
   });
 
   if (response.status === 201) {
-    const data = await response.json();
-    return { ...data };
+    const result = await response.json();
+    return result.data;
   }
 
   if (response.status === 404) {
@@ -92,7 +83,7 @@ const addFilm = async (film) => {
 const removeFilm = async (id) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await api(`api/films/${id}`, {
+  const response = await api(`films/${id}`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
@@ -102,8 +93,7 @@ const removeFilm = async (id) => {
   });
 
   if (response.status === 200) {
-    const data = await response.json();
-    return { ...data };
+    return id;
   }
 
   if (response.status === 404) {
@@ -114,7 +104,7 @@ const removeFilm = async (id) => {
 
 const updateFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await api(`api/films/${film.id}`, {
+  const response = await api(`films/${film.id}`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -125,8 +115,8 @@ const updateFilm = async (film) => {
   });
 
   if (response.status === 200) {
-    const data = await response.json();
-    return { ...data };
+    const result = await response.json();
+    return result.data;
   }
 
   if (response.status === 404) {

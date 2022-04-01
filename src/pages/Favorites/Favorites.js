@@ -1,22 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Layout, { LayoutTitles } from '../../Layout';
-import favoritesActions from '../../actions/favoritesActions';
 import FilmCard from '../../components/FilmCard/FilmCard';
-import useSmartAction from '../../hooks/useSmartAction';
+import { favoritesAPI } from '../../services/FavoritesService';
 
 const Favorites = () => {
-  const mapState = (state) => ({
-    films: state.favorites,
-  });
-  const { films } = useSelector(mapState);
-  const getFavorites = useSmartAction(favoritesActions.getFavorites);
-
-  useEffect(() => {
-    getFavorites();
-  }, []);
+  const user = useSelector((state) => state.auth.user);
+  const { data: response } = favoritesAPI.useFetchAllFavoritesQuery(user.id);
+  const films = response?.data;
 
   return (
     <Layout title={LayoutTitles.FAVORITES}>

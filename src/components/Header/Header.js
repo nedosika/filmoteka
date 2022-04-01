@@ -26,7 +26,7 @@ const Header = ({ title, onOpenMenuBar }) => {
   });
   const { isAuth, isLoading, options } = useSelector(mapState);
   const { openDialog } = useDialog();
-  const { getSearchOptions } = useActions(searchActions);
+  const getSearchOptions = useActions(searchActions.getSearchOptions);
 
   const handleSearch = (query) => {
     navigate({

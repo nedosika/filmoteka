@@ -10,11 +10,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
-import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
+import { FILMS_PER_PAGE } from '../../actions/filmsActions';
+import filmsActions from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
-import useSmartAction from '../../hooks/useSmartAction';
+import useActions from '../../hooks/useActions';
+import { filmsSelectors } from '../../reducers/filmsSlice';
 import AddFilmButton from './AddFilmButton';
 
 const generateSkeletonsArray = (count) => {
@@ -30,23 +32,21 @@ const Films = () => {
     order: 'ASC',
   });
   const mapState = (state) => ({
-    films: state.films.allIds.map((id) => ({
-      id,
-      ...state.films.byId[id],
-    })),
     page: state.films.page,
     pages: state.films.pages,
     isAuth: state.auth.isAuth,
-    isLoading: state.loading.isLoading,
+    isLoading: state.films.loading,
   });
-  const { films, page, pages, isAuth, isLoading } = useSelector(mapState);
+  const { page, pages, isAuth, isLoading } = useSelector(mapState);
+
+  const films = useSelector(filmsSelectors.selectAll);
+  const { getFilms } = useActions(filmsActions);
+
+  const { openDialog } = useDialog();
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
-  const getFilms = useSmartAction(filmsActions.getFilms);
-  const { openDialog } = useDialog();
-
   const handleChangePage = (event, page = 1) => {
-    getFilms({ page, field: sort.field, order: sort.order });
+    getFilms({ page, field: sort.field, order: sort.order, limit: FILMS_PER_PAGE });
   };
 
   const handleOpenDialog = (dialog, id) => () => {
