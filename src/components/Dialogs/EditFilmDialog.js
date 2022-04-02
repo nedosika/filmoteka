@@ -76,7 +76,7 @@ const EditFilmDialog = ({ id }) => {
             <Button variant="outlined" onClick={closeDialog}>
               Cancel
             </Button>
-            <Button variant="outlined" color="secondary" onClick={formik.handleSubmit}>
+            <Button variant="outlined" color="secondary" onClick={formik.handleSubmit} disabled={!formik.isValid}>
               Approve
             </Button>
           </Stack>
