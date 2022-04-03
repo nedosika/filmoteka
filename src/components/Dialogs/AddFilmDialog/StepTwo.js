@@ -9,41 +9,37 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import filmsActions from '../../../actions/filmsActions';
 import useSmartAction from '../../../hooks/useSmartAction';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
-  const { state: film, onChange, onPrev, onNext } = useStepper();
   const addFilm = useSmartAction(filmsActions.addFilm);
+  const { onNext, onPrev, values } = useStepper();
+  const formik = useFormik({
+    initialValues: {
+      name: values.name || '',
+      genre: values.genre || 'Detective',
+      img: values.img || '',
+      year: values.year || 1990,
+      description: values.description || '',
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().min(3, 'Must be 3 symbols or more').max(25, 'Must be 25 symbols or less').required('Required'),
+      img: Yup.string(),
+      year: Yup.number(),
+      description: Yup.string().max(255, 'Must be 255 symbols or less'),
+    }),
+    onSubmit: (values) => {
+      addFilm(values);
+      onNext(values);
+    },
+  });
 
-  const handleChangeName = (event) => {
-    onChange({
-      name: event.target.value,
-    });
-  };
-
-  const handleChangeDescription = (event) => {
-    onChange({
-      description: event.target.value,
-    });
-  };
-
-  const handleGenreChange = (event) => {
-    onChange({
-      genre: event.target.value,
-    });
-  };
-
-  const handleYearChange = (event) => {
-    onChange({
-      year: event.target.value,
-    });
-  };
-
-  const handleSubmit = () => {
-    onNext();
-    addFilm(film);
+  const handlePrev = () => {
+    onPrev(formik.values);
   };
 
   return (
@@ -53,15 +49,17 @@ const StepTwo = () => {
         <TextField
           label="Name"
           name="name"
-          value={film.name || ''}
+          value={formik.values.name}
           fullWidth
           margin="normal"
-          onChange={handleChangeName}
+          onChange={formik.handleChange}
+          error={formik.errors.name && true}
+          helperText={formik.errors.name}
         />
         <Stack direction="row" spacing={2} sx={{ width: '100%', marginTop: '10px' }}>
           <FormControl fullWidth>
             <InputLabel>Genre</InputLabel>
-            <Select name="genre" label="Genre" onChange={handleGenreChange} defaultValue="Detective">
+            <Select name="genre" label="Genre" value={formik.values.genre} onChange={formik.handleChange}>
               <MenuItem value="Detective">Detective</MenuItem>
               <MenuItem value="Anime">Anime</MenuItem>
               <MenuItem value="BlockBaster">BlockBaster</MenuItem>
@@ -70,24 +68,33 @@ const StepTwo = () => {
               <MenuItem value="Horror">Horror</MenuItem>
             </Select>
           </FormControl>
-          <TextField type="number" label="Year" name="year" fullWidth onChange={handleYearChange} />
+          <TextField
+            type="number"
+            label="Year"
+            name="year"
+            value={formik.values.year}
+            fullWidth
+            onChange={formik.handleChange}
+          />
         </Stack>
         <TextField
           label="Description"
           name="description"
-          value={film.description || ''}
+          value={formik.values.description}
           multiline
           rows={4}
           fullWidth
           margin="normal"
-          onChange={handleChangeDescription}
+          onChange={formik.handleChange}
+          error={formik.errors.description && true}
+          helperText={formik.errors.description}
         />
       </DialogContent>
       <DialogActions sx={{ padding: '20px 24px' }}>
-        <Button variant="outlined" onClick={onPrev}>
+        <Button variant="outlined" onClick={handlePrev}>
           Prev
         </Button>
-        <Button variant="outlined" onClick={handleSubmit}>
+        <Button variant="outlined" onClick={formik.handleSubmit} disabled={!formik.isValid}>
           Add
         </Button>
       </DialogActions>

@@ -3,22 +3,23 @@ import React, { createContext, useContext, useState } from 'react';
 const StepperContext = createContext({});
 
 export const StepperProvider = ({ children }) => {
-  const [state, setState] = useState({});
+  const [values, setValues] = useState({});
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleChange = (field) => {
-    setState((prevState) => ({
+  const handleNext = (values) => {
+    setValues((prevState) => ({
       ...prevState,
-      ...field,
+      ...values,
     }));
-  };
-
-  const handleNext = () => {
     setActiveStep((prevState) => prevState + 1);
   };
 
-  const handlePrev = () => {
+  const handlePrev = (values) => {
     if (activeStep !== 0) {
+      setValues((prevState) => ({
+        ...prevState,
+        ...values,
+      }));
       setActiveStep((prevState) => prevState - 1);
     }
   };
@@ -26,9 +27,8 @@ export const StepperProvider = ({ children }) => {
   return (
     <StepperContext.Provider
       value={{
-        state,
+        values,
         activeStep,
-        onChange: handleChange,
         onNext: handleNext,
         onPrev: handlePrev,
       }}

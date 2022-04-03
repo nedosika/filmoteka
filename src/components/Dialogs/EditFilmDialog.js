@@ -8,6 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import filmsActions from '../../actions/filmsActions';
 import useSmartAction from '../../hooks/useSmartAction';
 import Dialog from '../Dialog/Dialog';
@@ -26,12 +28,24 @@ const EditFilmDialog = ({ id }) => {
   const updateFilm = useSmartAction(filmsActions.updateFilm);
   const getFilm = useSmartAction(filmsActions.getFilm);
 
-  const [film, setFilm] = useState({
-    name: '',
-    genre: '',
-    year: '',
-    img: '',
-    description: '',
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      genre: '',
+      year: '',
+      img: '',
+      description: '',
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().max(25, 'Must be 25 symbols or less').required('Required'),
+      img: Yup.string(),
+      year: Yup.number().required('Required'),
+      description: Yup.string().max(255, 'Must be 255 symbols or less'),
+    }),
+    onSubmit: (values) => {
+      updateFilm({ ...values });
+      closeDialog();
+    },
   });
 
   useEffect(() => {
@@ -39,24 +53,11 @@ const EditFilmDialog = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    setFilm({ ...currentFilm });
+    formik.setValues(currentFilm);
   }, [currentFilm]);
 
   const handleRemove = () => {
     openDialog(DIALOG_TYPES.DELETE_FILM, { id });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    updateFilm(film);
-    closeDialog();
-  };
-
-  const handleChange = (event) => {
-    setFilm((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
-    }));
   };
 
   if (isLoading) return <Loader />;
@@ -75,18 +76,27 @@ const EditFilmDialog = ({ id }) => {
             <Button variant="outlined" onClick={closeDialog}>
               Cancel
             </Button>
-            <Button variant="outlined" color="secondary" onClick={handleSubmit}>
+            <Button variant="outlined" color="secondary" onClick={formik.handleSubmit} disabled={!formik.isValid}>
               Approve
             </Button>
           </Stack>
         </DialogActions>
       }
     >
-      <TextField label="Name" name="name" fullWidth margin="normal" onChange={handleChange} value={film.name} />
+      <TextField
+        label="Name"
+        name="name"
+        fullWidth
+        margin="normal"
+        onChange={formik.handleChange}
+        value={formik.values.name}
+        error={formik.errors.name && true}
+        helperText={formik.errors.name}
+      />
       <Stack direction="row" spacing={2} sx={{ width: '100%', marginTop: '10px' }}>
         <FormControl fullWidth>
           <InputLabel>Genre</InputLabel>
-          <Select name="genre" label="Genre" onChange={handleChange} value={film.genre}>
+          <Select name="genre" label="Genre" onChange={formik.handleChange} value={formik.values.genre}>
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
@@ -98,27 +108,40 @@ const EditFilmDialog = ({ id }) => {
             <MenuItem value="Horror">Horror</MenuItem>
           </Select>
         </FormControl>
-        <TextField type="number" label="Year" name="year" value={film.year} fullWidth onChange={handleChange} />
+        <TextField
+          type="number"
+          label="Year"
+          name="year"
+          value={formik.values.year}
+          fullWidth
+          onChange={formik.handleChange}
+          error={formik.errors.year && true}
+          helperText={formik.errors.year}
+        />
       </Stack>
       <TextField
         label="Image link"
         name="img"
-        value={film.img}
+        value={formik.values.img}
         fullWidth
         margin="normal"
-        onChange={handleChange}
+        onChange={formik.handleChange}
         alt="film image"
+        error={formik.errors.img && true}
+        helperText={formik.errors.img}
       />
-      <Image image={film.img} height={140} alt="film image" />
+      <Image image={formik.values.img} height={140} alt="film image" />
       <TextField
         label="Description"
         name="description"
         multiline
         rows={4}
-        value={film.description}
+        value={formik.values.description}
         fullWidth
         margin="normal"
-        onChange={handleChange}
+        onChange={formik.handleChange}
+        error={formik.errors.description && true}
+        helperText={formik.errors.description}
       />
     </Dialog>
   );
