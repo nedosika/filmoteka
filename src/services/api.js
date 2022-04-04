@@ -6,7 +6,6 @@ const api = async (input, init) => {
   if (response.status === 401) {
     const response = await fetch(`${API_URL}/auth/refresh`, {
       method: 'POST',
-      credentials: 'include',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },

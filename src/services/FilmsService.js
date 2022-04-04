@@ -1,11 +1,9 @@
-import FavoritesService from './FavoritesService';
 import api from './api';
 import { API_URL } from './config.js';
 
 const getOne = async (id) => {
   const response = await api(`films/${id}`, {
     method: 'GET',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -29,23 +27,16 @@ const getAll = async (params) => {
 
   const response = await fetch(url, {
     method: 'GET',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
   });
 
   if (response.status === 200) {
-    const result = await FavoritesService.getFavorites();
-
-    const favorites = result.status === 'ok' ? result.data?.map((film) => film.id) : [];
-
     const { data, page, limit, size } = await response.json();
 
-    const films = data.map((film) => ({ ...film, favorite: favorites?.includes(film.id) }));
-
     return {
-      films,
+      films: data,
       page: +page,
       pages: Math.ceil(size / limit),
     };
@@ -61,7 +52,6 @@ const addFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
   const response = await api(`films`, {
     method: 'POST',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,
@@ -85,7 +75,6 @@ const removeFilm = async (id) => {
 
   const response = await api(`films/${id}`, {
     method: 'DELETE',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,
@@ -106,7 +95,6 @@ const updateFilm = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
   const response = await api(`films/${film.id}`, {
     method: 'PUT',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
       Authorization: 'Bearer ' + auth.token,

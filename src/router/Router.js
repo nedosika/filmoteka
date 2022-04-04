@@ -15,11 +15,6 @@ const Favorites = React.lazy(() => import('../pages/Favorites'));
 
 const Router = () => {
   const isAuth = useSelector(({ auth }) => auth.isAuth);
-  const { checkAuth } = useActions(authActions);
-
-  useEffect(() => {
-    if (localStorage.getItem('auth')) checkAuth();
-  }, []);
 
   return (
     <Suspense fallback={<Loader />}>

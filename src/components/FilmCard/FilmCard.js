@@ -24,7 +24,7 @@ const FilmCard = ({ film }) => {
     userId: state.auth.user?.id,
   });
   const { isAuth, userId } = useSelector(mapState);
-  const [isFavorite, setIsFavorite] = useState(film.favorite);
+  const [isFavorite, setIsFavorite] = useState(film.isFavorite);
 
   const [addToFavorites, {}] = favoritesAPI.useAddToFavoritesMutation();
   const [removeFromFavorites, {}] = favoritesAPI.useRemoveFromFavoritesMutation();

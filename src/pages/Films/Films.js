@@ -36,8 +36,9 @@ const Films = () => {
     pages: state.films.pages,
     isAuth: state.auth.isAuth,
     isLoading: state.films.loading,
+    userId: state.auth.user.id,
   });
-  const { page, pages, isAuth, isLoading } = useSelector(mapState);
+  const { page, pages, isAuth, isLoading, userId } = useSelector(mapState);
 
   const films = useSelector(filmsSelectors.selectAll);
   const { getFilms } = useActions(filmsActions);
@@ -46,7 +47,7 @@ const Films = () => {
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
   const handleChangePage = (event, page = 1) => {
-    getFilms({ page, field: sort.field, order: sort.order, limit: FILMS_PER_PAGE });
+    getFilms({ page, field: sort.field, order: sort.order, limit: FILMS_PER_PAGE, userId });
   };
 
   const handleOpenDialog = (dialog, id) => () => {

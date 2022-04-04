@@ -7,10 +7,9 @@ const addToFavorites = async (film) => {
 
   const response = await api(`favorites/${auth.user?.id}`, {
     method: 'PUT',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
     body: JSON.stringify(film),
   });
@@ -34,10 +33,9 @@ const getFavorites = async () => {
 
   const response = await api(`favorites/${auth.user?.id}`, {
     method: 'GET',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
   });
 
@@ -55,10 +53,9 @@ const removeFromFavorites = async (filmId) => {
 
   const response = await api(`favorites/${auth.user?.id}`, {
     method: 'DELETE',
-    credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
     body: JSON.stringify({ filmId }),
   });
@@ -78,7 +75,7 @@ export const favoritesAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = getState().auth.accessToken;
 
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
