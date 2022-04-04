@@ -75,10 +75,10 @@ export const favoritesAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.accessToken;
+      const auth = JSON.parse(localStorage.getItem('auth'));
 
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
+      if (auth?.accessToken) {
+        headers.set('authorization', `Bearer ${auth?.accessToken}`);
       }
 
       return headers;

@@ -54,7 +54,7 @@ const addFilm = async (film) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
     body: JSON.stringify(film),
   });
@@ -77,7 +77,7 @@ const removeFilm = async (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
   });
 
@@ -97,7 +97,7 @@ const updateFilm = async (film) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.token,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
     body: JSON.stringify(film),
   });
