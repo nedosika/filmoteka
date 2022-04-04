@@ -7,7 +7,10 @@ export const FILMS_PER_PAGE = 5;
 
 export const getFilms = createAsyncThunk('films/fetchAll', async (params, thunkAPI) => {
   try {
-    return await FilmService.getAll(params);
+    const user = thunkAPI.getState().auth.user;
+    console.log(user);
+    const withUserIdParams = user ? { ...params, userId: user.id } : params;
+    return await FilmService.getAll(withUserIdParams);
   } catch (error) {
     thunkAPI.dispatch(showNotice(error.message, SnackBarSeverities.error));
   }
