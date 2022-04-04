@@ -5,7 +5,7 @@ const auth = JSON.parse(localStorage.getItem('auth'));
 const initialState = auth
   ? {
       isAuth: true,
-      token: auth.token,
+      accessToken: auth.accessToken,
       user: auth.user,
     }
   : {
