@@ -27,11 +27,11 @@ const api = async (input, init) => {
           },
         });
       }
-    }
 
-    if (response.status === 400 || response.status === 403) {
-      const data = await response.json();
-      throw new Error(data.status);
+      if (response.status === 400 || response.status === 403) {
+        const data = await response.json();
+        throw new Error(data.status);
+      }
     }
 
     return response;
