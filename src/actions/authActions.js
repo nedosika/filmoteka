@@ -36,24 +36,12 @@ export const signUp = (email, password) => (dispatch) => {
 };
 
 export const signOut = () => (dispatch) => {
-  console.log('signout');
   localStorage.removeItem('auth');
   dispatch(authFailure());
-};
-
-export const checkAuth = () => (dispatch) => {
-  return AuthService.checkAuth()
-    .then((data) => {
-      dispatch(authSuccess(data));
-    })
-    .catch((err) => {
-      dispatch(authFailure());
-    });
 };
 
 export default {
   signIn,
   signOut,
   signUp,
-  checkAuth,
 };

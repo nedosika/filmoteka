@@ -45,30 +45,7 @@ const signUp = async (email, password) => {
   }
 };
 
-const checkAuth = async () => {
-  const response = await fetch(`${API_URL}/auth/refresh`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-    },
-  });
-
-  if (response.status === 200) {
-    const { data } = await response.json();
-    localStorage.setItem('auth', JSON.stringify({ ...data }));
-    return data;
-  }
-
-  const { data } = await response.json();
-
-  localStorage.removeItem('auth');
-
-  throw new Error(data.message);
-};
-
 export const AuthService = {
   signIn,
   signUp,
-  checkAuth,
 };

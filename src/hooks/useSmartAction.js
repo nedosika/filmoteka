@@ -17,10 +17,12 @@ const useSmartAction = (actionCreator) => {
   return (props) => {
     startLoading();
     dispatch(actionCreator(props))
-      .catch((error) => {
-        if (error.message === 'Invalid') {
+      .then(({ payload }) => {
+        if (payload === 'Invalid Credentials') {
           signOut();
         }
+      })
+      .catch((error) => {
         showNotice(error.message, SnackBarSeverities.error);
       })
       .finally(() => successLoading());

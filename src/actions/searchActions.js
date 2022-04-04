@@ -5,14 +5,14 @@ export const searchFilms = createAsyncThunk('search/searchFilms', async (params,
   try {
     return await FilmService.getAll({ search: params });
   } catch (error) {
-    rejectWithValue('films not found');
+    return rejectWithValue('films not found');
   }
 });
 export const getSearchOptions = createAsyncThunk('search/getOptions', async (params, { rejectWithValue }) => {
   try {
     return await FilmService.getAll({ search: params });
   } catch (error) {
-    rejectWithValue('films not found');
+    return rejectWithValue('films not found');
   }
 });
 

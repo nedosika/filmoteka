@@ -13,7 +13,6 @@ export const slice = createSlice({
     pages: 0,
     page: 1,
   }),
-  reducers: {},
   extraReducers: {
     [getFilms.pending.type]: (state) => {
       state.loading = true;
