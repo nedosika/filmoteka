@@ -34,12 +34,11 @@ const Films = () => {
   const mapState = (state) => ({
     page: state.films.page,
     pages: state.films.pages,
+    films: filmsSelectors.selectAll(state),
     isAuth: state.auth.isAuth,
     isLoading: state.films.loading,
   });
-  const { page, pages, isAuth, isLoading, userId } = useSelector(mapState);
-
-  const films = useSelector(filmsSelectors.selectAll);
+  const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
   const { getFilms } = useActions(filmsActions);
 
   const { openDialog } = useDialog();
