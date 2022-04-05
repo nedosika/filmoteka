@@ -6,6 +6,7 @@ const initialState = auth
   ? {
       isAuth: true,
       accessToken: auth.accessToken,
+      refreshToken: auth.refreshToken,
       user: auth.user,
     }
   : {
