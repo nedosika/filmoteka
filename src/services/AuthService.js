@@ -11,7 +11,6 @@ const signIn = async (email, password) => {
 
   if (response.status === 200) {
     const { data } = await response.json();
-    localStorage.setItem('auth', JSON.stringify(data));
     return data;
   }
 
@@ -24,7 +23,6 @@ const signIn = async (email, password) => {
 const signUp = async (email, password) => {
   const response = await fetch(`${API_URL}/auth/signup`, {
     method: 'POST',
-    //credentials: 'include',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -32,7 +30,6 @@ const signUp = async (email, password) => {
   });
   if (response.status === 201) {
     const { data } = await response.json();
-    localStorage.setItem('auth', JSON.stringify({ ...data }));
     return data;
   }
   if (response.status === 409) {

@@ -12,7 +12,7 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import { favoritesAPI } from '../../services/FavoritesService';
+import { favoritesAPI } from '../../reducers/favoritesReducer';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
 

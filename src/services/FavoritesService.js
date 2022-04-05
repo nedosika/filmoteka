@@ -1,6 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import api from './api.js';
-import { API_URL } from './config';
 
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
@@ -69,43 +67,6 @@ const removeFromFavorites = async (filmId) => {
     throw new Error(data.message);
   }
 };
-
-export const favoritesAPI = createApi({
-  reducerPath: 'favoritesAPI',
-  baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const auth = JSON.parse(localStorage.getItem('auth'));
-
-      if (auth?.accessToken) {
-        headers.set('authorization', `Bearer ${auth?.accessToken}`);
-      }
-
-      return headers;
-    },
-  }),
-  tagTypes: ['Favorites'],
-  endpoints: (build) => ({
-    fetchAllFavorites: build.query({
-      query: (id) => {
-        return { url: `/favorites/${id}` };
-      },
-      providesTags: ['Favorites'],
-    }),
-    addToFavorites: build.mutation({
-      query: ({ userId, film }) => ({ url: `/favorites/${userId}`, method: 'PUT', body: film }),
-      invalidatesTags: ['Favorites'],
-    }),
-    removeFromFavorites: build.mutation({
-      query: ({ userId, filmId }) => ({
-        url: `/favorites/${userId}`,
-        method: 'DELETE',
-        body: { filmId },
-      }),
-      invalidatesTags: ['Favorites'],
-    }),
-  }),
-});
 
 const favoriteActions = {
   addToFavorites,

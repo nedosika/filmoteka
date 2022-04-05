@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import authReducer from './reducers/authReducer';
+import { favoritesAPI } from './reducers/favoritesReducer';
 import filmsReducer from './reducers/filmsSlice';
 import loadingReducer from './reducers/loadingReducer';
 import noticesReducer from './reducers/noticesReducer';
 import searchReducer from './reducers/searchSlice';
-import { favoritesAPI } from './services/FavoritesService';
 
 export default configureStore({
   reducer: {
