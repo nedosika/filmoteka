@@ -15,7 +15,7 @@ const signIn = async (email, password) => {
   }
 
   if (response.status === 400) {
-    const { data } = await response.json();
+    const data = await response.json();
     throw new Error(data.message);
   }
 };
