@@ -10,7 +10,7 @@ const signIn = async (email, password) => {
   });
 
   if (response.status === 200) {
-    const { data } = await response.json();
+    const data = await response.json();
     return data;
   }
 
@@ -40,6 +40,9 @@ const signUp = async (email, password) => {
 
   if (response.status === 400) {
     const { data } = await response.json();
+
+  if (response.status === 409) {
+    const data = await response.json();
     throw new Error(data.message);
   }
 

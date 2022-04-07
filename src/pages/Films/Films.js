@@ -16,6 +16,7 @@ import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
+import useSmartAction from '../../hooks/useSmartAction';
 import { filmsSelectors } from '../../reducers/filmsSlice';
 import AddFilmButton from './AddFilmButton';
 
@@ -39,7 +40,7 @@ const Films = () => {
     isLoading: state.films.loading,
   });
   const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
-  const { getFilms } = useActions(filmsActions);
+  const getFilms = useSmartAction(filmsActions.getFilms);
 
   const { openDialog } = useDialog();
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));

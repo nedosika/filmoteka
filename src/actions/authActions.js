@@ -25,7 +25,7 @@ export const signIn = (email, password) => (dispatch) => {
   dispatch(startLoading());
 
   return AuthService.signIn(email, password)
-    .then((data) => {
+    .then(({ data }) => {
       dispatch(authSuccess(data));
     })
     .then(() => dispatch(successLoading()))
@@ -36,7 +36,7 @@ export const signUp = (email, password) => (dispatch) => {
   dispatch(startLoading());
 
   return AuthService.signUp(email, password)
-    .then((data) => {
+    .then(({ data }) => {
       dispatch(authSuccess(data));
     })
     .then(() => dispatch(successLoading()))
