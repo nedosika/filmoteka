@@ -10,9 +10,11 @@ import useDialog from '../../DialogManager/useDialog';
 
 const StepThree = () => {
   const { closeDialog } = useDialog();
-  const { isLoading, error } = useSelector((state) => state.loading);
-
-  const disabled = isLoading || error;
+  const mapState = (state) => ({
+    isLoading: state.loading.isLoading || state.films.loading,
+    error: state.films.error,
+  });
+  const { isLoading, error } = useSelector(mapState);
 
   return (
     <>
@@ -29,7 +31,7 @@ const StepThree = () => {
         )}
       </DialogContent>
       <DialogActions sx={{ padding: '20px 24px' }}>
-        <Button variant="outlined" disabled={disabled} onClick={closeDialog}>
+        <Button variant="outlined" onClick={closeDialog}>
           Ok
         </Button>
       </DialogActions>
