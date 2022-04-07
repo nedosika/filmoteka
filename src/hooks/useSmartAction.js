@@ -18,8 +18,11 @@ const useSmartAction = (actionCreator) => {
     startLoading();
     dispatch(actionCreator(props))
       .then(({ payload }) => {
-        if (payload === 'Invalid Credentials') {
+        if (payload?.status && payload?.message === 'Invalid Credentials') {
           signOut();
+        }
+        if (payload?.status === 'Error') {
+          throw new Error(payload.message);
         }
       })
       .catch((error) => {

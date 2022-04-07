@@ -43,8 +43,7 @@ const getAll = async (params) => {
   }
 
   if (response.status === 404) {
-    const data = await response.json();
-    throw new Error(data.message);
+    throw new Error('Resource not found');
   }
 };
 

@@ -10,7 +10,7 @@ const loadFavoritesSuccess = (films) => ({
 });
 
 export const getFavorites = () => (dispatch) => {
-  return FavoritesService.getFavorites().then((films) => dispatch(loadFavoritesSuccess(films.data)));
+  return FavoritesService.getFavorites().then((data) => dispatch(loadFavoritesSuccess(data)));
 };
 
 export const addToFavorites = (film) => (dispatch) => {
