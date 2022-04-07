@@ -36,17 +36,11 @@ const signUp = async (email, password) => {
     return await response.json();
   }
 
+  if (response.status === 409) {
+    const data = await response.json();
+    throw new Error(data.message);
+  }
   if (response.status === 400) {
-    const data = await response.json();
-    throw new Error(data.message);
-  }
-
-  if (response.status === 409) {
-    const data = await response.json();
-    throw new Error(data.message);
-  }
-
-  if (response.status === 409) {
     const { data } = await response.json();
     throw new Error(data.message);
   }
