@@ -14,6 +14,13 @@ export const slice = createSlice({
     pages: 0,
     page: 1,
   }),
+  reducers: {
+    filmsReceived: (state, { payload }) => {
+      state.pages = payload.pages;
+      state.page = payload.page;
+      filmsAdapter.setAll(state, payload.films);
+    },
+  },
   extraReducers: {
     [getFilms.pending.type]: (state) => {
       state.loading = true;
@@ -47,6 +54,7 @@ export const slice = createSlice({
 });
 
 export const filmsSelectors = filmsAdapter.getSelectors((state) => state.films);
+export const { filmsReceived } = slice.actions;
 
 const reducer = slice.reducer;
 
