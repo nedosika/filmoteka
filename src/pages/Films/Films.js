@@ -42,13 +42,8 @@ const Films = () => {
     isLoading: state.films.loading,
   });
   const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
-  //const getFilms = useSmartAction(filmsActions.getFilms);
 
-  const { getFilms } = useActions({ getFilms: useSmartActionRTK(FilmService.getAll) });
-
-  //const getFilms = useSmartActionRTK(FilmService.getAll)
-
-  console.log(getFilms);
+  const getFilms = useSmartActionRTK(FilmService.getAll);
 
   const { openDialog } = useDialog();
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
