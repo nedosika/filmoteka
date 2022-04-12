@@ -5,11 +5,13 @@ import { favoritesAPI } from './reducers/favoritesReducer';
 import filmsReducer from './reducers/filmsSlice';
 import loadingReducer from './reducers/loadingReducer';
 import noticesReducer from './reducers/noticesReducer';
+import queriesReducer from './reducers/queriesReducer';
 import searchReducer from './reducers/searchSlice';
 
 export default configureStore({
   reducer: {
     films: filmsReducer,
+    queries: queriesReducer,
     auth: authReducer,
     loading: loadingReducer,
     notices: noticesReducer,
