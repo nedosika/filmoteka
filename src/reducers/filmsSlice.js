@@ -1,5 +1,5 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { addFilm, getFilm, getFilms, updateFilm } from '../actions/filmsActions';
+import { addFilm, getFilm, updateFilm } from '../actions/filmsActions';
 
 const filmsAdapter = createEntityAdapter({
   selectId: (film) => film.id,
@@ -22,21 +22,6 @@ export const slice = createSlice({
     },
   },
   extraReducers: {
-    [getFilms.pending.type]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [getFilms.fulfilled.type]: (state, { payload }) => {
-      state.loading = false;
-      state.error = null;
-      state.pages = payload.pages;
-      state.page = payload.page;
-      filmsAdapter.setAll(state, payload.films);
-    },
-    [getFilms.rejected.type]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload?.message;
-    },
     [getFilm.fulfilled.type]: (state, { payload: film }) => {
       state.current = film;
     },
