@@ -11,21 +11,12 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import filmsActions, { FILMS_PER_PAGE } from '../../../actions/filmsActions';
+import filmsActions from '../../../actions/filmsActions';
 import useSmartActionRTK from '../../../hooks/useSmartActionRTK';
-import { filmAdded, filmsReceived } from '../../../reducers/filmsReducer';
-import { FilmService } from '../../../services';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
-  const getFilms = useSmartActionRTK(FilmService.getAll, filmsReceived);
-  const addFilm = useSmartActionRTK(
-    FilmService.addFilm,
-    filmAdded,
-    { notices: { fulfilled: 'Film added successfully' } },
-    () => getFilms({ limit: FILMS_PER_PAGE }),
-  );
-
+  const addFilm = useSmartActionRTK(filmsActions.addFilm, { notices: { fulfilled: 'Film added' } });
   const { onNext, onPrev, values } = useStepper();
   const formik = useFormik({
     initialValues: {

@@ -1,12 +1,12 @@
 import React from 'react';
 import filmsActions from '../../actions/filmsActions';
-import useSmartAction from '../../hooks/useSmartAction';
+import useSmartActionRTK from '../../hooks/useSmartActionRTK';
 import useDialog from '../DialogManager/useDialog';
 import ConfirmDialog from './ConfirmDialog';
 
 const DeleteFilmDialog = ({ id }) => {
   const { closeDialog } = useDialog();
-  const removeFilm = useSmartAction(filmsActions.removeFilm);
+  const removeFilm = useSmartActionRTK(filmsActions.removeFilm, { notices: { fulfilled: 'Film removed' } });
 
   const handleRemove = () => {
     removeFilm(id);

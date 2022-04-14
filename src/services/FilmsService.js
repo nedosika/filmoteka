@@ -112,7 +112,7 @@ const updateFilm = async (film) => {
   }
 };
 
-export const FilmService = {
+export const FilmsService = {
   getOne,
   getAll,
   addFilm,
