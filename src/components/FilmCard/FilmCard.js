@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
@@ -24,13 +24,15 @@ const FilmCard = ({ film }) => {
     userId: state.auth.user?.id,
   });
   const { isAuth, userId } = useSelector(mapState);
-  const [isFavorite, setIsFavorite] = useState(film.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const [addToFavorites, {}] = favoritesAPI.useAddToFavoritesMutation();
   const [removeFromFavorites, {}] = favoritesAPI.useRemoveFromFavoritesMutation();
 
+  useEffect(() => setIsFavorite(film.isFavorite), [film]);
+
   const handleSwitchFavorite = () => {
-    if (isFavorite) {
+    if (film?.isFavorite) {
       removeFromFavorites({ userId, filmId: film.id });
     } else {
       addToFavorites({ userId, film });
