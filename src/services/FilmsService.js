@@ -1,5 +1,4 @@
 import api from './api';
-import { API_URL } from './config.js';
 
 const getOne = async (id) => {
   const response = await api(`films/${id}`, {
@@ -21,16 +20,13 @@ const getOne = async (id) => {
 };
 
 const getAll = async (params) => {
-  const url = new URL(`${API_URL}/films`);
-
-  params && Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
-
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
+  const response = await api(
+    'films',
+    {
+      method: 'GET',
     },
-  });
+    params,
+  );
 
   if (response.status === 200) {
     const { data, page, limit, size } = await response.json();
