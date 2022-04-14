@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -15,10 +15,8 @@ import filmsActions from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
-import useActions from '../../hooks/useActions';
-import useSmartAction from '../../hooks/useSmartAction';
 import useSmartActionRTK from '../../hooks/useSmartActionRTK';
-import { filmsSelectors } from '../../reducers/filmsSlice';
+import { filmsReceived, filmsSelectors } from '../../reducers/filmsReducer';
 import { FilmService } from '../../services';
 import AddFilmButton from './AddFilmButton';
 
@@ -43,7 +41,7 @@ const Films = () => {
   });
   const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
 
-  const getFilms = useSmartActionRTK(FilmService.getAll);
+  const getFilms = useSmartActionRTK(FilmService.getAll, filmsReceived);
 
   const { openDialog } = useDialog();
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));

@@ -3,10 +3,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { bindActionCreators } from 'redux';
 import { showNotice } from '../actions/noticesActions';
 import { SnackBarSeverities } from '../components/SnackStack';
-import { filmsReceived } from '../reducers/filmsSlice';
 import { addQuery, removeQuery, updateQuery } from '../reducers/queriesReducer';
 
-const useSmartActionRTK = (query, options = { notices: { pending: false, fulfilled: false, rejected: true } }) => {
+const useSmartActionRTK = (
+  query,
+  action,
+  options = { notices: { pending: false, fulfilled: false, rejected: true } },
+  done,
+) => {
   const dispatch = useDispatch();
 
   const queryId = `queries/${new Date().getTime() + Math.random()}`;
@@ -17,16 +21,16 @@ const useSmartActionRTK = (query, options = { notices: { pending: false, fulfill
       options.notices.pending && thunkAPI.dispatch(showNotice(options.notices.pending));
       try {
         const result = await query(params);
+        thunkAPI.dispatch(action(result));
         thunkAPI.dispatch(updateQuery({ id: queryId, progress: 'fulfilled' }));
-        thunkAPI.dispatch(filmsReceived(result));
         options.notices.fulfilled && thunkAPI.dispatch(showNotice(options.notices.fulfilled));
-        return result;
       } catch (error) {
         thunkAPI.dispatch(updateQuery({ id: queryId, progress: 'rejected', message: error.message }));
         //TODO: ponder about showing custom or server error message
         options.notices.rejected && thunkAPI.dispatch(showNotice(error.message, SnackBarSeverities.error));
       } finally {
         thunkAPI.dispatch(removeQuery(queryId));
+        done && done();
       }
     }),
     dispatch,
