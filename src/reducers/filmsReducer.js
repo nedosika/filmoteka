@@ -19,6 +19,7 @@ const filmsSlice = createSlice({
     },
     filmAdded: filmsAdapter.addOne,
     filmUpdated: filmsAdapter.updateOne,
+    filmRemoved: filmsAdapter.removeOne,
     filmReceived: (state, { payload }) => {
       state.current = payload;
     },
@@ -26,6 +27,6 @@ const filmsSlice = createSlice({
 });
 
 export const filmsSelectors = filmsAdapter.getSelectors((state) => state.films);
-export const { filmsReceived, filmReceived, filmAdded, filmUpdated } = filmsSlice.actions;
+export const { filmsReceived, filmReceived, filmAdded, filmUpdated, filmRemoved } = filmsSlice.actions;
 
 export default filmsSlice.reducer;

@@ -10,14 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
 import Layout, { LayoutTitles } from '../../Layout';
-import { FILMS_PER_PAGE } from '../../actions/filmsActions';
-import filmsActions from '../../actions/filmsActions';
+import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useSmartActionRTK from '../../hooks/useSmartActionRTK';
-import { filmsReceived, filmsSelectors } from '../../reducers/filmsReducer';
-import { FilmService } from '../../services';
+import { filmsSelectors } from '../../reducers/filmsReducer';
 import AddFilmButton from './AddFilmButton';
 
 const generateSkeletonsArray = (count) => {
@@ -41,7 +39,7 @@ const Films = () => {
   });
   const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
 
-  const getFilms = useSmartActionRTK(FilmService.getAll, filmsReceived);
+  const getFilms = useSmartActionRTK(filmsActions.getFilms);
 
   const { openDialog } = useDialog();
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));

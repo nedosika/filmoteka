@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import filmsActions from '../../actions/filmsActions';
-import useSmartAction from '../../hooks/useSmartAction';
+import useSmartActionRTK from '../../hooks/useSmartActionRTK';
 import Dialog from '../Dialog/Dialog';
 import useDialog from '../DialogManager/useDialog';
 import Image from '../Image';
@@ -25,8 +25,8 @@ const EditFilmDialog = ({ id }) => {
     currentFilm: state.films.current,
   });
   const { currentFilm, isLoading } = useSelector(mapState);
-  const updateFilm = useSmartAction(filmsActions.updateFilm);
-  const getFilm = useSmartAction(filmsActions.getFilm);
+  const getFilm = useSmartActionRTK(filmsActions.getFilm);
+  const updateFilm = useSmartActionRTK(filmsActions.updateFilm, { notices: { fulfilled: 'Film updated' } });
 
   const formik = useFormik({
     initialValues: {
