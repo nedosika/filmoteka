@@ -1,7 +1,20 @@
 import { API_URL } from './config.js';
 
-const api = async (input, init) => {
-  const response = await fetch(`${API_URL}/${input}`, init);
+const api = async (input, init, params) => {
+  const url = new URL(`${API_URL}/${input}`);
+
+  params && Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
+
+  const auth = JSON.parse(localStorage.getItem('auth'));
+
+  const response = await fetch(url, {
+    ...init,
+    headers: {
+      ...init.headers,
+      'Content-Type': 'application/json;charset=utf-8',
+      authorization: 'Bearer ' + auth.accessToken,
+    },
+  });
 
   if (response.status === 401) {
     const auth = JSON.parse(localStorage.getItem('auth'));
