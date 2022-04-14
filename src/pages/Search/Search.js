@@ -19,7 +19,7 @@ import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
-import { searchSelector } from '../../reducers/searchSlice';
+import { searchSelector } from '../../reducers/searchReducer';
 
 const Search = () => {
   const navigate = useNavigate();
