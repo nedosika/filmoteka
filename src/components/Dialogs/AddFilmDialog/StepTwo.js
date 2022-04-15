@@ -16,8 +16,12 @@ import useSmartActionRTK from '../../../hooks/useSmartActionRTK';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
-  const addFilm = useSmartActionRTK(filmsActions.addFilm, { notices: { fulfilled: 'Film added' } });
   const { onNext, onPrev, values } = useStepper();
+  const addFilm = useSmartActionRTK(filmsActions.addFilm, { notices: { fulfilled: 'Film added' } }, (result) => {
+    console.log(result);
+    result?.status === 'validation error' ? formik.setErrors(result.data) : onNext(formik.values);
+  });
+
   const formik = useFormik({
     initialValues: {
       name: values.name || '',
@@ -34,7 +38,6 @@ const StepTwo = () => {
     }),
     onSubmit: (values) => {
       addFilm(values);
-      onNext(values);
     },
   });
 

@@ -31,7 +31,6 @@ const EditFilmDialog = ({ id }) => {
     filmsActions.updateFilm,
     { notices: { fulfilled: 'Film updated', rejected: false } },
     (result) => {
-      console.log(result);
       result?.status === 'validation error' ? formik.setErrors(result.data) : closeDialog();
     },
   );
