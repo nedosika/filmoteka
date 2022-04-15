@@ -7,7 +7,7 @@ const filmsAdapter = createEntityAdapter({
 const filmsSlice = createSlice({
   name: 'films',
   initialState: filmsAdapter.getInitialState({
-    current: {},
+    current: { name: '', genre: '', year: '', img: '', description: '' },
     pages: 0,
     page: 1,
   }),

@@ -1,3 +1,4 @@
+import ValidationError from '../helpers/ValidationError';
 import api from './api';
 
 const getOne = async (id) => {
@@ -59,6 +60,11 @@ const addFilm = async (film) => {
     return result.data;
   }
 
+  if (response.status === 400) {
+    const result = await response.json();
+    throw new ValidationError(result.message, result.data);
+  }
+
   if (response.status === 404) {
     const data = await response.json();
     throw new Error(data.message);
@@ -100,6 +106,11 @@ const updateFilm = async (film) => {
   if (response.status === 200) {
     const result = await response.json();
     return result.data;
+  }
+
+  if (response.status === 400) {
+    const result = await response.json();
+    throw new ValidationError(result.message, result.data);
   }
 
   if (response.status === 404) {

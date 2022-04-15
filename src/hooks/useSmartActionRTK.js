@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { bindActionCreators } from 'redux';
 import { showNotice } from '../actions/noticesActions';
 import { SnackBarSeverities } from '../components/SnackStack';
+import ValidationError from '../helpers/ValidationError';
 import { addQuery, removeQuery, updateQuery } from '../reducers/queriesReducer';
 
 const useSmartActionRTK = (action, options, done) => {
@@ -19,13 +20,14 @@ const useSmartActionRTK = (action, options, done) => {
         await thunkAPI.dispatch(action(params));
         thunkAPI.dispatch(updateQuery({ id: queryId, progress: 'fulfilled' }));
         notices.fulfilled && thunkAPI.dispatch(showNotice(notices.fulfilled));
+        done && done();
       } catch (error) {
         thunkAPI.dispatch(updateQuery({ id: queryId, progress: 'rejected', message: error.message }));
         //TODO: ponder about showing custom or server error message
         notices.rejected && thunkAPI.dispatch(showNotice(error.message, SnackBarSeverities.error));
+        error instanceof ValidationError && done ? done({ status: 'validation error', data: error.data }) : done();
       } finally {
         thunkAPI.dispatch(removeQuery(queryId));
-        done && done();
       }
     }),
     dispatch,
