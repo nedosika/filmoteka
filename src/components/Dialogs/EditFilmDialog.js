@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -26,7 +27,13 @@ const EditFilmDialog = ({ id }) => {
   });
   const { currentFilm, isLoading } = useSelector(mapState);
   const getFilm = useSmartActionRTK(filmsActions.getFilm);
-  const updateFilm = useSmartActionRTK(filmsActions.updateFilm, { notices: { fulfilled: 'Film updated' } });
+  const updateFilm = useSmartActionRTK(
+    filmsActions.updateFilm,
+    { notices: { fulfilled: 'Film updated', rejected: false } },
+    (result) => {
+      result?.status === 'validation error' ? formik.setErrors(result.data) : closeDialog();
+    },
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -44,7 +51,6 @@ const EditFilmDialog = ({ id }) => {
     }),
     onSubmit: (values) => {
       updateFilm({ ...values });
-      closeDialog();
     },
   });
 
@@ -94,7 +100,7 @@ const EditFilmDialog = ({ id }) => {
         helperText={formik.errors.name}
       />
       <Stack direction="row" spacing={2} sx={{ width: '100%', marginTop: '10px' }}>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={formik.errors.genre && true}>
           <InputLabel>Genre</InputLabel>
           <Select name="genre" label="Genre" onChange={formik.handleChange} value={formik.values.genre}>
             <MenuItem value="">
@@ -107,6 +113,7 @@ const EditFilmDialog = ({ id }) => {
             <MenuItem value="SciFi">SciFi</MenuItem>
             <MenuItem value="Horror">Horror</MenuItem>
           </Select>
+          <FormHelperText>{formik.errors.genre}</FormHelperText>
         </FormControl>
         <TextField
           type="number"
