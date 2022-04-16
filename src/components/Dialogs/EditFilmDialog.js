@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { LoadingButton } from '@mui/lab';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import FormControl from '@mui/material/FormControl';
@@ -20,17 +21,18 @@ import Loader from '../Loader';
 import { DIALOG_TYPES } from './index';
 
 const EditFilmDialog = ({ id }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const { openDialog, closeDialog } = useDialog();
   const mapState = (state) => ({
-    isLoading: state.loading.isLoading,
     currentFilm: state.films.current,
   });
-  const { currentFilm, isLoading } = useSelector(mapState);
+  const { currentFilm } = useSelector(mapState);
   const getFilm = useSmartActionRTK(filmsActions.getFilm);
   const updateFilm = useSmartActionRTK(
     filmsActions.updateFilm,
     { notices: { fulfilled: 'Film updated', rejected: false } },
     (result) => {
+      setIsLoading(false);
       result?.status === 'validation error' ? formik.setErrors(result.data) : closeDialog();
     },
   );
@@ -50,6 +52,7 @@ const EditFilmDialog = ({ id }) => {
       description: Yup.string().max(255, 'Must be 255 symbols or less'),
     }),
     onSubmit: (values) => {
+      setIsLoading(true);
       updateFilm({ ...values });
     },
   });
@@ -66,8 +69,6 @@ const EditFilmDialog = ({ id }) => {
     openDialog(DIALOG_TYPES.DELETE_FILM, { id });
   };
 
-  if (isLoading) return <Loader />;
-
   return (
     <Dialog
       title="Editing film"
@@ -82,9 +83,14 @@ const EditFilmDialog = ({ id }) => {
             <Button variant="outlined" onClick={closeDialog}>
               Cancel
             </Button>
-            <Button variant="outlined" color="secondary" onClick={formik.handleSubmit} disabled={!formik.isValid}>
-              Approve
-            </Button>
+            <LoadingButton
+              variant="outlined"
+              onClick={formik.handleSubmit}
+              loading={isLoading}
+              disabled={!formik.isValid}
+            >
+              Ok
+            </LoadingButton>
           </Stack>
         </DialogActions>
       }

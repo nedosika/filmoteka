@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,14 +7,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import useDialog from '../../DialogManager/useDialog';
+import { useStepper } from '../../Stepper';
 
 const StepThree = () => {
   const { closeDialog } = useDialog();
-  const mapState = (state) => ({
-    isLoading: state.loading.isLoading || state.films.loading,
-    error: state.films.error,
-  });
-  const { isLoading, error } = useSelector(mapState);
+  const {
+    onPrev,
+    values: { isLoading, error },
+  } = useStepper();
 
   return (
     <>
@@ -31,7 +31,10 @@ const StepThree = () => {
         )}
       </DialogContent>
       <DialogActions sx={{ padding: '20px 24px' }}>
-        <Button variant="outlined" onClick={closeDialog}>
+        <Button variant="outlined" disabled={isLoading} onClick={onPrev}>
+          Prev
+        </Button>
+        <Button variant="outlined" onClick={closeDialog} disabled={isLoading || error}>
           Ok
         </Button>
       </DialogActions>
