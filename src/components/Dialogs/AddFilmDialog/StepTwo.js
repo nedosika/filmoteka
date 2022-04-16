@@ -16,10 +16,13 @@ import useSmartActionRTK from '../../../hooks/useSmartActionRTK';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
-  const { onNext, onPrev, values } = useStepper();
+  const { onNext, onPrev, values, onChange } = useStepper();
   const addFilm = useSmartActionRTK(filmsActions.addFilm, { notices: { fulfilled: 'Film added' } }, (result) => {
-    console.log(result);
-    result?.status === 'validation error' ? formik.setErrors(result.data) : onNext(formik.values);
+    if (result?.status === 'validation error') {
+      formik.setErrors(result.data);
+      onChange({ error: 'Validation error' });
+    }
+    onChange({ isLoading: false });
   });
 
   const formik = useFormik({
@@ -37,6 +40,7 @@ const StepTwo = () => {
       description: Yup.string().max(255, 'Must be 255 symbols or less'),
     }),
     onSubmit: (values) => {
+      onNext({ ...values, isLoading: true });
       addFilm(values);
     },
   });

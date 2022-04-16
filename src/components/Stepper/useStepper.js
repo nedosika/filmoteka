@@ -24,10 +24,18 @@ export const StepperProvider = ({ children }) => {
     }
   };
 
+  const handleChange = (values) => {
+    setValues((prevState) => ({
+      ...prevState,
+      ...values,
+    }));
+  };
+
   return (
     <StepperContext.Provider
       value={{
         values,
+        onChange: handleChange,
         activeStep,
         onNext: handleNext,
         onPrev: handlePrev,
