@@ -26,6 +26,7 @@ const generateSkeletonsArray = (count) => {
 };
 
 const Films = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [sort, setSort] = useState({
     field: 'name',
     order: 'ASC',
@@ -35,16 +36,18 @@ const Films = () => {
     pages: state.films.pages,
     films: filmsSelectors.selectAll(state),
     isAuth: state.auth.isAuth,
-    isLoading: state.films.loading,
   });
-  const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
+  const { page, pages, films, isAuth } = useSelector(mapState);
 
-  const getFilms = useSmartActionRTK(filmsActions.getFilms);
+  const getFilms = useSmartActionRTK(filmsActions.getFilms, {}, () => {
+    setIsLoading(false);
+  });
 
   const { openDialog } = useDialog();
   const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
   const handleChangePage = (event, page = 1) => {
+    setIsLoading(true);
     getFilms({ page, field: sort.field, order: sort.order, limit: FILMS_PER_PAGE });
   };
 
