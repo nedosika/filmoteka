@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -14,6 +14,7 @@ import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
+import { makeCaching } from '../../helpers/makeCaching';
 import useSmartActionRTK from '../../hooks/useSmartActionRTK';
 import { filmsSelectors } from '../../reducers/filmsReducer';
 import AddFilmButton from './AddFilmButton';
@@ -25,7 +26,10 @@ const generateSkeletonsArray = (count) => {
   return skeletons;
 };
 
+const makeSkeletons = makeCaching(generateSkeletonsArray);
+
 const Films = () => {
+  const [filmsPerPage, setFilmsPerPage] = useState(FILMS_PER_PAGE);
   const [isLoading, setIsLoading] = useState(false);
   const [sort, setSort] = useState({
     field: 'name',
@@ -44,11 +48,10 @@ const Films = () => {
   });
 
   const { openDialog } = useDialog();
-  const [skeletons, setSkeletons] = useState(generateSkeletonsArray(FILMS_PER_PAGE));
 
   const handleChangePage = (event, page = 1) => {
     setIsLoading(true);
-    getFilms({ page, field: sort.field, order: sort.order, limit: FILMS_PER_PAGE });
+    getFilms({ page, field: sort.field, order: sort.order, limit: filmsPerPage });
   };
 
   const handleOpenDialog = (dialog, id) => () => {
@@ -78,11 +81,7 @@ const Films = () => {
     }
   };
 
-  useEffect(handleChangePage, [sort]);
-
-  useCallback(() => {
-    setSkeletons(generateSkeletonsArray(FILMS_PER_PAGE));
-  }, [page]);
+  useEffect(handleChangePage, [sort, filmsPerPage]);
 
   return (
     <Layout title={LayoutTitles.FILMS}>
@@ -114,10 +113,23 @@ const Films = () => {
               <MenuItem value="Genre desc">Genre desc</MenuItem>
             </Select>
           </FormControl>
+          <FormControl sx={{ minWidth: 120 }}>
+            <InputLabel>Films per page</InputLabel>
+            <Select
+              name="pages"
+              label="Pages"
+              onChange={(event) => setFilmsPerPage(event.target.value)}
+              defaultValue={5}
+            >
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={15}>15</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {isLoading
-            ? skeletons.map((element) => (
+            ? makeSkeletons(filmsPerPage).map((element) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={element}>
                   <Card
                     sx={{

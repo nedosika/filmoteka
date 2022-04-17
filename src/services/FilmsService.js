@@ -1,4 +1,5 @@
 import ValidationError from '../helpers/ValidationError';
+import { makeCaching } from '../helpers/makeCaching';
 import api from './api';
 
 const getOne = async (id) => {
@@ -121,7 +122,7 @@ const updateFilm = async (film) => {
 
 export const FilmsService = {
   getOne,
-  getAll,
+  getAll: makeCaching(getAll),
   addFilm,
   removeFilm,
   updateFilm,
