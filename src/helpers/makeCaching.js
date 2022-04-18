@@ -1,13 +1,14 @@
-const keyToStr = (key) => (typeof key === 'object' ? JSON.stringify(key) : key);
-
 export const makeCaching = (f) => {
-  const cache = {};
+  const cache = new Map();
 
-  return function () {
-    const key = keyToStr(arguments[0]) + ',' + keyToStr(arguments[1]) + ',' + keyToStr(arguments[2]);
-    if (!(key in cache)) {
-      cache[key] = f(...arguments);
+  return (...args) => {
+    const key = typeof args === 'object' ? JSON.stringify(args) : args;
+
+    if (!cache.has(key)) {
+      cache.set(key, f(...args));
     }
-    return cache[key];
+
+    console.log(cache);
+    return cache.get(key);
   };
 };

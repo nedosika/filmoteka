@@ -117,7 +117,7 @@ const Films = () => {
             <InputLabel>Films per page</InputLabel>
             <Select
               name="pages"
-              label="Pages"
+              label="Films per page"
               onChange={(event) => setFilmsPerPage(event.target.value)}
               defaultValue={5}
             >
