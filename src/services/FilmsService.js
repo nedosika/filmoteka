@@ -22,40 +22,24 @@ const getOne = async (id) => {
 };
 
 const getAll = async (params) => {
-  const response = await api(
-    'films',
-    {
-      method: 'GET',
-    },
-    params,
-  );
+  const response = await api('films', params);
 
-  if (response.status === 200) {
-    const { data, page, limit, size } = await response.json();
+  const { data, page, limit, size } = await response.json();
 
-    return {
-      films: data,
-      page: +page,
-      pages: Math.ceil(size / limit),
-    };
-  }
-
-  if (response.status === 404) {
-    throw new Error('Resource not found');
-  }
+  return {
+    films: data,
+    page: +page,
+    pages: Math.ceil(size / limit),
+  };
 };
 
 const addFilm = async (film) => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
   const response = await api(`films`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
-    body: JSON.stringify(film),
+    body: film,
   });
 
+  // todo: добавить errorCode и убрать под капот
   if (response.status === 201) {
     const result = await response.json();
     return result.data;
