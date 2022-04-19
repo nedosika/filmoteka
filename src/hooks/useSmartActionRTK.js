@@ -6,11 +6,12 @@ import { SnackBarSeverities } from '../components/SnackStack';
 import ValidationError from '../helpers/ValidationError';
 import { addQuery, removeQuery, updateQuery } from '../reducers/queriesReducer';
 
-const useSmartActionRTK = (action, options, done) => {
+const useSmartActionRTK = (action, options) => {
   const dispatch = useDispatch();
 
   const queryId = `queries/${new Date().getTime() + Math.random()}`;
   const notices = Object.assign({ pending: false, fulfilled: false, rejected: true }, options?.notices);
+  const done = options?.done;
 
   return bindActionCreators(
     createAsyncThunk(queryId, async (params, thunkAPI) => {
@@ -23,8 +24,8 @@ const useSmartActionRTK = (action, options, done) => {
         done && done();
       } catch (error) {
         thunkAPI.dispatch(updateQuery({ id: queryId, progress: 'rejected', message: error.message }));
-        //TODO: ponder about showing custom or server error message
-        notices.rejected && thunkAPI.dispatch(showNotice(error.message, SnackBarSeverities.error));
+        const message = typeof notices.rejected === 'string' ? notices.rejected : error.message;
+        notices.rejected && thunkAPI.dispatch(showNotice(message, SnackBarSeverities.error));
         error instanceof ValidationError && done ? done({ status: 'validation error', data: error.data }) : done();
       } finally {
         thunkAPI.dispatch(removeQuery(queryId));

@@ -104,7 +104,7 @@ const updateFilm = async (film) => {
 
 export const FilmsService = {
   getOne,
-  getAll: makeCaching(getAll),
+  getAll,
   addFilm,
   removeFilm,
   updateFilm,
