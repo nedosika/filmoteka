@@ -1,4 +1,4 @@
-import { API_ROUTES, API_URL } from './config.js';
+import { API_ROUTES } from './config.js';
 
 const api = async (input, init, params) => {
   const url = new URL(input);
@@ -41,7 +41,7 @@ const api = async (input, init, params) => {
         });
       }
 
-      if (response.status === 400 || response.status === 403) {
+      if (response.status === 403) {
         const data = await response.json();
         throw new Error(data.status);
       }
@@ -50,7 +50,7 @@ const api = async (input, init, params) => {
     return response;
   }
 
-  if (response.status === 400 || response.status === 403) {
+  if (response.status === 403) {
     const data = await response.json();
     throw new Error(data.status);
   }

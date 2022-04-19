@@ -17,12 +17,15 @@ import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
   const { onNext, onPrev, values, onChange } = useStepper();
-  const addFilm = useSmartActionRTK(filmsActions.addFilm, { notices: { fulfilled: 'Film added' } }, (result) => {
-    if (result?.status === 'validation error') {
-      formik.setErrors(result.data);
-      onChange({ error: 'Validation error' });
-    }
-    onChange({ isLoading: false });
+  const addFilm = useSmartActionRTK(filmsActions.addFilm, {
+    notices: { fulfilled: 'Film added' },
+    done: (result) => {
+      if (result?.status === 'validation error') {
+        formik.setErrors(result.data);
+        onChange({ error: 'Validation error' });
+      }
+      onChange({ isLoading: false });
+    },
   });
 
   const formik = useFormik({

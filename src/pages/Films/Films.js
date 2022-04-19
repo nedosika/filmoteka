@@ -40,8 +40,8 @@ const Films = () => {
   });
   const { page, pages, films, isAuth } = useSelector(mapState);
 
-  const getFilms = useSmartActionRTK(filmsActions.getFilms, {}, () => {
-    setIsLoading(false);
+  const getFilms = useSmartActionRTK(filmsActions.getFilms, {
+    done: () => setIsLoading(false),
   });
 
   const { openDialog } = useDialog();
