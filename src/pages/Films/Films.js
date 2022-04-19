@@ -14,7 +14,6 @@ import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
-import { makeCaching } from '../../helpers/makeCaching';
 import useSmartActionRTK from '../../hooks/useSmartActionRTK';
 import { filmsSelectors } from '../../reducers/filmsReducer';
 import AddFilmButton from './AddFilmButton';
@@ -25,8 +24,6 @@ const generateSkeletonsArray = (count) => {
 
   return skeletons;
 };
-
-const makeSkeletons = makeCaching(generateSkeletonsArray);
 
 const Films = () => {
   const [filmsPerPage, setFilmsPerPage] = useState(FILMS_PER_PAGE);
@@ -129,7 +126,7 @@ const Films = () => {
         </Box>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {isLoading
-            ? makeSkeletons(filmsPerPage).map((element) => (
+            ? generateSkeletonsArray(filmsPerPage).map((element) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={element}>
                   <Card
                     sx={{
