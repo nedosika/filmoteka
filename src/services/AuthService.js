@@ -1,7 +1,7 @@
-import { API_URL } from './config';
+import { API_ROUTES } from './config';
 
 const signIn = async (email, password) => {
-  const response = await fetch(`${API_URL}/auth/signin`, {
+  const response = await fetch(API_ROUTES.auth.signin, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -25,7 +25,7 @@ const signIn = async (email, password) => {
 };
 
 const signUp = async (email, password) => {
-  const response = await fetch(`${API_URL}/auth/signup`, {
+  const response = await fetch(API_ROUTES.auth.signup, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',

@@ -1,7 +1,7 @@
-import { API_URL } from './config.js';
+import { API_ROUTES, API_URL } from './config.js';
 
 const api = async (input, init, params) => {
-  const url = new URL(`${API_URL}/${input}`);
+  const url = new URL(input);
 
   params && Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
 
@@ -12,7 +12,7 @@ const api = async (input, init, params) => {
     headers: {
       ...init.headers,
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: 'Bearer ' + auth.accessToken,
+      Authorization: 'Bearer ' + auth.accessToken,
     },
   });
 
@@ -20,7 +20,7 @@ const api = async (input, init, params) => {
     const auth = JSON.parse(localStorage.getItem('auth'));
 
     if (auth?.refreshToken) {
-      const response = await fetch(`${API_URL}/auth/refresh`, {
+      const response = await fetch(API_ROUTES.auth.refresh, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -32,7 +32,7 @@ const api = async (input, init, params) => {
         const { data } = await response.json();
         localStorage.setItem('auth', JSON.stringify(data));
 
-        return await fetch(`${API_URL}/${input}`, {
+        return await fetch(input, {
           ...init,
           headers: {
             ...init.headers,
