@@ -1,13 +1,11 @@
-const keyToStr = (key) => (typeof key === 'object' ? JSON.stringify(key) : key);
-
 export const makeCaching = (f) => {
-  const cache = {};
+  const cache = new WeakMap();
 
-  return function () {
-    const key = keyToStr(arguments[0]) + ',' + keyToStr(arguments[1]) + ',' + keyToStr(arguments[2]);
-    if (!(key in cache)) {
-      cache[key] = f(...arguments);
+  return (args) => {
+    if (!cache.has(args)) {
+      cache.set(args, f(args));
     }
-    return cache[key];
+
+    return cache.get(args);
   };
 };
