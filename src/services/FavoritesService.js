@@ -1,14 +1,11 @@
 import api from './api.js';
+import { API_ROUTES } from './config';
 
 const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
-  const response = await api(`favorites/${auth.user?.id}`, {
+  const response = await api(`${API_ROUTES.favorites}/${auth.user?.id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
     body: JSON.stringify(film),
   });
 
@@ -23,18 +20,8 @@ const addToFavorites = async (film) => {
 
 const getFavorites = async () => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-
-  if (!auth)
-    return {
-      status: 'not auth',
-    };
-
-  const response = await api(`favorites/${auth.user?.id}`, {
+  const response = await api(`${API_ROUTES.favorites}/${auth.user?.id}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
   });
 
   if (response.status === 200) {
@@ -51,10 +38,6 @@ const removeFromFavorites = async (filmId) => {
 
   const response = await api(`favorites/${auth.user?.id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
     body: JSON.stringify({ filmId }),
   });
 

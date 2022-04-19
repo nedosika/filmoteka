@@ -1,13 +1,11 @@
 import ValidationError from '../helpers/ValidationError';
 import { makeCaching } from '../helpers/makeCaching';
 import api from './api';
+import { API_ROUTES } from './config';
 
 const getOne = async (id) => {
-  const response = await api(`films/${id}`, {
+  const response = await api(`${API_ROUTES.films}/${id}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-    },
   });
 
   if (response.status === 200) {
@@ -23,7 +21,7 @@ const getOne = async (id) => {
 
 const getAll = async (params) => {
   const response = await api(
-    'films',
+    API_ROUTES.films,
     {
       method: 'GET',
     },
@@ -46,13 +44,8 @@ const getAll = async (params) => {
 };
 
 const addFilm = async (film) => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await api(`films`, {
+  const response = await api(API_ROUTES.films, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
     body: JSON.stringify(film),
   });
 
@@ -73,14 +66,8 @@ const addFilm = async (film) => {
 };
 
 const removeFilm = async (id) => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
-
-  const response = await api(`films/${id}`, {
+  const response = await api(`${API_ROUTES.films}/${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
   });
 
   if (response.status === 200) {
@@ -94,13 +81,8 @@ const removeFilm = async (id) => {
 };
 
 const updateFilm = async (film) => {
-  const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await api(`films/${film.id}`, {
+  const response = await api(`${API_ROUTES.films}/${film.id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
-    },
     body: JSON.stringify(film),
   });
 
