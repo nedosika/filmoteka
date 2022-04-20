@@ -4,9 +4,7 @@ import api from './api';
 import { API_ROUTES } from './config';
 
 const getOne = async (id) => {
-  const response = await api(`${API_ROUTES.films}/${id}`, {
-    method: 'GET',
-  });
+  const response = await api(`${API_ROUTES.films}/${id}`);
 
   if (response.status === 200) {
     const result = await response.json();
@@ -20,13 +18,7 @@ const getOne = async (id) => {
 };
 
 const getAll = async (params) => {
-  const response = await api(
-    API_ROUTES.films,
-    {
-      method: 'GET',
-    },
-    params,
-  );
+  const response = await api(API_ROUTES.films, { queryParams: params });
 
   if (response.status === 200) {
     const { data, page, limit, size } = await response.json();
@@ -45,8 +37,10 @@ const getAll = async (params) => {
 
 const addFilm = async (film) => {
   const response = await api(API_ROUTES.films, {
-    method: 'POST',
-    body: JSON.stringify(film),
+    fetchOptions: {
+      method: 'POST',
+      body: JSON.stringify(film),
+    },
   });
 
   if (response.status === 201) {
@@ -67,7 +61,9 @@ const addFilm = async (film) => {
 
 const removeFilm = async (id) => {
   const response = await api(`${API_ROUTES.films}/${id}`, {
-    method: 'DELETE',
+    fetchOptions: {
+      method: 'DELETE',
+    },
   });
 
   if (response.status === 200) {
@@ -82,8 +78,10 @@ const removeFilm = async (id) => {
 
 const updateFilm = async (film) => {
   const response = await api(`${API_ROUTES.films}/${film.id}`, {
-    method: 'PUT',
-    body: JSON.stringify(film),
+    fetchOptions: {
+      method: 'PUT',
+      body: JSON.stringify(film),
+    },
   });
 
   if (response.status === 200) {
