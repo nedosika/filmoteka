@@ -28,14 +28,13 @@ const EditFilmDialog = ({ id }) => {
   });
   const { currentFilm } = useSelector(mapState);
   const getFilm = useSmartActionRTK(filmsActions.getFilm);
-  const updateFilm = useSmartActionRTK(
-    filmsActions.updateFilm,
-    { notices: { fulfilled: 'Film updated', rejected: false } },
-    (result) => {
+  const updateFilm = useSmartActionRTK(filmsActions.updateFilm, {
+    notices: { fulfilled: 'Film updated', rejected: false },
+    done: (result) => {
       setIsLoading(false);
       result?.status === 'validation error' ? formik.setErrors(result.data) : closeDialog();
     },
-  );
+  });
 
   const formik = useFormik({
     initialValues: {

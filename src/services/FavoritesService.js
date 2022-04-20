@@ -5,8 +5,10 @@ const addToFavorites = async (film) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
   const response = await api(`${API_ROUTES.favorites}/${auth.user?.id}`, {
-    method: 'PUT',
-    body: JSON.stringify(film),
+    fetchOptions: {
+      method: 'PUT',
+      body: JSON.stringify(film),
+    },
   });
 
   if (response.status === 201) {
@@ -20,9 +22,7 @@ const addToFavorites = async (film) => {
 
 const getFavorites = async () => {
   const auth = JSON.parse(localStorage.getItem('auth'));
-  const response = await api(`${API_ROUTES.favorites}/${auth.user?.id}`, {
-    method: 'GET',
-  });
+  const response = await api(`${API_ROUTES.favorites}/${auth.user?.id}`);
 
   if (response.status === 200) {
     return await response.json();
@@ -37,8 +37,10 @@ const removeFromFavorites = async (filmId) => {
   const auth = JSON.parse(localStorage.getItem('auth'));
 
   const response = await api(`favorites/${auth.user?.id}`, {
-    method: 'DELETE',
-    body: JSON.stringify({ filmId }),
+    fetchOptions: {
+      method: 'DELETE',
+      body: JSON.stringify({ filmId }),
+    },
   });
 
   if (response.status === 200) {
