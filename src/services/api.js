@@ -1,3 +1,4 @@
+import ValidationError from '../helpers/ValidationError';
 import { API_ROUTES } from './config.js';
 
 const api = async (input, options = {}) => {
@@ -15,30 +16,40 @@ const api = async (input, options = {}) => {
   );
   const init = Object.assign(fetchOptions, { headers });
 
-  console.log(init);
-
   const response = await fetch(url, init);
+  const result = await response.json();
 
-  if (response.status === 401) {
-    if (auth?.refreshToken) {
-      const response = await fetch(API_ROUTES.auth.refresh, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-          'x-auth-refresh-token': auth.refreshToken,
-        },
-      });
+  if (response.status === 400) {
+    throw new ValidationError(result.message, result.data);
+  }
 
-      if (response.status === 200) {
-        const { data } = await response.json();
-        localStorage.setItem('auth', JSON.stringify(data));
+  if (response.status === 401 && auth?.refreshToken) {
+    const response = await fetch(API_ROUTES.auth.refresh, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'x-auth-refresh-token': auth.refreshToken,
+      },
+    });
 
-        return await fetch(url, init);
-      }
+    if (response.status === 200) {
+      const { data } = await response.json();
+      localStorage.setItem('auth', JSON.stringify(data));
+
+      const response = await fetch(url, init);
+      return await response.json();
     }
   }
 
-  return response;
+  if (response.status === 404) {
+    throw new Error(result.message);
+  }
+
+  if (response.status === 200 || response.status === 201) {
+    return result;
+  }
+
+  throw new Error('Unknown error');
 };
 
 export default api;

@@ -6,11 +6,11 @@ export const FILMS_PER_PAGE = 5;
 export const getFilms = (params) => (dispatch) =>
   FilmsService.getAll(params).then((result) => dispatch(filmsReceived(result)));
 
-export const getFilm = (id) => (dispatch) => FilmsService.getOne(id).then((result) => dispatch(filmReceived(result)));
+export const getFilm = (id) => (dispatch) => FilmsService.getOne(id).then(({ data }) => dispatch(filmReceived(data)));
 
 export const addFilm = (film) => (dispatch) =>
   FilmsService.addFilm(film)
-    .then((result) => dispatch(filmAdded(result)))
+    .then(({ data }) => dispatch(filmAdded(data)))
     .finally(() => dispatch(getFilms({ limit: FILMS_PER_PAGE })));
 
 export const updateFilm = (film) => (dispatch) =>
