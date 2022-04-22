@@ -12,13 +12,13 @@ export const slice = createSlice({
   reducers: {},
   extraReducers: {
     [searchFilms.fulfilled.type]: (state, action) => {
-      searchAdapter.setAll(state, action.payload.films);
+      searchAdapter.setAll(state, action.payload);
     },
     [searchFilms.rejected.type]: (state) => {
       searchAdapter.setAll(state, []);
     },
     [getSearchOptions.fulfilled.type]: (state, action) => {
-      state.options = action.payload ? action.payload.films : [];
+      state.options = action.payload ? action.payload : [];
     },
     [getSearchOptions.rejected.type]: (state) => {
       state.options = [];
