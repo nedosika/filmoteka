@@ -8,7 +8,7 @@ const baseQuery = fetchBaseQuery({
     const auth = JSON.parse(localStorage.getItem('auth'));
 
     if (auth?.accessToken) {
-      headers.set('authorization', `Bearer ${auth?.accessToken}`);
+      headers.set('Authorization', `Bearer ${auth?.accessToken}`);
     }
 
     return headers;
@@ -52,17 +52,17 @@ export const favoritesAPI = createApi({
   endpoints: (build) => ({
     fetchAllFavorites: build.query({
       query: (id) => {
-        return { url: `/favorites/${id}`, method: 'GET' };
+        return { url: `/favorites`, method: 'GET' };
       },
       providesTags: ['Favorites'],
     }),
     addToFavorites: build.mutation({
-      query: ({ userId, film }) => ({ url: `/favorites/${userId}`, method: 'PUT', body: film }),
+      query: ({ film }) => ({ url: `/favorites`, method: 'PUT', body: film }),
       invalidatesTags: ['Favorites'],
     }),
     removeFromFavorites: build.mutation({
-      query: ({ userId, filmId }) => ({
-        url: `/favorites/${userId}`,
+      query: ({ filmId }) => ({
+        url: `/favorites`,
         method: 'DELETE',
         body: { filmId },
       }),
