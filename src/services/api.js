@@ -10,7 +10,7 @@ const api = async (input, options = {}) => {
   const headers = Object.assign(
     {
       'Content-Type': 'application/json;charset=utf-8',
-      Authorization: 'Bearer ' + auth.accessToken,
+      Authorization: 'Bearer ' + auth?.accessToken,
     },
     options.headers,
   );
@@ -18,6 +18,10 @@ const api = async (input, options = {}) => {
 
   const response = await fetch(url, init);
   const result = await response.json();
+
+  if (response.status === 200 || response.status === 201) {
+    return result;
+  }
 
   if (response.status === 400) {
     throw new ValidationError(result.message, result.data);
@@ -45,8 +49,9 @@ const api = async (input, options = {}) => {
     throw new Error(result.message);
   }
 
-  if (response.status === 200 || response.status === 201) {
-    return result;
+  if (response.status === 409) {
+    const data = await response.json();
+    throw new Error(data.message);
   }
 
   throw new Error('Unknown error');

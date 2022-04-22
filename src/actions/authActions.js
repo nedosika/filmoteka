@@ -1,4 +1,5 @@
-import { AuthService } from '../services';
+import api from '../services/api';
+import { API_ROUTES } from '../services/config';
 import { failureLoading, startLoading, successLoading } from './loadingActions';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -24,7 +25,7 @@ const authFailure = () => {
 export const signIn = (email, password) => (dispatch) => {
   dispatch(startLoading());
 
-  return AuthService.signIn(email, password)
+  api(API_ROUTES.auth.signin, { fetchOptions: { method: 'POST', body: JSON.stringify({ email, password }) } })
     .then(({ data }) => {
       dispatch(authSuccess(data));
     })
@@ -35,7 +36,7 @@ export const signIn = (email, password) => (dispatch) => {
 export const signUp = (email, password) => (dispatch) => {
   dispatch(startLoading());
 
-  return AuthService.signUp(email, password)
+  api(API_ROUTES.auth.signup, { fetchOptions: { method: 'POST', body: JSON.stringify({ email, password }) } })
     .then(({ data }) => {
       dispatch(authSuccess(data));
     })

@@ -12,13 +12,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Layout, { LayoutTitles } from '../../Layout';
-import favoritesActions from '../../actions/favoritesActions';
 import searchActions from '../../actions/searchActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useActions from '../../hooks/useActions';
 import useSmartAction from '../../hooks/useSmartAction';
+import { favoritesAPI } from '../../reducers/favoritesReducer';
 import { searchSelector } from '../../reducers/searchReducer';
 
 const Search = () => {
@@ -31,7 +31,7 @@ const Search = () => {
   });
   const { isAuth } = useSelector(mapState);
   const films = useSelector(searchSelector.selectAll);
-  const { addToFavorites } = useActions(favoritesActions);
+  const [addToFavorites, {}] = favoritesAPI.useAddToFavoritesMutation();
   const searchFilms = useSmartAction(searchActions.searchFilms);
 
   const { openDialog } = useDialog();

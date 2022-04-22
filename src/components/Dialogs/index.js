@@ -1,7 +1,6 @@
 import AddFilmDialog from './AddFilmDialog';
 import ConfirmDialog from './ConfirmDialog';
 import DeleteFilmDialog from './DeleteFilmDialog';
-import DeleteFavoriteDialog from './DeleteFovoriteDialog';
 import EditFilmDialog from './EditFilmDialog';
 
 export const DIALOG_TYPES = {
@@ -17,5 +16,4 @@ export const Dialogs = {
   ConfirmDialog,
   EditFilmDialog,
   DeleteFilmDialog,
-  DeleteFavoriteDialog,
 };

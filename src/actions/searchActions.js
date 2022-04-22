@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FilmsService } from '../services';
 import api from '../services/api';
 import { API_ROUTES } from '../services/config';
 
