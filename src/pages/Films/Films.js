@@ -14,7 +14,8 @@ import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
 import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
-import useSmartActionRTK from '../../hooks/useSmartActionRTK';
+import useSmartActionRTK, { SMART_ACTION_NOTICES_OPTION } from '../../hooks/useSmartActionRTK';
+import { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
 import { filmsSelectors } from '../../reducers/filmsReducer';
 import AddFilmButton from './AddFilmButton';
 
@@ -41,7 +42,12 @@ const Films = () => {
   const { page, pages, films, isAuth } = useSelector(mapState);
 
   const getFilms = useSmartActionRTK(filmsActions.getFilms, {
-    done: () => setIsLoading(false),
+    [SMART_ACTION_OPTIONS.notices]: {
+      [SMART_ACTION_NOTICES_OPTION.pending]: false,
+      [SMART_ACTION_NOTICES_OPTION.success]: false,
+      [SMART_ACTION_NOTICES_OPTION.error]: true,
+    },
+    [SMART_ACTION_OPTIONS.done]: () => setIsLoading(false),
   });
 
   const { openDialog } = useDialog();

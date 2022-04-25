@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import filmsActions from '../../actions/filmsActions';
-import useSmartActionRTK from '../../hooks/useSmartActionRTK';
+import useSmartActionRTK, { SMART_ACTION_NOTICES_OPTION, SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
 import Dialog from '../Dialog/Dialog';
 import useDialog from '../DialogManager/useDialog';
 import Image from '../Image';
@@ -27,10 +27,21 @@ const EditFilmDialog = ({ id }) => {
     currentFilm: state.films.current,
   });
   const { currentFilm } = useSelector(mapState);
-  const getFilm = useSmartActionRTK(filmsActions.getFilm);
+  const getFilm = useSmartActionRTK(filmsActions.getFilm, {
+    [SMART_ACTION_OPTIONS.notices]: {
+      [SMART_ACTION_NOTICES_OPTION.pending]: false,
+      [SMART_ACTION_NOTICES_OPTION.success]: false,
+      [SMART_ACTION_NOTICES_OPTION.error]: true,
+    },
+    [SMART_ACTION_OPTIONS.done]: () => {},
+  });
   const updateFilm = useSmartActionRTK(filmsActions.updateFilm, {
-    notices: { fulfilled: 'Film updated', rejected: false },
-    done: (result) => {
+    [SMART_ACTION_OPTIONS.notices]: {
+      [SMART_ACTION_NOTICES_OPTION.pending]: false,
+      [SMART_ACTION_NOTICES_OPTION.success]: 'Film updated',
+      [SMART_ACTION_NOTICES_OPTION.error]: false,
+    },
+    [SMART_ACTION_OPTIONS.done]: (result) => {
       setIsLoading(false);
       result?.status === 'validation error' ? formik.setErrors(result.data) : closeDialog();
     },
