@@ -12,14 +12,18 @@ import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import filmsActions from '../../../actions/filmsActions';
-import useSmartActionRTK from '../../../hooks/useSmartActionRTK';
+import useSmartActionRTK, { SMART_ACTION_NOTICES_OPTION, SMART_ACTION_OPTIONS } from '../../../hooks/useSmartActionRTK';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
   const { onNext, onPrev, values, onChange } = useStepper();
   const addFilm = useSmartActionRTK(filmsActions.addFilm, {
-    notices: { fulfilled: 'Film added' },
-    done: (result) => {
+    [SMART_ACTION_OPTIONS.notices]: {
+      [SMART_ACTION_NOTICES_OPTION.pending]: false,
+      [SMART_ACTION_NOTICES_OPTION.success]: 'Film added',
+      [SMART_ACTION_NOTICES_OPTION.error]: true,
+    },
+    [SMART_ACTION_OPTIONS.done]: (result) => {
       if (result?.status === 'validation error') {
         formik.setErrors(result.data);
         onChange({ error: 'Validation error' });
