@@ -19,3 +19,16 @@ export const queriesSelector = queriesAdapter.getSelectors((state) => state.quer
 export const { addQuery, removeQuery, updateQuery } = queriesSlice.actions;
 
 export default queriesSlice.reducer;
+
+export const QUERIES_PAYLOAD = {
+  id: 'id',
+  message: 'message',
+  progress: {
+    name: 'progress',
+    type: {
+      pending: 'pending',
+      success: 'success',
+      error: 'error',
+    },
+  },
+};

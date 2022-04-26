@@ -15,7 +15,9 @@ import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import FilmCard from '../../components/FilmCard/FilmCard';
 import useSmartActionRTK from '../../hooks/useSmartActionRTK';
+import { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
 import { filmsSelectors } from '../../reducers/filmsReducer';
+import { queriesSelector } from '../../reducers/queriesReducer';
 import AddFilmButton from './AddFilmButton';
 
 const generateSkeletonsArray = (count) => {
@@ -27,27 +29,30 @@ const generateSkeletonsArray = (count) => {
 
 const Films = () => {
   const [filmsPerPage, setFilmsPerPage] = useState(FILMS_PER_PAGE);
-  const [isLoading, setIsLoading] = useState(false);
+  const [queryId, setQueryId] = useState(null);
   const [sort, setSort] = useState({
     field: 'name',
     order: 'ASC',
   });
   const mapState = (state) => ({
+    isLoading: queriesSelector.selectById(state, queryId),
     page: state.films.page,
     pages: state.films.pages,
     films: filmsSelectors.selectAll(state),
     isAuth: state.auth.isAuth,
   });
-  const { page, pages, films, isAuth } = useSelector(mapState);
+  const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
 
   const getFilms = useSmartActionRTK(filmsActions.getFilms, {
-    done: () => setIsLoading(false),
+    [SMART_ACTION_OPTIONS.pending]: (queryId) => {
+      setQueryId(queryId);
+    },
+    [SMART_ACTION_OPTIONS.error]: (error) => error.message,
   });
 
   const { openDialog } = useDialog();
 
   const handleChangePage = (event, page = 1) => {
-    setIsLoading(true);
     getFilms({ page, field: sort.field, order: sort.order, limit: filmsPerPage });
   };
 
