@@ -3,24 +3,25 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { bindActionCreators } from 'redux';
 import { showNotice } from '../actions/noticesActions';
 import { SnackBarSeverities } from '../components/SnackStack';
-import ValidationError from '../helpers/ValidationError';
 import { QUERIES_PAYLOAD, addQuery, removeQuery, updateQuery } from '../reducers/queriesReducer';
 
 export const SMART_ACTION_OPTIONS = {
-  notices: 'notices',
-  done: 'done',
-};
-
-export const SMART_ACTION_NOTICES_OPTION = {
   pending: 'pending',
   success: 'success',
   error: 'error',
 };
 
-const useSmartActionRTK = (action, { notices, done }) => {
+const useSmartActionRTK = (action, options) => {
   const dispatch = useDispatch();
 
   const queryId = `queries/${new Date().getTime() + Math.random()}`;
+
+  const notices = {
+    [SMART_ACTION_OPTIONS.pending]: () => false,
+    [SMART_ACTION_OPTIONS.success]: () => false,
+    [SMART_ACTION_OPTIONS.error]: () => true,
+    ...options,
+  };
 
   return bindActionCreators(
     createAsyncThunk(queryId, async (params, thunkAPI) => {
@@ -30,8 +31,8 @@ const useSmartActionRTK = (action, { notices, done }) => {
           [QUERIES_PAYLOAD.progress.name]: QUERIES_PAYLOAD.progress.type.pending,
         }),
       );
-      notices[SMART_ACTION_NOTICES_OPTION.pending] &&
-        thunkAPI.dispatch(showNotice(notices[SMART_ACTION_NOTICES_OPTION.pending]));
+      const pendingMessage = notices[SMART_ACTION_OPTIONS.pending](queryId);
+      pendingMessage && thunkAPI.dispatch(showNotice(pendingMessage));
       try {
         await thunkAPI.dispatch(action(params));
         thunkAPI.dispatch(
@@ -40,9 +41,8 @@ const useSmartActionRTK = (action, { notices, done }) => {
             [QUERIES_PAYLOAD.progress.name]: QUERIES_PAYLOAD.progress.type.success,
           }),
         );
-        notices[SMART_ACTION_NOTICES_OPTION.success] &&
-          thunkAPI.dispatch(showNotice(notices[SMART_ACTION_NOTICES_OPTION.success]));
-        done();
+        const successMessage = notices[SMART_ACTION_OPTIONS.success]();
+        successMessage && thunkAPI.dispatch(showNotice(successMessage));
       } catch (error) {
         thunkAPI.dispatch(
           updateQuery({
@@ -51,12 +51,8 @@ const useSmartActionRTK = (action, { notices, done }) => {
             [QUERIES_PAYLOAD.message]: error.message,
           }),
         );
-        const message =
-          typeof notices[SMART_ACTION_NOTICES_OPTION.error] === 'string'
-            ? notices[SMART_ACTION_NOTICES_OPTION.error]
-            : error.message;
-        notices[SMART_ACTION_NOTICES_OPTION.error] && thunkAPI.dispatch(showNotice(message, SnackBarSeverities.error));
-        (error instanceof ValidationError && done({ status: 'validation error', data: error.data })) || done();
+        const errorMessage = notices[SMART_ACTION_OPTIONS.error](error);
+        errorMessage && thunkAPI.dispatch(showNotice(errorMessage), SnackBarSeverities.error);
       } finally {
         thunkAPI.dispatch(removeQuery(queryId));
       }

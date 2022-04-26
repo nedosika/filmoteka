@@ -12,23 +12,18 @@ import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import filmsActions from '../../../actions/filmsActions';
-import useSmartActionRTK, { SMART_ACTION_NOTICES_OPTION, SMART_ACTION_OPTIONS } from '../../../hooks/useSmartActionRTK';
+import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '../../../hooks/useSmartActionRTK';
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
   const { onNext, onPrev, values, onChange } = useStepper();
   const addFilm = useSmartActionRTK(filmsActions.addFilm, {
-    [SMART_ACTION_OPTIONS.notices]: {
-      [SMART_ACTION_NOTICES_OPTION.pending]: false,
-      [SMART_ACTION_NOTICES_OPTION.success]: 'Film added',
-      [SMART_ACTION_NOTICES_OPTION.error]: true,
-    },
-    [SMART_ACTION_OPTIONS.done]: (result) => {
-      if (result?.status === 'validation error') {
-        formik.setErrors(result.data);
-        onChange({ error: 'Validation error' });
-      }
+    [SMART_ACTION_OPTIONS.success]: () => {
       onChange({ isLoading: false });
+    },
+    [SMART_ACTION_OPTIONS.error]: (error) => {
+      formik.setErrors(error.data);
+      onChange({ error: 'Validation error', isLoading: false });
     },
   });
 
@@ -47,7 +42,7 @@ const StepTwo = () => {
       description: Yup.string().max(255, 'Must be 255 symbols or less'),
     }),
     onSubmit: (values) => {
-      onNext({ ...values, isLoading: true });
+      onNext({ ...values, isLoading: true, error: null });
       addFilm(values);
     },
   });

@@ -13,37 +13,34 @@ import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import filmsActions from '../../actions/filmsActions';
-import useSmartActionRTK, { SMART_ACTION_NOTICES_OPTION, SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
+import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
+import { queriesSelector } from '../../reducers/queriesReducer';
 import Dialog from '../Dialog/Dialog';
 import useDialog from '../DialogManager/useDialog';
 import Image from '../Image';
-import Loader from '../Loader';
 import { DIALOG_TYPES } from './index';
 
 const EditFilmDialog = ({ id }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [queryId, setQueryId] = useState(null);
   const { openDialog, closeDialog } = useDialog();
   const mapState = (state) => ({
+    isLoading: queriesSelector.selectById(state, queryId),
     currentFilm: state.films.current,
   });
-  const { currentFilm } = useSelector(mapState);
+  const { currentFilm, isLoading } = useSelector(mapState);
   const getFilm = useSmartActionRTK(filmsActions.getFilm, {
-    [SMART_ACTION_OPTIONS.notices]: {
-      [SMART_ACTION_NOTICES_OPTION.pending]: false,
-      [SMART_ACTION_NOTICES_OPTION.success]: false,
-      [SMART_ACTION_NOTICES_OPTION.error]: true,
-    },
-    [SMART_ACTION_OPTIONS.done]: () => {},
+    [SMART_ACTION_OPTIONS.error]: () => true,
   });
   const updateFilm = useSmartActionRTK(filmsActions.updateFilm, {
-    [SMART_ACTION_OPTIONS.notices]: {
-      [SMART_ACTION_NOTICES_OPTION.pending]: false,
-      [SMART_ACTION_NOTICES_OPTION.success]: 'Film updated',
-      [SMART_ACTION_NOTICES_OPTION.error]: false,
+    [SMART_ACTION_OPTIONS.pending]: (queryId) => {
+      setQueryId(queryId);
     },
-    [SMART_ACTION_OPTIONS.done]: (result) => {
-      setIsLoading(false);
-      result?.status === 'validation error' ? formik.setErrors(result.data) : closeDialog();
+    [SMART_ACTION_OPTIONS.success]: () => {
+      closeDialog();
+      return 'Film updated';
+    },
+    [SMART_ACTION_OPTIONS.error]: (validationError) => {
+      formik.setErrors(validationError.data);
     },
   });
 
@@ -62,7 +59,6 @@ const EditFilmDialog = ({ id }) => {
       description: Yup.string().max(255, 'Must be 255 symbols or less'),
     }),
     onSubmit: (values) => {
-      setIsLoading(true);
       updateFilm({ ...values });
     },
   });
