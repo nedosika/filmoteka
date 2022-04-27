@@ -15,8 +15,9 @@ import Typography from '@mui/material/Typography';
 import { favoritesAPI } from '../../reducers/favoritesReducer';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
+import FilmSkeleton from './FilmSkeleton';
 
-const FilmCard = ({ film }) => {
+const FilmCard = ({ film, isLoading }) => {
   const navigate = useNavigate();
   const { openDialog } = useDialog();
   const mapState = (state) => ({
@@ -47,6 +48,8 @@ const FilmCard = ({ film }) => {
   const handleNavigate = () => {
     navigate(`/film/${film.id}`);
   };
+
+  if (isLoading) return <FilmSkeleton />;
 
   return (
     <Card

@@ -4,7 +4,8 @@ import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-const AddFilmButton = ({ onClick }) => {
+const AddFilmButton = ({ onClick, isHidden }) => {
+  if (isHidden) return;
   return (
     <Card sx={{ height: '100%' }}>
       <CardActionArea sx={{ height: '100%' }} onClick={onClick}>
