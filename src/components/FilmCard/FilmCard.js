@@ -58,7 +58,7 @@ const FilmCard = ({ film }) => {
       }}
     >
       <CardActionArea onClick={handleNavigate}>
-        <CardMedia component="img" height="140" image={film?.img} alt="green iguana" />
+        <CardMedia component="img" height="140" image={film?.img} alt="film" name="film" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {film?.name}

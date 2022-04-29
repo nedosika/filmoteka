@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Skeleton } from '@mui/material';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
@@ -19,6 +17,7 @@ import { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
 import { filmsSelectors } from '../../reducers/filmsReducer';
 import { queriesSelector } from '../../reducers/queriesReducer';
 import AddFilmButton from './AddFilmButton';
+import FilmSkeleton from './FilmSkeleton';
 
 const generateSkeletonsArray = (count) => {
   const skeletons = [];
@@ -131,26 +130,13 @@ const Films = () => {
         </Box>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {isLoading
-            ? generateSkeletonsArray(filmsPerPage).map((element) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={element}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <Skeleton variant="rectangular" width="100%" height={140} />
-                    <Skeleton height={30} width="70%" sx={{ margin: '15px 15px 0 15px' }} />
-                    <Skeleton height={10} width="50%" sx={{ margin: '15px' }} />
-                    <Skeleton height={10} width="50%" sx={{ margin: '0 15px' }} />
-                    <Skeleton height={30} sx={{ margin: '35px 10px 13px 10px' }} />
-                  </Card>
+            ? generateSkeletonsArray(filmsPerPage).map(({ id }) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={id}>
+                  <FilmSkeleton />
                 </Grid>
               ))
             : films.map((film) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id} name="film">
                   <FilmCard film={film} />
                 </Grid>
               ))}
