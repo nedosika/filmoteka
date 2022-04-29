@@ -18,5 +18,5 @@ export default configureStore({
     search: searchReducer,
     [favoritesAPI.reducerPath]: favoritesAPI.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger, favoritesAPI.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(favoritesAPI.middleware),
 });

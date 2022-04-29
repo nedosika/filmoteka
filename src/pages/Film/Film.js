@@ -53,14 +53,14 @@ const Film = () => {
 
   useEffect(() => {
     getFilm(params.id);
-  }, [params]);
+  }, []);
 
   return (
     <Layout title={film?.name}>
       <Container maxWidth="xs">
         {film ? (
           <Card sx={{ maxWidth: 500 }}>
-            <CardHeader title={film.name} subheader="September 14, 2016" />
+            <CardHeader title={film.name} subheader={film.date} />
             <CardMedia component="img" height="194" image={film.img} alt="Paella dish" />
             <CardContent>
               <Typography variant="body2" color="text.secondary">
