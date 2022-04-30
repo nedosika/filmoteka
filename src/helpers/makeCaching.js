@@ -1,11 +1,15 @@
 export const makeCaching = (f) => {
+  const keys = new Map();
   const cache = new WeakMap();
 
-  return (args) => {
-    if (!cache.has(args)) {
-      cache.set(args, f(args));
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (!keys.has(key)) {
+      const newObjKey = { result: f(...args) };
+      keys.set(key, newObjKey);
+      cache.set(newObjKey, newObjKey.result);
     }
 
-    return cache.get(args);
+    return cache.get(keys.get(key));
   };
 };
