@@ -1,11 +1,16 @@
+import CacheMap from '../helpers/CacheMap';
+import { makeCaching } from '../helpers/makeCaching';
 import { filmAdded, filmReceived, filmRemoved, filmUpdated, filmsReceived } from '../reducers/filmsReducer';
 import api from '../services/api';
 import { API_ROUTES } from '../services/config';
 
 export const FILMS_PER_PAGE = 5;
 
+//const cachedAPI = makeCaching(api);
+const cachedAPI = new CacheMap(api);
+
 export const getFilms = (queryParams) => (dispatch) =>
-  api(API_ROUTES.films, { queryParams }).then(({ data, page, limit, size }) => {
+  cachedAPI.get(API_ROUTES.films, { queryParams }).then(({ data, page, limit, size }) => {
     dispatch(
       filmsReceived({
         films: data,
