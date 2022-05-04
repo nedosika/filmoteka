@@ -25,7 +25,7 @@ const StepThree = () => {
             <CircularProgress />
           </Box>
         ) : error ? (
-          <div>Error: {error}</div>
+          <div>Error: Validation error</div>
         ) : (
           <div>Added ok</div>
         )}
@@ -34,7 +34,7 @@ const StepThree = () => {
         <Button variant="outlined" disabled={isLoading} onClick={onPrev}>
           Prev
         </Button>
-        <Button variant="outlined" onClick={closeDialog} disabled={isLoading || error}>
+        <Button variant="outlined" onClick={closeDialog} disabled={isLoading || Boolean(error)}>
           Ok
         </Button>
       </DialogActions>

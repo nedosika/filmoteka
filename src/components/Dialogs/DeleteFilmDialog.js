@@ -6,12 +6,11 @@ import ConfirmDialog from './ConfirmDialog';
 
 const DeleteFilmDialog = ({ id }) => {
   const { closeDialog } = useDialog();
-  const removeFilm = useSmartActionRTK(filmsActions.removeFilm, {
+  const { action: removeFilm } = useSmartActionRTK(filmsActions.removeFilm, {
     [SMART_ACTION_OPTIONS.success]: () => {
       closeDialog();
       return 'Film deleted';
     },
-    [SMART_ACTION_OPTIONS.error]: (error) => error.message,
   });
 
   const handleRemove = () => {
