@@ -21,20 +21,15 @@ import Image from '../Image';
 import { DIALOG_TYPES } from './index';
 
 const EditFilmDialog = ({ id }) => {
-  const [queryId, setQueryId] = useState(null);
   const { openDialog, closeDialog } = useDialog();
   const mapState = (state) => ({
-    isLoading: queriesSelector.selectById(state, queryId),
     currentFilm: state.films.current,
   });
-  const { currentFilm, isLoading } = useSelector(mapState);
-  const getFilm = useSmartActionRTK(filmsActions.getFilm, {
-    [SMART_ACTION_OPTIONS.error]: () => true,
+  const { currentFilm } = useSelector(mapState);
+  const { action: getFilm } = useSmartActionRTK(filmsActions.getFilm, {
+    [SMART_ACTION_OPTIONS.error]: true,
   });
-  const updateFilm = useSmartActionRTK(filmsActions.updateFilm, {
-    [SMART_ACTION_OPTIONS.pending]: (queryId) => {
-      setQueryId(queryId);
-    },
+  const { action: updateFilm, isLoading } = useSmartActionRTK(filmsActions.updateFilm, {
     [SMART_ACTION_OPTIONS.success]: () => {
       closeDialog();
       return 'Film updated';
@@ -58,9 +53,7 @@ const EditFilmDialog = ({ id }) => {
       year: Yup.number().required('Required'),
       description: Yup.string().max(255, 'Must be 255 symbols or less'),
     }),
-    onSubmit: (values) => {
-      updateFilm({ ...values });
-    },
+    onSubmit: (values) => updateFilm(values),
   });
 
   useEffect(() => {

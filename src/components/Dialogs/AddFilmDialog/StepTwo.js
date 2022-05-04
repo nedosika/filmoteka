@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,15 +17,16 @@ import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
   const { onNext, onPrev, values, onChange } = useStepper();
-  const addFilm = useSmartActionRTK(filmsActions.addFilm, {
+  const { action: addFilm } = useSmartActionRTK(filmsActions.addFilm, {
     [SMART_ACTION_OPTIONS.success]: () => {
       onChange({ isLoading: false });
     },
     [SMART_ACTION_OPTIONS.error]: (error) => {
-      formik.setErrors(error.data);
-      onChange({ error: 'Validation error', isLoading: false });
+      onChange({ error, isLoading: false });
     },
   });
+
+  console.log(values);
 
   const formik = useFormik({
     initialValues: {
@@ -41,6 +42,7 @@ const StepTwo = () => {
       year: Yup.number(),
       description: Yup.string().max(255, 'Must be 255 symbols or less'),
     }),
+    initialErrors: values.error,
     onSubmit: (values) => {
       onNext({ ...values, isLoading: true, error: null });
       addFilm(values);

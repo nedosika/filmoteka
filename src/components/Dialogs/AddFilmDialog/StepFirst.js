@@ -16,12 +16,13 @@ const StepFirst = () => {
       name: values.name || '',
       img: values.img || '',
     },
+    initialErrors: values.error,
     validationSchema: Yup.object({
       name: Yup.string().min(3, 'Must be 3 symbols or more').max(25, 'Must be 25 symbols or less').required('Required'),
       img: Yup.string(),
     }),
     onSubmit: (values) => {
-      onNext(values);
+      onNext({ ...values, error: null });
     },
   });
 

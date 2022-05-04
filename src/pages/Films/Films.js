@@ -28,26 +28,19 @@ const generateSkeletonsArray = (count) => {
 
 const Films = () => {
   const [filmsPerPage, setFilmsPerPage] = useState(FILMS_PER_PAGE);
-  const [queryId, setQueryId] = useState(null);
   const [sort, setSort] = useState({
     field: 'name',
     order: 'ASC',
   });
   const mapState = (state) => ({
-    isLoading: queriesSelector.selectById(state, queryId),
     page: state.films.page,
     pages: state.films.pages,
     films: filmsSelectors.selectAll(state),
     isAuth: state.auth.isAuth,
   });
-  const { page, pages, films, isAuth, isLoading } = useSelector(mapState);
+  const { page, pages, films, isAuth } = useSelector(mapState);
 
-  const getFilms = useSmartActionRTK(filmsActions.getFilms, {
-    [SMART_ACTION_OPTIONS.pending]: (queryId) => {
-      setQueryId(queryId);
-    },
-    [SMART_ACTION_OPTIONS.error]: (error) => error.message,
-  });
+  const { action: getFilms, isLoading } = useSmartActionRTK(filmsActions.getFilms);
 
   const { openDialog } = useDialog();
 
@@ -130,8 +123,8 @@ const Films = () => {
         </Box>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {isLoading
-            ? generateSkeletonsArray(filmsPerPage).map(({ id }) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={id}>
+            ? generateSkeletonsArray(filmsPerPage).map((item, key) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={key}>
                   <FilmSkeleton />
                 </Grid>
               ))
