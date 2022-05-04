@@ -26,7 +26,7 @@ const generateSkeletonsArray = (count) => {
   return skeletons;
 };
 
-const Films = () => {
+const FilmsPage = () => {
   const [filmsPerPage, setFilmsPerPage] = useState(FILMS_PER_PAGE);
   const [sort, setSort] = useState({
     field: 'name',
@@ -155,4 +155,4 @@ const Films = () => {
   );
 };
 
-export default Films;
+export default FilmsPage;
