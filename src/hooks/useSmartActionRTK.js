@@ -67,8 +67,8 @@ const useSmartActionRTK = (action, options) => {
           errorMessage && thunkAPI.dispatch(showNotice(errorMessage, SnackBarSeverities.error));
           setError(error);
         } finally {
-          setIsLoading(false);
           thunkAPI.dispatch(removeQuery(queryId));
+          setIsLoading(false);
         }
       }),
       dispatch,

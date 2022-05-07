@@ -7,10 +7,10 @@ import { API_ROUTES } from '../services/config';
 export const FILMS_PER_PAGE = 5;
 
 //const cachedAPI = makeCaching(api);
-const cachedAPI = new CacheMap(api);
+//const cachedAPI = new CacheMap(api);
 
 export const getFilms = (queryParams) => (dispatch) =>
-  cachedAPI.get(API_ROUTES.films, { queryParams }).then(({ data, page, limit, size }) => {
+  api(API_ROUTES.films, { queryParams }).then(({ data, page, limit, size }) => {
     dispatch(
       filmsReceived({
         films: data,
