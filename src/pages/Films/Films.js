@@ -98,7 +98,7 @@ const FilmsPage = () => {
         >
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Sort by</InputLabel>
-            <Select name="sort" label="Sort by" onChange={handleChange} defaultValue="Name asc">
+            <Select name="sort" label="Sort by" onChange={handleChange} defaultValue="Name asc" data-testid="sort">
               <MenuItem value="Name asc">Name asc</MenuItem>
               <MenuItem value="Name desc">Name desc</MenuItem>
               <MenuItem value="Year asc">Year asc</MenuItem>
@@ -110,7 +110,7 @@ const FilmsPage = () => {
           <FormControl sx={{ minWidth: 120 }}>
             <InputLabel>Films per page</InputLabel>
             <Select
-              name="pages"
+              data-testid="films-per-page"
               label="Films per page"
               onChange={(event) => setFilmsPerPage(event.target.value)}
               defaultValue={5}
@@ -124,12 +124,12 @@ const FilmsPage = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {isLoading
             ? generateSkeletonsArray(filmsPerPage).map((item, key) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={key}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={key} data-testid="skeleton">
                   <FilmSkeleton />
                 </Grid>
               ))
             : films.map((film) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id} name="film">
+                <Grid id={film.id} item xs={12} sm={6} md={4} lg={3} xl={2} key={film.id} data-testid="films-item">
                   <FilmCard film={film} />
                 </Grid>
               ))}
@@ -147,7 +147,7 @@ const FilmsPage = () => {
               marginTop: '15px',
             }}
           >
-            <Pagination count={pages} page={page} size="large" onChange={handleChangePage} />
+            <Pagination count={pages} page={page} size="large" onChange={handleChangePage} data-testid="pagination" />
           </Box>
         )}
       </Box>
