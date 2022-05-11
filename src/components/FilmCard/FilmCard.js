@@ -12,6 +12,8 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import { voteFilm as voteFilmAction } from '../../actions/filmsActions';
+import useSmartActionRTK from '../../hooks/useSmartActionRTK';
 import { favoritesAPI } from '../../reducers/favoritesReducer';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
@@ -24,6 +26,7 @@ const FilmCard = ({ film }) => {
     userId: state.auth.user?.id,
   });
   const { isAuth, userId } = useSelector(mapState);
+  const { action: voteFilm } = useSmartActionRTK(voteFilmAction);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const [addToFavorites, {}] = favoritesAPI.useAddToFavoritesMutation();
@@ -72,7 +75,12 @@ const FilmCard = ({ film }) => {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ justifyContent: 'space-between' }}>
-        <Rating readOnly value={film?.rating} size="large" />
+        <Rating
+          value={film?.rating || 0}
+          size="large"
+          precision={0.5}
+          onChange={(event, value) => voteFilm({ id: film.id, value })}
+        />
         {isAuth && (
           <Box>
             <IconButton onClick={handleSwitchFavorite}>
