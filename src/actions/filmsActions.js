@@ -40,7 +40,7 @@ export const updateFilm = (film) => (dispatch) =>
       body: JSON.stringify(film),
     },
   })
-    .then((result) => dispatch(filmUpdated(result)))
+    .then(({ data }) => dispatch(filmUpdated(data)))
     .finally(() => dispatch(getFilms({ limit: FILMS_PER_PAGE })));
 
 export const removeFilm = (id) => (dispatch) =>
@@ -52,7 +52,19 @@ export const removeFilm = (id) => (dispatch) =>
     .then((result) => dispatch(filmRemoved(result)))
     .finally(() => dispatch(getFilms({ limit: FILMS_PER_PAGE })));
 
+export const voteFilm =
+  ({ id, value }) =>
+  (dispatch) => {
+    api(`${API_ROUTES.vote}/${id}`, {
+      fetchOptions: {
+        method: 'POST',
+        body: JSON.stringify({ value }),
+      },
+    }).then(({ data }) => dispatch(filmUpdated(data)));
+  };
+
 export default {
+  voteFilm,
   removeFilm,
   addFilm,
   updateFilm,

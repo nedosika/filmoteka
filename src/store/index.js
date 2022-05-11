@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-import authReducer from './reducers/authReducer';
-import { favoritesAPI } from './reducers/favoritesReducer';
-import filmsReducer from './reducers/filmsReducer';
-import loadingReducer from './reducers/loadingReducer';
-import noticesReducer from './reducers/noticesReducer';
-import queriesReducer from './reducers/queriesReducer';
-import searchReducer from './reducers/searchReducer';
+import authReducer from '../reducers/authReducer';
+import { favoritesAPI } from '../reducers/favoritesReducer';
+import filmsReducer from '../reducers/filmsReducer';
+import loadingReducer from '../reducers/loadingReducer';
+import noticesReducer from '../reducers/noticesReducer';
+import queriesReducer from '../reducers/queriesReducer';
+import searchReducer from '../reducers/searchReducer';
 
 const rootReducer = combineReducers({
   films: filmsReducer,
@@ -22,7 +22,7 @@ export const createReduxStore = (initialState = {}) => {
   return configureStore({
     reducer: rootReducer,
     preloadedState: initialState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(favoritesAPI.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(favoritesAPI.middleware, logger),
   });
 };
 

@@ -18,7 +18,10 @@ const filmsSlice = createSlice({
       filmsAdapter.setAll(state, payload.films);
     },
     filmAdded: filmsAdapter.addOne,
-    filmUpdated: filmsAdapter.updateOne,
+    filmUpdated: (state, { payload }) => {
+      const { id, ...changes } = payload;
+      filmsAdapter.updateOne(state, { id, changes });
+    },
     filmRemoved: filmsAdapter.removeOne,
     filmReceived: (state, { payload }) => {
       state.current = payload;
