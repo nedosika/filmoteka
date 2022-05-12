@@ -29,9 +29,10 @@ export const addFilm = (film) => (dispatch) =>
       method: 'POST',
       body: JSON.stringify(film),
     },
-  })
-    .then(({ data }) => dispatch(filmAdded(data)))
-    .finally(() => dispatch(getFilms({ limit: FILMS_PER_PAGE })));
+  }).then(({ data }) => {
+    dispatch(filmAdded(data));
+    return data;
+  });
 
 export const updateFilm = (film) => (dispatch) =>
   api(`${API_ROUTES.films}/${film.id}`, {

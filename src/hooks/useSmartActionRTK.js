@@ -12,7 +12,7 @@ export const SMART_ACTION_OPTIONS = {
   error: 'error',
 };
 
-const getMessage = (option) => (typeof option === 'function' ? option() : option);
+const getMessage = (option, result) => (typeof option === 'function' ? option(result) : option);
 
 const useSmartActionRTK = (action, options) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,14 +42,14 @@ const useSmartActionRTK = (action, options) => {
         pendingMessage && thunkAPI.dispatch(showNotice(pendingMessage));
 
         try {
-          await thunkAPI.dispatch(action(params));
+          const result = await thunkAPI.dispatch(action(params));
           thunkAPI.dispatch(
             updateQuery({
               [QUERIES_PAYLOAD.id]: queryId,
               [QUERIES_PAYLOAD.progress.name]: QUERIES_PAYLOAD.progress.type.success,
             }),
           );
-          const successMessage = getMessage(notices[SMART_ACTION_OPTIONS.success]);
+          const successMessage = getMessage(notices[SMART_ACTION_OPTIONS.success], result);
           successMessage && thunkAPI.dispatch(showNotice(successMessage));
         } catch (error) {
           thunkAPI.dispatch(
@@ -59,13 +59,6 @@ const useSmartActionRTK = (action, options) => {
               [QUERIES_PAYLOAD.message]: error.message,
             }),
           );
-
-          // const errorMessage =
-          //   typeof notices[SMART_ACTION_OPTIONS.error] === 'string'
-          //     ? notices[SMART_ACTION_OPTIONS.error]
-          //     : typeof notices[SMART_ACTION_OPTIONS.error] === 'boolean'
-          //     ? error.message
-          //     : notices[SMART_ACTION_OPTIONS.error](error);
 
           const errorMessage = getMessage(notices[SMART_ACTION_OPTIONS.error]);
 
