@@ -27,7 +27,11 @@ const api = async (input, options = {}) => {
     throw new ValidationError(result.message, result.data);
   }
 
-  if (response.status === 401 && auth?.refreshToken) {
+  if (response.status === 401) {
+    if (!auth?.refreshToken) {
+      throw new Error('Authorization error');
+    }
+
     const response = await fetch(API_ROUTES.auth.refresh, {
       method: 'POST',
       headers: {
