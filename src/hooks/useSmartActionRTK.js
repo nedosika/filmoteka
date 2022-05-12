@@ -60,11 +60,19 @@ const useSmartActionRTK = (action, options) => {
             }),
           );
 
-          const errorMessage =
-            typeof notices[SMART_ACTION_OPTIONS.error] === 'string' || notices[SMART_ACTION_OPTIONS.error] === 'boolean'
-              ? notices[SMART_ACTION_OPTIONS.error]
-              : notices[SMART_ACTION_OPTIONS.error](error);
-          errorMessage && thunkAPI.dispatch(showNotice(errorMessage, SnackBarSeverities.error));
+          // const errorMessage =
+          //   typeof notices[SMART_ACTION_OPTIONS.error] === 'string'
+          //     ? notices[SMART_ACTION_OPTIONS.error]
+          //     : typeof notices[SMART_ACTION_OPTIONS.error] === 'boolean'
+          //     ? error.message
+          //     : notices[SMART_ACTION_OPTIONS.error](error);
+
+          const errorMessage = getMessage(notices[SMART_ACTION_OPTIONS.error]);
+
+          errorMessage &&
+            thunkAPI.dispatch(
+              showNotice(typeof errorMessage === 'string' ? errorMessage : error.message, SnackBarSeverities.error),
+            );
           setError(error);
         } finally {
           thunkAPI.dispatch(removeQuery(queryId));

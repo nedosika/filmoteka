@@ -54,14 +54,13 @@ export const removeFilm = (id) => (dispatch) =>
 
 export const voteFilm =
   ({ id, value }) =>
-  (dispatch) => {
+  (dispatch) =>
     api(`${API_ROUTES.vote}/${id}`, {
       fetchOptions: {
         method: 'POST',
         body: JSON.stringify({ value }),
       },
     }).then(({ data }) => dispatch(filmUpdated(data)));
-  };
 
 export default {
   voteFilm,

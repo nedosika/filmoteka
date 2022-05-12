@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { voteFilm as voteFilmAction } from '../../actions/filmsActions';
-import useSmartActionRTK from '../../hooks/useSmartActionRTK';
+import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
 import { favoritesAPI } from '../../reducers/favoritesReducer';
 import useDialog from '../DialogManager/useDialog';
 import { DIALOG_TYPES } from '../Dialogs';
