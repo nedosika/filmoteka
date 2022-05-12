@@ -18,15 +18,13 @@ import { useStepper } from '../../Stepper';
 const StepTwo = () => {
   const { onNext, onPrev, values, onChange } = useStepper();
   const { action: addFilm } = useSmartActionRTK(filmsActions.addFilm, {
-    [SMART_ACTION_OPTIONS.success]: () => {
-      onChange({ isLoading: false });
+    [SMART_ACTION_OPTIONS.success]: ({ id }) => {
+      onChange({ isLoading: false, addedFilmId: id });
     },
     [SMART_ACTION_OPTIONS.error]: (error) => {
       onChange({ error, isLoading: false });
     },
   });
-
-  console.log(values);
 
   const formik = useFormik({
     initialValues: {
@@ -44,8 +42,8 @@ const StepTwo = () => {
     }),
     initialErrors: values.error,
     onSubmit: (values) => {
-      onNext({ ...values, isLoading: true, error: null });
       addFilm(values);
+      onNext({ ...values, isLoading: true, error: null });
     },
   });
 

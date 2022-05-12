@@ -18,6 +18,7 @@ import useDialog from '../../components/DialogManager/useDialog';
 import { DIALOG_TYPES } from '../../components/Dialogs';
 import { useRouter } from '../../hooks/useRouter';
 import useSmartAction from '../../hooks/useSmartAction';
+import useSmartActionRTK from '../../hooks/useSmartActionRTK';
 import { favoritesAPI } from '../../reducers/favoritesReducer';
 
 const FilmSkeleton = () => (
@@ -35,12 +36,11 @@ const Film = () => {
   const { params } = useRouter();
   const mapState = (state) => ({
     film: state.films.current,
-    isLoading: state.loading.isLoading,
     isAuth: state.auth.isAuth,
   });
   const { film, isAuth } = useSelector(mapState);
   const [addToFavorites, {}] = favoritesAPI.useAddToFavoritesMutation();
-  const getFilm = useSmartAction(filmsActions.getFilm);
+  const { action: getFilm, isLoading } = useSmartActionRTK(filmsActions.getFilm);
   const { openDialog } = useDialog();
 
   const handleOpenDialog = (dialog, id) => () => {
@@ -58,7 +58,7 @@ const Film = () => {
   return (
     <Layout title={film?.name}>
       <Container maxWidth="xs">
-        {film ? (
+        {!isLoading ? (
           <Card sx={{ maxWidth: 500 }}>
             <CardHeader title={film.name} subheader={film.date} />
             <CardMedia component="img" height="194" image={film.img} alt="Paella dish" />

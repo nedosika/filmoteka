@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { PAGES } from '../../../router/Router';
 import useDialog from '../../DialogManager/useDialog';
 import { useStepper } from '../../Stepper';
 
 const StepThree = () => {
+  const navigate = useNavigate();
   const { closeDialog } = useDialog();
   const {
     onPrev,
-    values: { isLoading, error },
+    values: { isLoading, error, addedFilmId },
   } = useStepper();
+
+  const handleClose = () => {
+    closeDialog();
+    navigate(`${PAGES.film}/${addedFilmId}`);
+  };
 
   return (
     <>
@@ -34,7 +41,7 @@ const StepThree = () => {
         <Button variant="outlined" disabled={isLoading} onClick={onPrev}>
           Prev
         </Button>
-        <Button variant="outlined" onClick={closeDialog} disabled={isLoading || Boolean(error)}>
+        <Button variant="outlined" onClick={handleClose} disabled={isLoading || Boolean(error)}>
           Ok
         </Button>
       </DialogActions>
