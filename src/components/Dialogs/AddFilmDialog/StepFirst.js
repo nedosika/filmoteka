@@ -28,7 +28,7 @@ const StepFirst = () => {
 
   return (
     <>
-      <DialogTitle>Step 1</DialogTitle>
+      <DialogTitle data-testid="title">Step 1</DialogTitle>
       <DialogContent>
         <TextField
           label="Name"
@@ -39,6 +39,7 @@ const StepFirst = () => {
           onChange={formik.handleChange}
           error={formik.errors.name && true}
           helperText={formik.errors.name}
+          data-testid="film-name"
         />
         <TextField
           label="Image link"
@@ -49,8 +50,9 @@ const StepFirst = () => {
           onChange={formik.handleChange}
           error={formik.errors.img && true}
           helperText={formik.errors.img}
+          data-testid="film-img-link"
         />
-        <Image height="140" image={formik.values.img} alt="film image" />
+        <Image height="140" image={formik.values.img} alt="film image" data-testid="film-img" />
       </DialogContent>
       <DialogActions sx={{ padding: '20px 24px' }}>
         <Button variant="outlined" onClick={formik.handleSubmit} disabled={!formik.isValid}>

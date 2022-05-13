@@ -25,14 +25,14 @@ const StepThree = () => {
 
   return (
     <>
-      <DialogTitle>Step 3 Saving</DialogTitle>
+      <DialogTitle data-testid="title-step-3">Step 3 Saving</DialogTitle>
       <DialogContent>
         {isLoading ? (
           <Box sx={{ display: 'flex' }}>
             <CircularProgress />
           </Box>
         ) : error ? (
-          <div>Error: Validation error</div>
+          <div>Error: {error}</div>
         ) : (
           <div>Added ok</div>
         )}

@@ -60,7 +60,7 @@ const useSmartActionRTK = (action, options) => {
             }),
           );
 
-          const errorMessage = getMessage(notices[SMART_ACTION_OPTIONS.error]);
+          const errorMessage = getMessage(notices[SMART_ACTION_OPTIONS.error], error.message);
 
           errorMessage &&
             thunkAPI.dispatch(

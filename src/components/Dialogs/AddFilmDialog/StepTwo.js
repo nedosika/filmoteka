@@ -16,15 +16,22 @@ import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '../../../hooks/useSmart
 import { useStepper } from '../../Stepper';
 
 const StepTwo = () => {
-  const { onNext, onPrev, values, onChange } = useStepper();
-  const { action: addFilm } = useSmartActionRTK(filmsActions.addFilm, {
-    [SMART_ACTION_OPTIONS.success]: ({ id }) => {
-      onChange({ isLoading: false, addedFilmId: id });
-    },
-    [SMART_ACTION_OPTIONS.error]: (error) => {
-      onChange({ error, isLoading: false });
-    },
-  });
+  const {
+    onNext,
+    onPrev,
+    values,
+    onChange,
+    action: addFilm,
+  } = useStepper(
+    useSmartActionRTK(filmsActions.addFilm, {
+      [SMART_ACTION_OPTIONS.success]: ({ id }) => {
+        onChange({ isLoading: false, addedFilmId: id });
+      },
+      [SMART_ACTION_OPTIONS.error]: (error) => {
+        onChange({ error, isLoading: false });
+      },
+    }),
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -53,7 +60,7 @@ const StepTwo = () => {
 
   return (
     <>
-      <DialogTitle>Step 2</DialogTitle>
+      <DialogTitle data-testid="title-step-2">Step 2</DialogTitle>
       <DialogContent>
         <TextField
           label="Name"
@@ -64,6 +71,7 @@ const StepTwo = () => {
           onChange={formik.handleChange}
           error={formik.errors.name && true}
           helperText={formik.errors.name}
+          data-testid="film-name-step-2"
         />
         <Stack direction="row" spacing={2} sx={{ width: '100%', marginTop: '10px' }}>
           <FormControl fullWidth>
