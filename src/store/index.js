@@ -22,19 +22,8 @@ export const createReduxStore = (initialState = {}) => {
   return configureStore({
     reducer: rootReducer,
     preloadedState: initialState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(favoritesAPI.middleware, logger),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(favoritesAPI.middleware),
   });
 };
 
-// export default configureStore({
-//   reducer: {
-//     films: filmsReducer,
-//     queries: queriesReducer,
-//     auth: authReducer,
-//     loading: loadingReducer,
-//     notices: noticesReducer,
-//     search: searchReducer,
-//     [favoritesAPI.reducerPath]: favoritesAPI.reducer,
-//   },
 //   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(favoritesAPI.middleware),
-// });

@@ -46,6 +46,11 @@ export const StepperProvider = ({ children }) => {
   );
 };
 
-export const useStepper = () => useContext(StepperContext);
+export const useStepper = (options) => {
+  return {
+    ...useContext(StepperContext),
+    ...options,
+  };
+};
 
 export default useStepper;
