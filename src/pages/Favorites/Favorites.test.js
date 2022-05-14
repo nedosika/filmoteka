@@ -18,6 +18,24 @@ const setupRender = () => {
       },
       [HANDLER_OPTIONS.method]: METHODS.post,
     },
+    {
+      [HANDLER_OPTIONS.url]: 'http://localhost:5000/api/auth/refresh',
+      [HANDLER_OPTIONS.status]: 400,
+      [HANDLER_OPTIONS.body]: {
+        message: 'Invalid Credentials',
+        status: 'Invalid Credentials',
+      },
+      [HANDLER_OPTIONS.method]: METHODS.post,
+    },
+    {
+      [HANDLER_OPTIONS.url]: 'http://localhost:5000/api/favorites',
+      [HANDLER_OPTIONS.status]: 401,
+      [HANDLER_OPTIONS.body]: {
+        message: 'Invalid Token',
+        status: 'Invalid',
+      },
+      [HANDLER_OPTIONS.method]: METHODS.get,
+    },
   ]);
 
   render(
