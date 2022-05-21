@@ -52,16 +52,6 @@ const SideBarMenu = ({ isOpen, onClose }) => {
       <Divider />
       <Box sx={{ width: 240 }}>
         <List>
-          {/*<ListItem*/}
-          {/*    button*/}
-          {/*    selected={location.pathname.split('/')[1] === 'home'}*/}
-          {/*    onClick={() => navigate('/')}*/}
-          {/*>*/}
-          {/*    <ListItemIcon>*/}
-          {/*        <HomeIcon/>*/}
-          {/*    </ListItemIcon>*/}
-          {/*    <ListItemText primary='Home'/>*/}
-          {/*</ListItem>*/}
           <ListItem button selected={location.pathname.split('/')[1] === 'films'} onClick={() => navigate('/films')}>
             <ListItemIcon>
               <TheatersIcon />
@@ -84,7 +74,7 @@ const SideBarMenu = ({ isOpen, onClose }) => {
           )}
           <Divider />
           {isAuth ? (
-            <ListItem button onClick={handleSignOut}>
+            <ListItem button onClick={handleSignOut} data-testid="sidebar-logout-btn">
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>

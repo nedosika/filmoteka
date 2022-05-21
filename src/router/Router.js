@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const Film = React.lazy(() => import('../pages/Film'));
 const Home = React.lazy(() => import('../pages/Home'));
@@ -24,7 +25,7 @@ const Router = () => {
   const isAuth = useSelector(({ auth }) => auth.isAuth);
 
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {isAuth ? (
         <Routes>
           <Route path="/" element={<Films />} />
@@ -47,7 +48,7 @@ const Router = () => {
           <Route path="*" element={<Navigate to="signin" />} />
         </Routes>
       )}
-    </>
+    </Suspense>
   );
 };
 

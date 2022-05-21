@@ -49,7 +49,14 @@ const Header = ({ title, onOpenMenuBar }) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" sx={{ mr: 2 }} onClick={onOpenMenuBar}>
+          <IconButton
+            data-testid="menu-button"
+            size="large"
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+            onClick={onOpenMenuBar}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -63,7 +70,11 @@ const Header = ({ title, onOpenMenuBar }) => {
           <Search search={getSearchOptions} options={options} onSearch={handleSearch} onSubmit={handleSubmit} />
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton size="large" edge="end" color="inherit">
-              {isLoading ? <CircularProgress color="inherit" size={24} /> : isAuth && <AccountCircle />}
+              {isLoading ? (
+                <CircularProgress color="inherit" size={24} />
+              ) : (
+                isAuth && <AccountCircle data-testid="account" />
+              )}
             </IconButton>
           </Box>
         </Toolbar>
