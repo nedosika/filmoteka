@@ -1,23 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import Router from '../../router';
 import { HANDLER_OPTIONS, METHODS, fireEvent, render, screen, setupServer } from '../../test-utils/test-library-utils';
 import Films from '../Films/Films';
 import SignIn from './SignIn';
 
-const TestRouter = () => {
-  const isAuth = useSelector(({ auth }) => auth.isAuth);
-  return <Routes>{isAuth ? <Route path="/" element={<Films />} /> : <Route path="/" element={<SignIn />} />}</Routes>;
-};
-
-const setupRender = () => {
+const setupRender = async () => {
   render(
-    <MemoryRouter>
-      <TestRouter />
+    <MemoryRouter initialEntries={['/signin']}>
+      <Router />
     </MemoryRouter>,
   );
 
-  const title = screen.getByRole('heading', { level: 1 });
+  const title = await screen.findByRole('heading', { level: 1 });
   const email = screen.getByLabelText(/email/i);
   const password = screen.getByLabelText(/password/i);
   const loginBtn = screen.getByRole('button', { value: /login/i });
@@ -40,7 +36,7 @@ describe('Auth tests', () => {
       },
     ]);
 
-    const { title, email, password, loginBtn, registerLink } = setupRender();
+    const { title, email, password, loginBtn, registerLink } = await setupRender();
 
     expect(title).toHaveTextContent(/sign in/i);
     expect(email).toBeInTheDocument();
@@ -56,7 +52,7 @@ describe('Auth tests', () => {
   });
 
   test('test error login', async () => {
-    const { loginBtn } = setupRender();
+    const { loginBtn } = await setupRender();
 
     setupServer([
       {
@@ -78,7 +74,7 @@ describe('Auth tests', () => {
   });
 
   test('test login and logout', async () => {
-    const { loginBtn } = setupRender();
+    const { loginBtn } = await setupRender();
 
     setupServer([
       {
