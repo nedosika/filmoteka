@@ -1,16 +1,18 @@
-// const { defaults } = require('jest-config');
-// console.log(defaults);
-//
-// module.exports = {
-//   testEnvironment: 'jest-environment-jsdom',
-//   transform: {
-//     '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': 'babel-jest',
-//     //'^.+\\.(js|jsx)$': '<rootDir>/node_modules/webpack-babel-jest',
-//   },
-//   transformIgnorePatterns: ['node_modules/', 'node_modules/(?!ui-core)/'],
-// };
-
 module.exports = {
   testEnvironment: 'jest-environment-jsdom',
-  transformIgnorePatterns: ['node_modules/(?!ui-core)/'],
+  transform: {
+    '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': require.resolve('./node_modules/react-scripts/config/jest/babelTransform.js'),
+    '^.+\\.css$': require.resolve('./node_modules/react-scripts/config/jest/cssTransform.js'),
+    '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': require.resolve(
+      './node_modules/react-scripts/config/jest/fileTransform.js',
+    ),
+    //'\\.js$': '<rootDir>/node_modules/babel-jest',
+  },
+  //setupFiles: ['react-app-polyfill/jsdom'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  transformIgnorePatterns: [
+    '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$',
+    '^.+\\.module\\.(css|sass|scss)$',
+    'node_modules/(?!ui-core)/',
+  ],
 };
