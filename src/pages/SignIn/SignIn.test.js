@@ -1,10 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import Router from '../../router';
 import { HANDLER_OPTIONS, METHODS, fireEvent, render, screen, setupServer } from '../../test-utils/test-library-utils';
-import Films from '../Films/Films';
-import SignIn from './SignIn';
 
 const setupRender = async () => {
   render(
@@ -47,7 +44,7 @@ describe('Auth tests', () => {
     fireEvent.click(loginBtn);
     expect(loginBtn).toBeDisabled();
 
-    const errorMessage = await screen.findByText('All input is required');
+    const errorMessage = await screen.findByText(/All input is required/i);
     expect(errorMessage).toBeInTheDocument();
   });
 

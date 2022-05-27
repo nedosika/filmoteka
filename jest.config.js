@@ -1,18 +1,18 @@
+const path = require('path');
+const createJestConfig = require('./node_modules/react-scripts/scripts/utils/createJestConfig.js');
+const config = createJestConfig(
+  (relativePath) => path.resolve('node_modules/react-scripts', '', relativePath),
+  '',
+  false,
+);
 module.exports = {
-  testEnvironment: 'jest-environment-jsdom',
-  transform: {
-    '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': require.resolve('./node_modules/react-scripts/config/jest/babelTransform.js'),
-    '^.+\\.css$': require.resolve('./node_modules/react-scripts/config/jest/cssTransform.js'),
-    '^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)': require.resolve(
-      './node_modules/react-scripts/config/jest/fileTransform.js',
-    ),
-    //'\\.js$': '<rootDir>/node_modules/babel-jest',
-  },
-  //setupFiles: ['react-app-polyfill/jsdom'],
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
-  transformIgnorePatterns: [
-    '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$',
-    '^.+\\.module\\.(css|sass|scss)$',
-    'node_modules/(?!ui-core)/',
-  ],
+  ...config,
+  // transform: {
+  //   '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': '<rootDir>/babelTransform.js',
+  // },
+  // transformIgnorePatterns: [
+  //   //'node_modules/(?!ui-core)/',
+  //   //'[/\\\\]node_modules[/\\\\].+.(js|jsx|mjs|cjs|ts|tsx)',
+  //   // '^.+\\.module\\.(css|sass|scss)$',
+  // ],
 };

@@ -1,9 +1,8 @@
-const { createTransformer } = require('babel-jest');
+const { createTransformer } = require('babel-jest').default;
 
 module.exports = createTransformer({
-  presets: [require.resolve('babel-preset-react-app')],
-  // @remove-on-eject-begin
+  presets: ['babel-preset-react-app'],
+  plugins: ['@babel/plugin-transform-runtime'],
   babelrc: false,
-  // @remove-on-eject-end
   configFile: false,
 });
