@@ -1,16 +1,18 @@
-// const { defaults } = require('jest-config');
-// console.log(defaults);
-//
-// module.exports = {
-//   testEnvironment: 'jest-environment-jsdom',
-//   transform: {
-//     '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': 'babel-jest',
-//     //'^.+\\.(js|jsx)$': '<rootDir>/node_modules/webpack-babel-jest',
-//   },
-//   transformIgnorePatterns: ['node_modules/', 'node_modules/(?!ui-core)/'],
-// };
-
+const path = require('path');
+const createJestConfig = require('./node_modules/react-scripts/scripts/utils/createJestConfig.js');
+const config = createJestConfig(
+  (relativePath) => path.resolve('node_modules/react-scripts', '', relativePath),
+  '',
+  false,
+);
 module.exports = {
-  testEnvironment: 'jest-environment-jsdom',
-  transformIgnorePatterns: ['node_modules/(?!ui-core)/'],
+  ...config,
+  // transform: {
+  //   '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': '<rootDir>/babelTransform.js',
+  // },
+  // transformIgnorePatterns: [
+  //   //'node_modules/(?!ui-core)/',
+  //   //'[/\\\\]node_modules[/\\\\].+.(js|jsx|mjs|cjs|ts|tsx)',
+  //   // '^.+\\.module\\.(css|sass|scss)$',
+  // ],
 };
