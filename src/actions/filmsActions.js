@@ -1,8 +1,8 @@
+import { filmAdded, filmReceived, filmRemoved, filmUpdated, filmsReceived } from 'reducers/filmsReducer';
+import api from 'services/api';
+import { API_ROUTES } from 'services/config';
 import CacheMap from '../helpers/CacheMap';
 import { makeCaching } from '../helpers/makeCaching';
-import { filmAdded, filmReceived, filmRemoved, filmUpdated, filmsReceived } from '../reducers/filmsReducer';
-import api from '../services/api';
-import { API_ROUTES } from '../services/config';
 
 export const FILMS_PER_PAGE = 5;
 

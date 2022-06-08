@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { isEmpty, omit } from 'lodash';
-import Field from './components/Field';
+import Field from 'components/Field';
 import { VALIDATION_TYPES } from './index';
 import validate from './lib/validate';
 

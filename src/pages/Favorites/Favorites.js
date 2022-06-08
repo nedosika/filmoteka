@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Layout, { LayoutTitles } from '../../Layout';
-import FilmCard from '../../components/FilmCard/FilmCard';
-import { favoritesAPI } from '../../reducers/favoritesReducer';
+import Layout, { LayoutTitles } from 'Layout';
+import FilmCard from 'components/FilmCard/FilmCard';
+import { favoritesAPI } from 'reducers/favoritesReducer';
 
 const Favorites = () => {
   const user = useSelector((state) => state.auth.user);

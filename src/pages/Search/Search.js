@@ -11,15 +11,15 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import Layout, { LayoutTitles } from '../../Layout';
-import searchActions from '../../actions/searchActions';
-import useDialog from '../../components/DialogManager/useDialog';
-import { DIALOG_TYPES } from '../../components/Dialogs';
-import FilmCard from '../../components/FilmCard/FilmCard';
-import useActions from '../../hooks/useActions';
-import useSmartAction from '../../hooks/useSmartAction';
-import { favoritesAPI } from '../../reducers/favoritesReducer';
-import { searchSelector } from '../../reducers/searchReducer';
+import Layout, { LayoutTitles } from 'Layout';
+import searchActions from 'actions/searchActions';
+import useDialog from 'components/DialogManager/useDialog';
+import { DIALOG_TYPES } from 'components/Dialogs';
+import FilmCard from 'components/FilmCard/FilmCard';
+import useActions from 'hooks/useActions';
+import useSmartAction from 'hooks/useSmartAction';
+import { favoritesAPI } from 'reducers/favoritesReducer';
+import { searchSelector } from 'reducers/searchReducer';
 
 const Search = () => {
   const navigate = useNavigate();

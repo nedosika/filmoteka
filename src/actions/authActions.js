@@ -1,5 +1,5 @@
-import api from '../services/api';
-import { API_ROUTES } from '../services/config';
+import api from 'services/api';
+import { API_ROUTES } from 'services/config';
 import { failureLoading, startLoading, successLoading } from './loadingActions';
 
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';

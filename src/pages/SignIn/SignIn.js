@@ -13,8 +13,8 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import authActions from '../../actions/authActions';
-import useActions from '../../hooks/useActions';
+import authActions from 'actions/authActions';
+import useActions from 'hooks/useActions';
 
 function Copyright(props) {
   return (

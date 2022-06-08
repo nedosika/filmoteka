@@ -1,6 +1,6 @@
 import React from 'react';
-import filmsActions from '../../actions/filmsActions';
-import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
+import filmsActions from 'actions/filmsActions';
+import useSmartActionRTK, { SMART_ACTION_OPTIONS } from 'hooks/useSmartActionRTK';
 import useDialog from '../DialogManager/useDialog';
 import ConfirmDialog from './ConfirmDialog';
 

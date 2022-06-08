@@ -12,14 +12,14 @@ import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
-import Layout from '../../Layout';
-import filmsActions from '../../actions/filmsActions';
-import useDialog from '../../components/DialogManager/useDialog';
-import { DIALOG_TYPES } from '../../components/Dialogs';
-import { useRouter } from '../../hooks/useRouter';
-import useSmartAction from '../../hooks/useSmartAction';
-import useSmartActionRTK from '../../hooks/useSmartActionRTK';
-import { favoritesAPI } from '../../reducers/favoritesReducer';
+import Layout from 'Layout';
+import filmsActions from 'actions/filmsActions';
+import useDialog from 'components/DialogManager/useDialog';
+import { DIALOG_TYPES } from 'components/Dialogs';
+import { useRouter } from 'hooks/useRouter';
+import useSmartAction from 'hooks/useSmartAction';
+import useSmartActionRTK from 'hooks/useSmartActionRTK';
+import { favoritesAPI } from 'reducers/favoritesReducer';
 
 const FilmSkeleton = () => (
   <Stack spacing={1}>
