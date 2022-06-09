@@ -1,12 +1,6 @@
 {
+  "extends": "./jsconfig.paths.json",
   "compilerOptions": {
     "baseUrl": "src"
-  },
-  "paths": {
-    "reducers/*": ["reducers/*"],
-    "store/*": ["store/*"],
-    "components/*": ["components/*"]
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  }
 }

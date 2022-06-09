@@ -8,7 +8,9 @@ const config = createJestConfig(
 module.exports = {
   ...config,
   moduleNameMapper: {
-    '^components$': '<rootDir>/src/components/',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@store/(.*)$': '<rootDir>/src/store/$1',
+    '^@test-utils/(.*)$': '<rootDir>/src/test-utils/$1',
   },
   // transform: {
   //   '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': '<rootDir>/babelTransform.js',

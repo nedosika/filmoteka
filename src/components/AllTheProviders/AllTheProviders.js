@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createReduxStore } from 'store';
+import { createReduxStore } from '@store';
 import { DialogProvider } from '../DialogManager/useDialog';
 import SnackStack from '../SnackStack';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '../../test-utils/test-library-utils';
-import FilmCard from './FilmCard';
+import FilmCard from '@components/FilmCard';
+import { render, screen } from '@test-utils/test-library-utils';
 
 const film = {
   id: 'S0JJ633X4aiEbszUcMXQ',
