@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { voteFilm as voteFilmAction } from '@Actions/filmsActions';
+import useDialog from '@Components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '@Components/Dialogs';
+import useSmartActionRTK from '@Hooks/useSmartActionRTK';
+import { favoritesAPI } from '@Reducers/favoritesReducer';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -12,11 +17,6 @@ import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import { voteFilm as voteFilmAction } from 'actions/filmsActions';
-import useSmartActionRTK from 'hooks/useSmartActionRTK';
-import { favoritesAPI } from 'reducers/favoritesReducer';
-import useDialog from '../DialogManager/useDialog';
-import { DIALOG_TYPES } from '../Dialogs';
 
 const FilmCard = ({ film }) => {
   const navigate = useNavigate();

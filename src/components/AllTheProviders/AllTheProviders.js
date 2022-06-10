@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createReduxStore } from 'Store';
-import { DialogProvider } from '../DialogManager/useDialog';
-import SnackStack from '../SnackStack';
+import { DialogProvider } from '@Components/DialogManager/useDialog';
+import SnackStack from '@Components/SnackStack';
+import { createReduxStore } from '@Store';
 
 const AllTheProviders = ({ children }) => (
   <Provider store={createReduxStore()}>

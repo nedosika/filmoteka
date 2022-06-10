@@ -1,16 +1,29 @@
-// const { alias, configPaths, aliasJest } = require('react-app-rewire-alias');
-//
-// const aliasMap = configPaths('./jsconfig.paths.json'); // or jsconfig.paths.json
-//
-// module.exports = alias(aliasMap);
-// module.exports.jest = aliasJest(aliasMap);
-
 const { override, addWebpackAlias } = require('customize-cra');
+const {
+  compilerOptions: { paths },
+} = require('./jsconfig.json');
 const path = require('path');
 
-module.exports = override(
-  addWebpackAlias({
-    ['Components']: path.resolve(__dirname, 'src/components/'),
-    ['Store']: path.resolve(__dirname, 'src/store/'),
-  }),
-);
+const aliasesMapper = (paths) =>
+  Object.assign(
+    {},
+    ...Object.entries(paths).map((item) => {
+      const key = item[0].replace('/*', '');
+      const alias = item[1][0].replace('/*', '');
+      return { [key]: path.resolve(__dirname, 'src/' + alias) };
+    }),
+  );
+
+module.exports = override(addWebpackAlias(aliasesMapper(paths)));
+
+//console.log(aliasesMapper(paths, SRC_PATHS));
+// module.exports = override(
+//   addWebpackAlias({
+//     ['@Components']: path.resolve(__dirname, 'src/components/'),
+//     ['@Actions']: path.resolve(__dirname, 'src/actions/'),
+//     ['@Reducers']: path.resolve(__dirname, 'src/reducers/'),
+//     ['@Hooks']: path.resolve(__dirname, 'src/hooks/'),
+//     ['@Store']: path.resolve(__dirname, 'src/store/'),
+//     ['@TestUtils']: path.resolve(__dirname, 'src/test-utils/'),
+//   }),
+// );
