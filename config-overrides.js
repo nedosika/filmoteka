@@ -1,22 +1,24 @@
 const { override, addWebpackAlias } = require('customize-cra');
-const {
-  compilerOptions: { paths },
-} = require('./jsconfig.json');
-const path = require('path');
+const aliasMapper = require('./aliasMapper');
 
-const aliasesMapper = (paths) =>
-  Object.assign(
-    {},
-    ...Object.entries(paths).map((item) => {
-      const key = item[0].replace('/*', '');
-      const alias = item[1][0].replace('/*', '');
-      return { [key]: path.resolve(__dirname, 'src/' + alias) };
+const JS_CONFIG_PATH = './jsconfig.json';
+
+module.exports = override(
+  addWebpackAlias(
+    aliasMapper(JS_CONFIG_PATH, {
+      key: ['/*', ''],
+      alias: ['/*', ''],
     }),
-  );
+  ),
+);
 
-module.exports = override(addWebpackAlias(aliasesMapper(paths)));
+// console.log(
+//   aliasMapper(JS_CONFIG_PATH, {
+//     key: ['/*', ''],
+//     alias: ['/*', ''],
+//   }),
+// );
 
-//console.log(aliasesMapper(paths, SRC_PATHS));
 // module.exports = override(
 //   addWebpackAlias({
 //     ['@Components']: path.resolve(__dirname, 'src/components/'),

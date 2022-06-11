@@ -1,28 +1,30 @@
 const path = require('path');
-const {
-  compilerOptions: { paths },
-} = require('./jsconfig.json');
+const aliasMapper = require('./aliasMapper');
+
+const JS_CONFIG_PATH = './jsconfig.json';
+
 const createJestConfig = require('./node_modules/react-scripts/scripts/utils/createJestConfig.js');
+
 const config = createJestConfig(
   (relativePath) => path.resolve('node_modules/react-scripts', '', relativePath),
   '',
   false,
 );
 
-const aliasesMapper = (paths) =>
-  Object.assign(
-    {},
-    ...Object.entries(paths).map((item) => {
-      const key = item[0].replace('/*', '/(.*)');
-      const alias = item[1][0].replace('/*', '/$1');
-      return { [key]: '<rootDir>/src/' + alias };
-    }),
-  );
-
 module.exports = {
   ...config,
-  moduleNameMapper: aliasesMapper(paths),
+  moduleNameMapper: aliasMapper(JS_CONFIG_PATH, {
+    key: ['/*', '/(.*)'],
+    alias: ['/*', '/$1'],
+  }),
 };
+
+// console.log(
+//   aliasMapper(JS_CONFIG_PATH, {
+//     key: ['/*', '/(.*)'],
+//     alias: ['/*', '/$1'],
+//   }),
+// );
 
 // module.exports = {
 //     ...config,
