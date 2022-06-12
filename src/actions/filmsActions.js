@@ -1,6 +1,6 @@
-import { filmAdded, filmReceived, filmRemoved, filmUpdated, filmsReceived } from 'reducers/filmsReducer';
-import api from 'services/api';
-import { API_ROUTES } from 'services/config';
+import { filmAdded, filmReceived, filmRemoved, filmUpdated, filmsReceived } from '@Reducers/filmsReducer';
+import api from '@Services/api';
+import { API_ROUTES } from '@Services/config';
 import CacheMap from '../helpers/CacheMap';
 import { makeCaching } from '../helpers/makeCaching';
 

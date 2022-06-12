@@ -1,7 +1,7 @@
 import React from 'react';
-import filmsActions from 'actions/filmsActions';
-import useSmartActionRTK, { SMART_ACTION_OPTIONS } from 'hooks/useSmartActionRTK';
-import useDialog from '../DialogManager/useDialog';
+import filmsActions from '@Actions/filmsActions';
+import useDialog from '@Components/DialogManager/useDialog';
+import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '@Hooks/useSmartActionRTK';
 import ConfirmDialog from './ConfirmDialog';
 
 const DeleteFilmDialog = ({ id }) => {

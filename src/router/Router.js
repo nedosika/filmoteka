@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Loader from 'components/Loader';
+import Loader from '@Components/Loader';
 
 const Film = React.lazy(() => import('../pages/Film'));
 const Home = React.lazy(() => import('../pages/Home'));

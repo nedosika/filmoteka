@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import filmsActions from '@Actions/filmsActions';
+import useDialog from '@Components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '@Components/Dialogs';
+import { useRouter } from '@Hooks/useRouter';
+import useSmartActionRTK from '@Hooks/useSmartActionRTK';
+import { favoritesAPI } from '@Reducers/favoritesReducer';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Stack } from '@mui/material';
@@ -13,13 +19,6 @@ import IconButton from '@mui/material/IconButton';
 import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import Layout from 'Layout';
-import filmsActions from 'actions/filmsActions';
-import useDialog from 'components/DialogManager/useDialog';
-import { DIALOG_TYPES } from 'components/Dialogs';
-import { useRouter } from 'hooks/useRouter';
-import useSmartAction from 'hooks/useSmartAction';
-import useSmartActionRTK from 'hooks/useSmartActionRTK';
-import { favoritesAPI } from 'reducers/favoritesReducer';
 
 const FilmSkeleton = () => (
   <Stack spacing={1}>

@@ -1,4 +1,4 @@
-import { AUTH_SIGNOUT, AUTH_SUCCESS } from 'actions/authActions';
+import { AUTH_SIGNOUT, AUTH_SUCCESS } from '@Actions/authActions';
 
 const auth = JSON.parse(localStorage.getItem('auth'));
 

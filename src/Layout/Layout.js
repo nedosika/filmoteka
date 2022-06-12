@@ -1,7 +1,7 @@
 import React from 'react';
+import Header from '@Components/Header';
+import SideBarMenu from '@Components/SideBarMenu';
 import Box from '@mui/material/Box';
-import Header from 'components/Header';
-import SideBarMenu from 'components/SideBarMenu';
 
 const Layout = ({ title, children }) => {
   const [isOpenMenuBar, setIsOpenMenuBar] = React.useState(false);

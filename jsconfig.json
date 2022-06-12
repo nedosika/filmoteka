@@ -7,7 +7,8 @@
       "@Actions/*": ["actions/*"],
       "@Hooks/*": ["hooks/*"],
       "@Store": ["store"],
-      "@TestUtils/*": ["test-utils/*"]
+      "@TestUtils/*": ["test-utils/*"],
+      "@Services/*": ["services/*"]
     }
   }
 }

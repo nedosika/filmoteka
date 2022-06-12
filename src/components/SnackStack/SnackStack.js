@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import noticesActions from '@Actions/noticesActions';
+import useActions from '@Hooks/useActions';
 import { Stack } from '@mui/material';
-import noticesActions from 'actions/noticesActions';
-import useActions from 'hooks/useActions';
 import SnackBar from './SnackBar';
 
 const SnackStack = () => {

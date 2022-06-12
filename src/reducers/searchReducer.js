@@ -1,5 +1,5 @@
+import { getSearchOptions, searchFilms } from '@Actions/searchActions';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { getSearchOptions, searchFilms } from 'actions/searchActions';
 
 const searchAdapter = createEntityAdapter({
   selectId: (film) => film.id,
