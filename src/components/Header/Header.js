@@ -1,6 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { createSearchParams } from 'react-router-dom';
+import searchActions from '@Actions/searchActions';
+import useDialog from '@Components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '@Components/Dialogs';
+import Search from '@Components/Search';
+import useActions from '@Hooks/useActions';
+import { useRouter } from '@Hooks/useRouter';
 import { AccountCircle } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
@@ -10,12 +16,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import searchActions from '../../actions/searchActions';
-import useActions from '../../hooks/useActions';
-import { useRouter } from '../../hooks/useRouter';
-import useDialog from '../DialogManager/useDialog';
-import { DIALOG_TYPES } from '../Dialogs';
-import Search from '../Search';
 
 const Header = ({ title, onOpenMenuBar }) => {
   const { navigate } = useRouter();

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useDialog from '@Components/DialogManager/useDialog';
+import { useStepper } from '@Components/Stepper';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { PAGES } from '../../../router/Router';
-import useDialog from '../../DialogManager/useDialog';
-import { useStepper } from '../../Stepper';
+import { PAGES } from 'router/Router';
 
 const StepThree = () => {
   const navigate = useNavigate();

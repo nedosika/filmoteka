@@ -1,4 +1,4 @@
-import { ADD_NOTICE, DISABLE_NOTICE, REMOVE_NOTICE } from '../actions/noticesActions';
+import { ADD_NOTICE, DISABLE_NOTICE, REMOVE_NOTICE } from '@Actions/noticesActions';
 
 const initialState = {
   byId: {},

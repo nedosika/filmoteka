@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import authActions from '@Actions/authActions';
+import useActions from '@Hooks/useActions';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Avatar from '@mui/material/Avatar';
@@ -13,8 +15,6 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import authActions from '../../actions/authActions';
-import useActions from '../../hooks/useActions';
 
 function Copyright(props) {
   return (

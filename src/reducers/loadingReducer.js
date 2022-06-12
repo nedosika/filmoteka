@@ -1,4 +1,4 @@
-import { FAILURE_LOADING, START_LOADING, SUCCESS_LOADING } from '../actions/loadingActions';
+import { FAILURE_LOADING, START_LOADING, SUCCESS_LOADING } from '@Actions/loadingActions';
 
 const initialState = {
   isLoading: false,

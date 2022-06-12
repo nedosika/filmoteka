@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import filmsActions from '@Actions/filmsActions';
+import Dialog from '@Components/Dialog/Dialog';
+import useDialog from '@Components/DialogManager/useDialog';
+import Image from '@Components/Image';
+import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '@Hooks/useSmartActionRTK';
 import { LoadingButton } from '@mui/lab';
 import Button from '@mui/material/Button';
 import DialogActions from '@mui/material/DialogActions';
@@ -12,12 +17,6 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import filmsActions from '../../actions/filmsActions';
-import useSmartActionRTK, { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
-import { queriesSelector } from '../../reducers/queriesReducer';
-import Dialog from '../Dialog/Dialog';
-import useDialog from '../DialogManager/useDialog';
-import Image from '../Image';
 import { DIALOG_TYPES } from './index';
 
 const EditFilmDialog = ({ id }) => {

@@ -1,6 +1,6 @@
+import authActions from '@Actions/authActions';
+import { API_URL } from '@Services/config';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import authActions from '../actions/authActions';
-import { API_URL } from '../services/config';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,

@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import filmsActions, { FILMS_PER_PAGE } from '@Actions/filmsActions';
+import useDialog from '@Components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '@Components/Dialogs';
+import FilmCard from '@Components/FilmCard/FilmCard';
+import useSmartActionRTK from '@Hooks/useSmartActionRTK';
+import { filmsSelectors } from '@Reducers/filmsReducer';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import Grid from '@mui/material/Grid';
@@ -7,15 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Pagination from '@mui/material/Pagination';
 import Select from '@mui/material/Select';
-import Layout, { LayoutTitles } from '../../Layout';
-import filmsActions, { FILMS_PER_PAGE } from '../../actions/filmsActions';
-import useDialog from '../../components/DialogManager/useDialog';
-import { DIALOG_TYPES } from '../../components/Dialogs';
-import FilmCard from '../../components/FilmCard/FilmCard';
-import useSmartActionRTK from '../../hooks/useSmartActionRTK';
-import { SMART_ACTION_OPTIONS } from '../../hooks/useSmartActionRTK';
-import { filmsSelectors } from '../../reducers/filmsReducer';
-import { queriesSelector } from '../../reducers/queriesReducer';
+import Layout, { LayoutTitles } from 'Layout';
 import AddFilmButton from './AddFilmButton';
 import FilmSkeleton from './FilmSkeleton';
 

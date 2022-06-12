@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '../../test-utils/test-library-utils';
-import FilmCard from './FilmCard';
+import FilmCard from '@Components/FilmCard';
+import { render, screen } from '@TestUtils/test-library-utils';
 
 const film = {
   id: 'S0JJ633X4aiEbszUcMXQ',
@@ -13,7 +13,7 @@ const film = {
   isFavorite: true,
 };
 
-test('test displaying title', async () => {
+test('test displaying film content', async () => {
   render(
     <MemoryRouter>
       <FilmCard film={film} />
@@ -21,30 +21,10 @@ test('test displaying title', async () => {
   );
 
   const filmTitle = await screen.findByTestId('title');
-
-  expect(filmTitle).toHaveTextContent('Avatar');
-});
-
-test('test displaying extra information', async () => {
-  render(
-    <MemoryRouter>
-      <FilmCard film={film} />
-    </MemoryRouter>,
-  );
-
   const filmExtra = await screen.findByTestId('extra-information');
-
-  expect(filmExtra).toHaveTextContent('2022, BlockBaster');
-});
-
-test('test displaying description', async () => {
-  render(
-    <MemoryRouter>
-      <FilmCard film={film} />
-    </MemoryRouter>,
-  );
-
   const filmDescription = await screen.findByTestId('description');
 
+  expect(filmTitle).toHaveTextContent('Avatar');
   expect(filmDescription).toHaveTextContent('Some descr');
+  expect(filmExtra).toHaveTextContent('2022, BlockBaster');
 });

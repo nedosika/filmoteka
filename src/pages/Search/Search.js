@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import searchActions from '@Actions/searchActions';
+import useDialog from '@Components/DialogManager/useDialog';
+import { DIALOG_TYPES } from '@Components/Dialogs';
+import FilmCard from '@Components/FilmCard/FilmCard';
+import useSmartAction from '@Hooks/useSmartAction';
+import { favoritesAPI } from '@Reducers/favoritesReducer';
+import { searchSelector } from '@Reducers/searchReducer';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Box from '@mui/material/Box';
@@ -11,15 +18,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import Layout, { LayoutTitles } from '../../Layout';
-import searchActions from '../../actions/searchActions';
-import useDialog from '../../components/DialogManager/useDialog';
-import { DIALOG_TYPES } from '../../components/Dialogs';
-import FilmCard from '../../components/FilmCard/FilmCard';
-import useActions from '../../hooks/useActions';
-import useSmartAction from '../../hooks/useSmartAction';
-import { favoritesAPI } from '../../reducers/favoritesReducer';
-import { searchSelector } from '../../reducers/searchReducer';
+import Layout, { LayoutTitles } from 'Layout';
 
 const Search = () => {
   const navigate = useNavigate();

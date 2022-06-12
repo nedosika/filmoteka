@@ -1,5 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import authActions from '@Actions/authActions';
+import useActions from '@Hooks/useActions';
+import { useRouter } from '@Hooks/useRouter';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LoginIcon from '@mui/icons-material/Login';
@@ -14,9 +17,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import authActions from '../../actions/authActions';
-import useActions from '../../hooks/useActions';
-import { useRouter } from '../../hooks/useRouter';
 
 const SideBarMenu = ({ isOpen, onClose }) => {
   const { navigate, location } = useRouter();
